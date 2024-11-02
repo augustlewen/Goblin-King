@@ -5,13 +5,14 @@ namespace GameSystems.World
 {
     public class Chunk
     {
-        private Vector2Int chunkCoord;      // Chunk's grid position
-        private readonly int chunkSize;              // Number of tiles in this chunk
-        private readonly Tilemap tilemap;            // Reference to Tilemap
-        private readonly TileBase grassTile, waterTile, rockTile, dirtTile;  // Tile types
-        private readonly float scale;                // Scale for Perlin Noise
-
-        public Chunk(Vector2Int coord, int size, Tilemap map, TileBase grass, TileBase water, TileBase rock, TileBase dirt, float noiseScale)
+        private Vector2Int chunkCoord;                  // Chunk's grid position
+        private readonly int chunkSize;                 // Number of tiles in this chunk
+        private readonly Tilemap tilemap;               // Reference to Tilemap
+        private readonly TileBase grassTile, waterTile, 
+            rockTile, dirtTile;                         // Tile types
+        private readonly float scale;                   // Scale for Perlin Noise
+        public int seed = 0;                            // Seed for random generation
+        public Chunk(Vector2Int coord, int size, Tilemap map, TileBase grass, TileBase water, TileBase rock, TileBase dirt, float noiseScale, int seed)
         {
             chunkCoord = coord;
             chunkSize = size;
@@ -21,10 +22,14 @@ namespace GameSystems.World
             rockTile = rock;
             dirtTile = dirt;
             scale = noiseScale;
+            this.seed = seed;
         }
 
         public void Generate()
         {
+            float offsetX = seed * 0.01f;
+            float offsetY = seed * 0.01f;
+            
             for (int x = 0; x < chunkSize; x++)
             {
                 for (int y = 0; y < chunkSize; y++)
@@ -33,8 +38,8 @@ namespace GameSystems.World
                     int worldX = chunkCoord.x * chunkSize + x;
                     int worldY = chunkCoord.y * chunkSize + y;
 
-                    // Generate Perlin noise value
-                    float perlinValue = Mathf.PerlinNoise(worldX * scale, worldY * scale);
+                    // Adjust Perlin coordinates using the offset and scale
+                    float perlinValue = Mathf.PerlinNoise((worldX + offsetX) * scale, (worldY + offsetY) * scale);
 
                     // Choose tile type based on noise value
                     TileBase selectedTile = grassTile;

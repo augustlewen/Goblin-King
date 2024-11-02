@@ -286,7 +286,8 @@ MonoBehaviour:
   waterTile: {fileID: 11400000, guid: e774f5d0e896ade46a1cffefe8da94a0, type: 2}
   dirtTile: {fileID: 11400000, guid: f0b44ce1a09b0af4394380e9bebc7b14, type: 2}
   rockTile: {fileID: 11400000, guid: 951ab62ed4b006a43ac7bab06e307d8e, type: 2}
-  scale: 0.1
+  scale: 0.04
+  seed: 99
 --- !u!4 &359186399
 Transform:
   m_ObjectHideFlags: 0
