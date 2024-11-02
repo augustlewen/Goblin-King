@@ -8,10 +8,10 @@ namespace GameSystems.World
         private Vector2Int chunkCoord;      // Chunk's grid position
         private readonly int chunkSize;              // Number of tiles in this chunk
         private readonly Tilemap tilemap;            // Reference to Tilemap
-        private readonly TileBase grassTile, waterTile, rockTile;  // Tile types
+        private readonly TileBase grassTile, waterTile, rockTile, dirtTile;  // Tile types
         private readonly float scale;                // Scale for Perlin Noise
 
-        public Chunk(Vector2Int coord, int size, Tilemap map, TileBase grass, TileBase water, TileBase rock, float noiseScale)
+        public Chunk(Vector2Int coord, int size, Tilemap map, TileBase grass, TileBase water, TileBase rock, TileBase dirt, float noiseScale)
         {
             chunkCoord = coord;
             chunkSize = size;
@@ -19,6 +19,7 @@ namespace GameSystems.World
             grassTile = grass;
             waterTile = water;
             rockTile = rock;
+            dirtTile = dirt;
             scale = noiseScale;
         }
 
@@ -39,8 +40,10 @@ namespace GameSystems.World
                     TileBase selectedTile = grassTile;
                     if (perlinValue < 0.4f)
                         selectedTile = waterTile;
-                    else if (perlinValue > 0.7f)
+                    else if (perlinValue > 0.7f && perlinValue < 0.9f)
                         selectedTile = rockTile;
+                    else if(perlinValue > 0.9f)
+                        selectedTile = dirtTile;
 
                     // Set tile in tilemap
                     tilemap.SetTile(new Vector3Int(worldX, worldY, 0), selectedTile);
