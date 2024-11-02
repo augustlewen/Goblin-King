@@ -11,47 +11,71 @@ namespace GameSystems.World
         private readonly TileBase grassTile, waterTile, 
             rockTile, dirtTile;                         // Tile types
         private readonly float scale;                   // Scale for Perlin Noise
-        public int seed = 0;                            // Seed for random generation
-        public Chunk(Vector2Int coord, int size, Tilemap map, TileBase grass, TileBase water, TileBase rock, TileBase dirt, float noiseScale, int seed)
+        private readonly int seed;
+
+        private readonly WorldGenerator worldGenerator;
+        // Seed for random generation
+        public Chunk(Vector2Int coord, Tilemap map, WorldGenerator wg)
         {
             chunkCoord = coord;
-            chunkSize = size;
             tilemap = map;
-            grassTile = grass;
-            waterTile = water;
-            rockTile = rock;
-            dirtTile = dirt;
-            scale = noiseScale;
-            this.seed = seed;
+            chunkSize = wg.chunkSize;
+            grassTile = wg.grassTile;
+            waterTile = wg.waterTile;
+            rockTile = wg.rockTile;
+            dirtTile = wg.dirtTile;
+            scale = wg.scale;
+            seed = wg.seed;
+            worldGenerator = wg;
         }
 
+        // Main Generate method
         public void Generate()
         {
-            float offsetX = seed * 0.01f;
-            float offsetY = seed * 0.01f;
-            
+            GenerateTerrain();
+            GenerateLakes();  // Call the lake generation as a separate step
+            worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize);
+        }
+
+        // Generate basic terrain
+        private void GenerateTerrain()
+        {
             for (int x = 0; x < chunkSize; x++)
             {
                 for (int y = 0; y < chunkSize; y++)
                 {
-                    // Calculate world position based on chunk position
                     int worldX = chunkCoord.x * chunkSize + x;
                     int worldY = chunkCoord.y * chunkSize + y;
 
-                    // Adjust Perlin coordinates using the offset and scale
-                    float perlinValue = Mathf.PerlinNoise((worldX + offsetX) * scale, (worldY + offsetY) * scale);
+                    // float perlinValue = Mathf.PerlinNoise((worldX + seed) * scale, (worldY + seed) * scale);
+                    TileBase selectedTile = grassTile; // Default to grass
 
-                    // Choose tile type based on noise value
-                    TileBase selectedTile = grassTile;
-                    if (perlinValue < 0.4f)
-                        selectedTile = waterTile;
-                    else if (perlinValue > 0.7f && perlinValue < 0.9f)
-                        selectedTile = rockTile;
-                    else if(perlinValue > 0.9f)
-                        selectedTile = dirtTile;
+                    // if (perlinValue > 0.75f)
+                    //     selectedTile = rockTile;
 
-                    // Set tile in tilemap
                     tilemap.SetTile(new Vector3Int(worldX, worldY, 0), selectedTile);
+                }
+            }
+        }
+
+        // Generate lakes as a second pass
+        private void GenerateLakes()
+        {
+            for (int x = 0; x < chunkSize; x++)
+            {
+                for (int y = 0; y < chunkSize; y++)
+                {
+                    int worldX = chunkCoord.x * chunkSize + x;
+                    int worldY = chunkCoord.y * chunkSize + y;
+
+                    // Perlin noise for lake placement (independent of terrain generation)
+                    float perlinValue = Mathf.PerlinNoise((worldX + seed) * scale, (worldY + seed) * scale);
+                
+                    // Lakes for low noise values
+                    if (perlinValue < 0.3f)  // Adjust to control frequency of lakes
+                    {
+                        tilemap.SetTile(new Vector3Int(worldX, worldY, 0), waterTile);
+                    }
                 }
             }
         }

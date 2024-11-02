@@ -19,16 +19,12 @@ namespace GameSystems.World
         
         // Dictionary to store generated chunks
         private readonly Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
-        private System.Random random;  // A random generator instance based on the seed
-
-
-        private void Start()
+        public WorldObjectSpawner objectSpawner; // Reference to your object spawner
+        
+        private void Awake()
         {
             if (seed == 0)
                 seed = Random.Range(0, int.MaxValue);
-
-            
-            random = new System.Random(seed);
         }
 
 
@@ -38,7 +34,7 @@ namespace GameSystems.World
             if (!chunks.ContainsKey(chunkCoord))
             {
                 // Create a new chunk if it doesn't exist
-                Chunk newChunk = new Chunk(chunkCoord, chunkSize, tilemap, grassTile, waterTile, rockTile, dirtTile, scale, seed);
+                Chunk newChunk = new Chunk(chunkCoord, tilemap, this);
                 newChunk.Generate();
                 chunks[chunkCoord] = newChunk;
             }
