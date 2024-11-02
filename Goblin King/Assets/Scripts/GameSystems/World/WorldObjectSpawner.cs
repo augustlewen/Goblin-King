@@ -1,3 +1,4 @@
+using GameSystems.World.Grid;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -5,7 +6,7 @@ namespace GameSystems.World
 {
     public class WorldObjectSpawner : MonoBehaviour
     {
-        public Tilemap tilemap;         // Reference to your Tilemap
+        public Tilemap tilemap;
         public ObjectSpawningData[] objectSpawningList;
         
         [System.Serializable]
@@ -36,24 +37,6 @@ namespace GameSystems.World
                     }
                 }
             }
-            // for (int i = 0; i < numberOfTrees; i++)
-            // {
-            //     Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-            //     Instantiate(treePrefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, spawnParent);
-            // }
-            //
-            // for (int i = 0; i < numberOfRocks; i++)
-            // {
-            //     Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-            //     Instantiate(stonePrefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, spawnParent);
-            // }
-            //
-            // for (int i = 0; i < numberOfWaterBodies; i++)
-            // {
-            //     Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-            //     // Optionally check if the position is suitable for water (e.g., not overlapping with trees or rocks)
-            //     Instantiate(waterPrefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, spawnParent);
-            // }
         }
 
         private Vector3Int GetRandomPosition(Vector2Int chunkCoord, int chunkSize)
@@ -73,18 +56,20 @@ namespace GameSystems.World
                 int centerY = Random.Range(0, chunkSize);
                 Vector2Int clusterCenter = new Vector2Int(chunkCoord.x * chunkSize + centerX, chunkCoord.y * chunkSize + centerY);
 
-                // Spawn rocks around the center point in a small radius
-                int objects = Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y); // Number of rocks in this cluster
+                int objects = Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y); // Number of objects in this cluster
                 float clusterRadius = Random.Range(2f, 5f); // Radius for the cluster
 
                 for (int j = 0; j < objects; j++)
                 {
                     // Generate a random position within the cluster radius
                     Vector2 offset = Random.insideUnitCircle * clusterRadius;
-                    Vector2 spawnPosition = new Vector2(clusterCenter.x + offset.x, clusterCenter.y + offset.y);
+                    Vector2 spawnPosition = new Vector2(
+                        Mathf.RoundToInt((clusterCenter.x + offset.x) / WorldGrid.i.cellSize) * WorldGrid.i.cellSize,
+                        Mathf.RoundToInt((clusterCenter.y + offset.y) / WorldGrid.i.cellSize) * WorldGrid.i.cellSize );
 
-                    // Instantiate the rock prefab at this position
-                    Instantiate(objData.prefab, spawnPosition, Quaternion.identity, objData.parent);
+                    // Instantiate the prefab at this position
+                    var spawnedObject = Instantiate(objData.prefab, spawnPosition, Quaternion.identity, objData.parent);
+                    WorldGrid.i.AddObject(spawnedObject);
                 }
             }
         }

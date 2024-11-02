@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 108214954}
   - component: {fileID: 108214953}
+  - component: {fileID: 108214955}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -164,6 +165,19 @@ Transform:
   - {fileID: 1164685634}
   m_Father: {fileID: 359186399}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &108214955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108214952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f567ca2362435cbedd6c6c8ca41e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSize: 1
 --- !u!1 &200901286
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70d61d3263cc5f4d964730e0f6033ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkSize: 32
+  chunkSize: 64
   grassTile: {fileID: 11400000, guid: bbeac6ebb9c7c2d4f945d9a75ca995b5, type: 2}
   waterTile: {fileID: 11400000, guid: e774f5d0e896ade46a1cffefe8da94a0, type: 2}
   dirtTile: {fileID: 11400000, guid: f0b44ce1a09b0af4394380e9bebc7b14, type: 2}
@@ -370,9 +384,9 @@ MonoBehaviour:
   objectSpawningList:
   - prefab: {fileID: 553250431770247839, guid: 14c889f02ef50ba4c97353f62b706a87, type: 3}
     parent: {fileID: 200901287}
-    isCluster: 0
-    spawnCountRange: {x: 0, y: 0}
-    clusterCountRange: {x: 0, y: 0}
+    isCluster: 1
+    spawnCountRange: {x: 12, y: 48}
+    clusterCountRange: {x: 1, y: 4}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
