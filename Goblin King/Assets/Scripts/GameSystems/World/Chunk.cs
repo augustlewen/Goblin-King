@@ -39,7 +39,7 @@ namespace GameSystems.World
             // Add a BoxCollider to the chunk
             BoxCollider collider = chunkObject.AddComponent<BoxCollider>();
             collider.size = new Vector3(chunkSize, 0, chunkSize); // Set collider size based on chunk size
-            collider.center = new Vector3(chunkSize * 0.5f, 0);
+            collider.center = new Vector3(chunkSize * 0.5f, 0, -chunkSize * 0.5f);
             collider.transform.rotation = Quaternion.Euler(90, 0, 0); 
         }
 
@@ -47,7 +47,7 @@ namespace GameSystems.World
         public void Generate()
         {
             GenerateTerrain();
-            GenerateLakes();  // Call the lake generation as a separate step
+            // GenerateLakes();  // Call the lake generation as a separate step
             worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize);
             
             NavManager.Build();       
@@ -74,27 +74,27 @@ namespace GameSystems.World
             }
         }
 
-        // Generate lakes as a second pass
-        private void GenerateLakes()
-        {
-            for (int x = 0; x < chunkSize; x++)
-            {
-                for (int y = 0; y < chunkSize; y++)
-                {
-                    int worldX = chunkCoord.x * chunkSize + x;
-                    int worldY = chunkCoord.y * chunkSize + y;
-
-                    // Perlin noise for lake placement (independent of terrain generation)
-                    float perlinValue = Mathf.PerlinNoise((worldX + seed) * scale, (worldY + seed) * scale);
-                
-                    // Lakes for low noise values
-                    if (perlinValue < 0.3f)  // Adjust to control frequency of lakes
-                    {
-                        tilemap.SetTile(new Vector3Int(worldX, worldY, 0), waterTile);
-                    }
-                }
-            }
-        }
+        // // Generate lakes as a second pass
+        // private void GenerateLakes()
+        // {
+        //     for (int x = 0; x < chunkSize; x++)
+        //     {
+        //         for (int y = 0; y < chunkSize; y++)
+        //         {
+        //             int worldX = chunkCoord.x * chunkSize + x;
+        //             int worldY = chunkCoord.y * chunkSize + y;
+        //
+        //             // Perlin noise for lake placement (independent of terrain generation)
+        //             float perlinValue = Mathf.PerlinNoise((worldX + seed) * scale, (worldY + seed) * scale);
+        //         
+        //             // Lakes for low noise values
+        //             if (perlinValue < 0.3f)  // Adjust to control frequency of lakes
+        //             {
+        //                 tilemap.SetTile(new Vector3Int(worldX, worldY, 0), waterTile);
+        //             }
+        //         }
+        //     }
+        // }
 
         // Clear tiles for unloading the chunk
         public void ClearTiles()
