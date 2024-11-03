@@ -1,4 +1,7 @@
+using GameSystems.Units.AI;
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 namespace GameSystems.World
@@ -12,9 +15,10 @@ namespace GameSystems.World
             rockTile, dirtTile;                         // Tile types
         private readonly float scale;                   // Scale for Perlin Noise
         private readonly int seed;
+        private readonly GameObject chunkObject;                  // GameObject to hold the chunk
 
         private readonly WorldGenerator worldGenerator;
-        // Seed for random generation
+        
         public Chunk(Vector2Int coord, Tilemap map, WorldGenerator wg)
         {
             chunkCoord = coord;
@@ -27,6 +31,16 @@ namespace GameSystems.World
             scale = wg.scale;
             seed = wg.seed;
             worldGenerator = wg;
+            
+            // Create the GameObject for the chunk
+            chunkObject = new GameObject("Chunk_" + coord);
+            chunkObject.transform.position = new Vector3(chunkCoord.x * chunkSize, chunkCoord.y * chunkSize, 0);
+
+            // Add a BoxCollider to the chunk
+            BoxCollider collider = chunkObject.AddComponent<BoxCollider>();
+            collider.size = new Vector3(chunkSize, 0, chunkSize); // Set collider size based on chunk size
+            collider.center = new Vector3(chunkSize * 0.5f, 0);
+            collider.transform.rotation = Quaternion.Euler(90, 0, 0); 
         }
 
         // Main Generate method
@@ -35,6 +49,8 @@ namespace GameSystems.World
             GenerateTerrain();
             GenerateLakes();  // Call the lake generation as a separate step
             worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize);
+            
+            NavManager.Build();       
         }
 
         // Generate basic terrain
