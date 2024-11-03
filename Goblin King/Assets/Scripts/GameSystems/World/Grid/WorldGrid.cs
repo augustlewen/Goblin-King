@@ -56,5 +56,10 @@ namespace GameSystems.World.Grid
                 cell.RemoveObject(obj);
             }
         }
+
+        public bool IsOccupied(Vector2 position)
+        {
+            return GetOrCreateCell(position).objectsInCell.Count > 0;
+        }
     }
 }
