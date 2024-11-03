@@ -179,8 +179,8 @@ TextureImporter:
       name: stoneblock_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 96
+        y: 96
         width: 32
         height: 32
       alignment: 0
@@ -201,7 +201,7 @@ TextureImporter:
       name: stoneblock_4
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 64
         width: 32
         height: 32
@@ -223,7 +223,7 @@ TextureImporter:
       name: stoneblock_5
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 64
         width: 32
         height: 32
@@ -245,8 +245,8 @@ TextureImporter:
       name: stoneblock_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 64
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -267,8 +267,8 @@ TextureImporter:
       name: stoneblock_7
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 96
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -289,7 +289,7 @@ TextureImporter:
       name: stoneblock_8
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 32
         width: 32
         height: 32
@@ -311,8 +311,8 @@ TextureImporter:
       name: stoneblock_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 32
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -333,8 +333,8 @@ TextureImporter:
       name: stoneblock_10
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 64
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -355,8 +355,8 @@ TextureImporter:
       name: stoneblock_11
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 96
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -377,7 +377,7 @@ TextureImporter:
       name: stoneblock_12
       rect:
         serializedVersion: 2
-        x: 96
+        x: 0
         y: 0
         width: 32
         height: 32
@@ -391,6 +391,72 @@ TextureImporter:
       bones: []
       spriteID: 328b1eda127cf974baa3c80f0c1b82a6
       internalID: -1200851766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stoneblock_13
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ab29b3371bbfe4595cc1126e56213b
+      internalID: -1800946706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stoneblock_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 364e3e50081d3bf41bce5827d7e321eb
+      internalID: 1027713055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stoneblock_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90e10477bb1386f4d9a73aea4a33eb98
+      internalID: -1197015477
       vertices: []
       indices: 
       edges: []
@@ -414,6 +480,9 @@ TextureImporter:
       stoneblock_10: -793329987
       stoneblock_11: -2145089222
       stoneblock_12: -1200851766
+      stoneblock_13: -1800946706
+      stoneblock_14: 1027713055
+      stoneblock_15: -1197015477
       stoneblock_2: -1652028853
       stoneblock_3: -1087036990
       stoneblock_4: 1029848539
