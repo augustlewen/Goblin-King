@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8183429974821404997}
   - component: {fileID: 158887931361762280}
   - component: {fileID: 1824075473926594779}
+  - component: {fileID: 6476407108418210933}
   m_Layer: 10
   m_Name: GoblinKing
   m_TagString: Untagged
@@ -151,3 +152,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.06, y: -0.19, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &6476407108418210933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957984828274903816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5bc929ccdb08245b35173d206c5855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2.6
