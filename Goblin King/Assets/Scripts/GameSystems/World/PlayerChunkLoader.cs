@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameSystems.Units.AI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -67,6 +68,8 @@ namespace GameSystems.World
 
             // Update activeChunks to the new set of active chunks
             activeChunks = newActiveChunks;
+            
+            NavManager.Build();       
         }
     }
 }

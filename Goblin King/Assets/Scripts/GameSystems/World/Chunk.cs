@@ -47,8 +47,6 @@ namespace GameSystems.World
             GenerateTerrain();
             // GenerateLakes();  // Call the lake generation as a separate step
             worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize, chunkObject.transform);
-            
-            NavManager.Build();       
         }
 
         // Generate basic terrain
