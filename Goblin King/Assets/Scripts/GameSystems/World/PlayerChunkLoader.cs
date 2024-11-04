@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -44,7 +45,7 @@ namespace GameSystems.World
         {
             HashSet<Vector2Int> newActiveChunks = new HashSet<Vector2Int>();
 
-            // Load chunks within view distance
+            // Load and activate new chunks within view distance
             for (int x = -viewDistance; x <= viewDistance; x++)
             {
                 for (int y = -viewDistance; y <= viewDistance; y++)
@@ -52,24 +53,19 @@ namespace GameSystems.World
                     Vector2Int chunkCoord = new Vector2Int(currentChunkCoord.x + x, currentChunkCoord.y + y);
                     newActiveChunks.Add(chunkCoord);
 
-                    // Generate or get existing chunk
                     if (!activeChunks.Contains(chunkCoord))
-                    {
                         worldGenerator.GetOrCreateChunk(chunkCoord, tilemap);
-                    }
                 }
             }
 
-            // Unload chunks that are no longer within view distance
+            // Deactivate chunks that are no longer within view distance
             foreach (var chunkCoord in activeChunks)
             {
                 if (!newActiveChunks.Contains(chunkCoord))
-                {
                     worldGenerator.UnloadChunk(chunkCoord);
-                }
             }
 
-            // Update active chunks
+            // Update activeChunks to the new set of active chunks
             activeChunks = newActiveChunks;
         }
     }

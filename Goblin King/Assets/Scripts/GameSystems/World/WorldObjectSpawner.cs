@@ -28,7 +28,7 @@ namespace GameSystems.World
             }
         }
         
-        public void SpawnObjects(Vector2Int chunkCoord, int chunkSize)
+        public void SpawnObjects(Vector2Int chunkCoord, int chunkSize, Transform chunk)
         {
             foreach (var objData in objectSpawningList)
             {
@@ -38,12 +38,12 @@ namespace GameSystems.World
                         for (int i = 0; i < Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y); i++)
                         {
                             Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-                            Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, objData.parent);
+                            Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
                         }
                         break;
-                    case ObjectSpawningData.SpawnBehaviour.Cluster: GenerateCluster(chunkCoord, chunkSize, objData);
+                    case ObjectSpawningData.SpawnBehaviour.Cluster: GenerateCluster(chunkCoord, chunkSize, objData, chunk);
                         break;
-                    case ObjectSpawningData.SpawnBehaviour.Branching: GenerateBranchingCluster(chunkCoord, chunkSize, objData);
+                    case ObjectSpawningData.SpawnBehaviour.Branching: GenerateBranchingCluster(chunkCoord, chunkSize, objData, chunk);
                         break;
                 }
             }
@@ -63,7 +63,7 @@ namespace GameSystems.World
             return new Vector2Int(chunkCoord.x * chunkSize + centerX, chunkCoord.y * chunkSize + centerY);
         }
         
-        private void GenerateCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData)
+        private void GenerateCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
         {
             // Loop through the number of clusters we want in this chunk
             for (int i = 0; i < Random.Range(objData.clusterCountRange.x, objData.clusterCountRange.y); i++)
@@ -86,11 +86,11 @@ namespace GameSystems.World
                 }
 
                 viablePositions = viablePositions.Take(maxObjects).ToList();
-                InstantiateObjectsAtPositions(viablePositions, objData);
+                InstantiateObjectsAtPositions(viablePositions, objData, chunk);
             }
         }
         
-        private void GenerateBranchingCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData)
+        private void GenerateBranchingCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
         {
             // Loop through the number of clusters we want in this chunk
             for (int i = 0; i < Random.Range(objData.clusterCountRange.x, objData.clusterCountRange.y); i++)
@@ -134,14 +134,14 @@ namespace GameSystems.World
                     .Select(p => new Vector2(p.x * WorldGrid.i.cellSize, p.y * WorldGrid.i.cellSize))
                     .ToList();
 
-                InstantiateObjectsAtPositions(spawnPositions, objData);
+                InstantiateObjectsAtPositions(spawnPositions, objData, chunk);
             }
         }
-        private void InstantiateObjectsAtPositions(List<Vector2> positions, ObjectSpawningData objData)
+        private void InstantiateObjectsAtPositions(List<Vector2> positions, ObjectSpawningData objData, Transform chunk)
         {
             foreach (var position in positions)
             {
-                var obj =Instantiate(objData.prefab, position, Quaternion.identity, objData.parent);
+                var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
                 WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
             }
         }

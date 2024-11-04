@@ -18,7 +18,7 @@ namespace GameSystems.World
         public int seed;
         
         // Dictionary to store generated chunks
-        private readonly Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
+        public readonly Dictionary<Vector2Int, Chunk> chunks = new ();
         public WorldObjectSpawner objectSpawner; // Reference to your object spawner
         
         private void Awake()
@@ -37,18 +37,17 @@ namespace GameSystems.World
                 Chunk newChunk = new Chunk(chunkCoord, tilemap, this);
                 newChunk.Generate();
                 chunks[chunkCoord] = newChunk;
+                Debug.Log(chunkCoord);
             }
+            chunks[chunkCoord].SetActive(true);
             return chunks[chunkCoord];
         }
 
         // Method to unload a chunk
         public void UnloadChunk(Vector2Int chunkCoord)
         {
-            if (chunks.ContainsKey(chunkCoord))
-            {
-                chunks[chunkCoord].ClearTiles();
-                chunks.Remove(chunkCoord);
-            }
+            if (chunks.TryGetValue(chunkCoord, out Chunk chunk))
+                chunk.SetActive(false); // Deactivate the chunk
         }
     }
 }

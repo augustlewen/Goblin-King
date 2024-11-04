@@ -1,7 +1,5 @@
 using GameSystems.Units.AI;
-using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 
 namespace GameSystems.World
@@ -10,7 +8,7 @@ namespace GameSystems.World
     {
         private Vector2Int chunkCoord;                  // Chunk's grid position
         private readonly int chunkSize;                 // Number of tiles in this chunk
-        private readonly Tilemap tilemap;               // Reference to Tilemap
+        private Tilemap tilemap;               // Reference to Tilemap
         private readonly TileBase grassTile, waterTile, 
             rockTile, dirtTile;                         // Tile types
         private readonly float scale;                   // Scale for Perlin Noise
@@ -48,7 +46,7 @@ namespace GameSystems.World
         {
             GenerateTerrain();
             // GenerateLakes();  // Call the lake generation as a separate step
-            worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize);
+            worldGenerator.objectSpawner.SpawnObjects(chunkCoord, chunkSize, chunkObject.transform);
             
             NavManager.Build();       
         }
@@ -109,5 +107,16 @@ namespace GameSystems.World
                 }
             }
         }
+        
+        public void SetActive(bool isActive)
+        {
+            chunkObject.SetActive(isActive); // Activates or deactivates the GameObject
+        }
+
+        public bool IsActive()
+        {
+            return chunkObject.activeSelf; // Returns whether the GameObject is currently active
+        }
+        
     }
 }
