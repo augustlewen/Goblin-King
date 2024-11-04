@@ -43,6 +43,14 @@ namespace GameSystems.World
             return chunks[chunkCoord];
         }
 
+        public Chunk GetChunk(Vector2Int chunkCoord)
+        {
+            if (chunks.TryGetValue(chunkCoord, out var chunk))
+                return chunk;
+
+            return null;
+        }
+
         // Method to unload a chunk
         public void UnloadChunk(Vector2Int chunkCoord)
         {
