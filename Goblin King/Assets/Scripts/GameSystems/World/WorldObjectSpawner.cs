@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GameSystems.World.Grid;
@@ -30,22 +31,35 @@ namespace GameSystems.World
         
         public void SpawnObjects(Vector2Int chunkCoord, int chunkSize, Transform chunk)
         {
-            foreach (var objData in objectSpawningList)
+            // foreach (var objData in objectSpawningList)
+            // {
+            //     switch (objData.spawnBehaviour)
+            //     {
+            //         case ObjectSpawningData.SpawnBehaviour.Normal:
+            //             StartCoroutine(SpawnNormalObjects(chunkCoord, chunkSize, objData, chunk));
+            //             break;
+            //         case ObjectSpawningData.SpawnBehaviour.Cluster:
+            //             StartCoroutine(GenerateCluster(chunkCoord, chunkSize, objData, chunk));
+            //             break;
+            //         case ObjectSpawningData.SpawnBehaviour.Branching:
+            //             StartCoroutine(GenerateBranchingCluster(chunkCoord, chunkSize, objData, chunk));
+            //             break;
+            //     }
+            // }
+        }
+        
+        private IEnumerator SpawnNormalObjects(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
+        {
+            // Determine the number of objects to spawn within this chunk based on the spawn count range
+            int spawnCount = Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y);
+    
+            for (int i = 0; i < spawnCount; i++)
             {
-                switch (objData.spawnBehaviour)
-                {
-                    case ObjectSpawningData.SpawnBehaviour.Normal: 
-                        for (int i = 0; i < Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y); i++)
-                        {
-                            Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-                            Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
-                        }
-                        break;
-                    case ObjectSpawningData.SpawnBehaviour.Cluster: GenerateCluster(chunkCoord, chunkSize, objData, chunk);
-                        break;
-                    case ObjectSpawningData.SpawnBehaviour.Branching: GenerateBranchingCluster(chunkCoord, chunkSize, objData, chunk);
-                        break;
-                }
+                Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
+                Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
+
+                // Optional: Yield after each object to spread out load across frames
+                yield return null;
             }
         }
 
@@ -63,9 +77,8 @@ namespace GameSystems.World
             return new Vector2Int(chunkCoord.x * chunkSize + centerX, chunkCoord.y * chunkSize + centerY);
         }
         
-        private void GenerateCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
+        private IEnumerator GenerateCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
         {
-            // Loop through the number of clusters we want in this chunk
             for (int i = 0; i < Random.Range(objData.clusterCountRange.x, objData.clusterCountRange.y); i++)
             {
                 Vector2Int clusterCenter = GetRandomClusterCenter(chunkCoord, chunkSize);
@@ -73,7 +86,7 @@ namespace GameSystems.World
                 float clusterRadius = Random.Range(maxObjects * 0.03f + 2, maxObjects * 0.03f + 2);
 
                 List<Vector2> viablePositions = new List<Vector2>();
-                for (int j = 0; j < maxObjects * 2; j++) // Pre-generate more positions than needed
+                for (int j = 0; j < maxObjects * 2; j++)
                 {
                     Vector2 offset = Random.insideUnitCircle * clusterRadius;
                     Vector2 candidatePosition = new Vector2(
@@ -85,14 +98,24 @@ namespace GameSystems.World
                         viablePositions.Add(candidatePosition);
                 }
 
+                // Limit the viable positions to the desired maxObjects and spawn
                 viablePositions = viablePositions.Take(maxObjects).ToList();
-                InstantiateObjectsAtPositions(viablePositions, objData, chunk);
+
+                // Instantiate objects at positions over multiple frames
+                foreach (var pos in viablePositions)
+                {
+                    // var obj = Instantiate(objData.prefab, pos, Quaternion.identity, chunk);
+                    // WorldGrid.i.AddObject(obj);
+                    InstantiateObjectAtPosition(pos, objData, chunk);
+
+                    // Optional: yield after each spawn to distribute work
+                    yield return null;
+                }
             }
         }
         
-        private void GenerateBranchingCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
+        private IEnumerator GenerateBranchingCluster(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
         {
-            // Loop through the number of clusters we want in this chunk
             for (int i = 0; i < Random.Range(objData.clusterCountRange.x, objData.clusterCountRange.y); i++)
             {
                 int maxObjects = Random.Range(objData.spawnCountRange.x, objData.spawnCountRange.y);
@@ -111,39 +134,42 @@ namespace GameSystems.World
                     if (!WorldGrid.i.IsOccupied(currentPos))
                         clusterPositions.Add(currentPos);
 
-                    // Get and shuffle neighbors
                     List<Vector2Int> neighbors = GetShuffledNeighbors(currentPos);
 
-                    // Branching logic with randomness
                     foreach (var neighbor in neighbors)
                     {
                         if (visitedPositions.Contains(neighbor)) continue;
-
-                        // Only proceed with a neighbor based on a branching probability
-                        float branchChance = 0.6f; // Adjust for more or less density in branching
+                        float branchChance = 0.6f;
                         if (Random.value > branchChance) continue;
-                        
 
-                        // Add neighbor to queue and mark as visited
                         positionsToCheck.Enqueue(neighbor);
                         visitedPositions.Add(neighbor);
                     }
+
+                    // Yield every few positions to control frame load
+                    if (clusterPositions.Count % 10 == 0)
+                    {
+                        yield return null;
+                    }
                 }
 
-                List<Vector2> spawnPositions = clusterPositions
-                    .Select(p => new Vector2(p.x * WorldGrid.i.cellSize, p.y * WorldGrid.i.cellSize))
-                    .ToList();
+                // Instantiate objects over time at cluster positions
+                foreach (var pos in clusterPositions)
+                {
+                    Vector2 spawnPos = new Vector2(pos.x * WorldGrid.i.cellSize, pos.y * WorldGrid.i.cellSize);
+                    // var obj = Instantiate(objData.prefab, spawnPos, Quaternion.identity, chunk);
+                    // WorldGrid.i.AddObject(obj);
+                    InstantiateObjectAtPosition(spawnPos, objData, chunk);
 
-                InstantiateObjectsAtPositions(spawnPositions, objData, chunk);
+                    yield return null; // Yield after each spawn for smoothness
+                }
             }
         }
-        private void InstantiateObjectsAtPositions(List<Vector2> positions, ObjectSpawningData objData, Transform chunk)
+        
+        private void InstantiateObjectAtPosition(Vector2 position, ObjectSpawningData objData, Transform chunk)
         {
-            foreach (var position in positions)
-            {
-                var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
-                WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
-            }
+            var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
+            WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
         }
         
         private List<Vector2Int> GetShuffledNeighbors(Vector2Int position)
