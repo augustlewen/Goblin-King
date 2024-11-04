@@ -37,7 +37,6 @@ namespace GameSystems.World
                 Chunk newChunk = new Chunk(chunkCoord, tilemap, this);
                 newChunk.Generate();
                 chunks[chunkCoord] = newChunk;
-                Debug.Log(chunkCoord);
             }
             chunks[chunkCoord].SetActive(true);
             return chunks[chunkCoord];
