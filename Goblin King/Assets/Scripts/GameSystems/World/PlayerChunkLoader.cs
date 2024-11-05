@@ -56,8 +56,6 @@ namespace GameSystems.World
 
                     if (!activeChunks.Contains(chunkCoord))
                         worldGenerator.GetOrCreateChunk(chunkCoord, tilemap);
-                    
-                    NavManager.UpdateBounds(chunkCoord, worldGenerator.chunkSize);
                 }
             }
 
@@ -70,7 +68,6 @@ namespace GameSystems.World
 
             // Update activeChunks to the new set of active chunks
             activeChunks = newActiveChunks;
-            NavManager.Build();
         }
     }
 }
