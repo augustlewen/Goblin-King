@@ -14,8 +14,8 @@ namespace GameSystems.Units.Goblins
             {
                 Vector3 mouseScreenPosition = Input.mousePosition;
                 Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-                // Move(new Vector2Int((int)mouseWorldPosition.x, (int)mouseWorldPosition.y));
                 SetDestination(mouseWorldPosition);
+                // Move(new Vector2Int((int)mouseWorldPosition.x, (int)mouseWorldPosition.y));
             }
         }
     }
