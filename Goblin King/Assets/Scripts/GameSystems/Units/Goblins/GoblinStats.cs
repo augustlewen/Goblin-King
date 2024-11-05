@@ -7,6 +7,5 @@ namespace GameSystems.Units.Goblins
     public class GoblinStats : UnitStats
     {
         private List<ItemSO> equippedItems = new ();
-        
     }
 }
