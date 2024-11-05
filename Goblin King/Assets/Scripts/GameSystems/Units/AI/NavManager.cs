@@ -21,8 +21,6 @@ namespace GameSystems.Units.AI
 
         public static void Build()
         {
-            return;
-            
             if (IsSurfaceBuilt())
                 return;
             
@@ -31,8 +29,6 @@ namespace GameSystems.Units.AI
 
         public static void UpdateBounds(Vector2 chunkCoord, float chunkSize)
         {
-            return;
-            
             if (!IsSurfaceBuilt())
                 return;
             
