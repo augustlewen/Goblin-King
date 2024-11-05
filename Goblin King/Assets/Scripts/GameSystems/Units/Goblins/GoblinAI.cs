@@ -10,7 +10,7 @@ namespace GameSystems.Units.Goblins
     {
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 Vector3 mouseScreenPosition = Input.mousePosition;
                 Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
