@@ -8,15 +8,6 @@ namespace GameSystems.Units.King
     {
         public float speed;
 
-        private Vector3 lastPosition;
-        private float movementThreshold = 0.5f;
-
-
-        private void Awake()
-        {
-            // FindFirstObjectByType<AIGrid>().UpdateGrid(transform.position);
-        }
-
         private void Update()
         {
             var xMove = Input.GetAxisRaw("Horizontal");
@@ -26,18 +17,6 @@ namespace GameSystems.Units.King
             
             if (xMove != 0)
                 transform.localScale = new Vector3(xMove, 1, 1);
-            
-            
-            // Vector3 currentPosition = transform.position;
-            // // Check if the player has moved a significant distance
-            // if (Vector3.Distance(currentPosition, lastPosition) >= movementThreshold)
-            // {
-            //     // Update the grid's origin based on the player's position
-            //     AIGrid.i.UpdateGrid(currentPosition);
-            //
-            //     // Update last position
-            //     lastPosition = currentPosition;
-            // }
         }
     }
 }
