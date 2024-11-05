@@ -6,6 +6,8 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        private List<ItemSO> equippedItems = new ();
+        public List<ItemSO> equippedItems = new ();
+        private int maxEquipCount;
+        
     }
 }
