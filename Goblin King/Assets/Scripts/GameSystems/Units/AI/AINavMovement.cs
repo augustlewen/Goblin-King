@@ -17,9 +17,15 @@ namespace GameSystems.Units.AI
             agent.updateUpAxis = false; // Ensures the agent stays in 2D plane
         }
 
-        protected void SetDestination(Vector3 pos)
+        protected void SetDestination(Vector2 pos)
         {
-            agent.SetDestination(pos);
+            NavMeshPath path = new NavMeshPath();
+            agent.CalculatePath(pos, path);
+
+            if (path.status == NavMeshPathStatus.PathComplete)
+                agent.SetDestination(pos);
+            else
+                Debug.LogWarning("Destination not reachable");
         }
     }
 }

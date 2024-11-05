@@ -35,10 +35,10 @@ namespace GameSystems.World
             chunkObject.transform.position = new Vector3(chunkCoord.x * chunkSize, chunkCoord.y * chunkSize, 0);
 
             // Add a BoxCollider to the chunk
-            BoxCollider collider = chunkObject.AddComponent<BoxCollider>();
-            collider.size = new Vector3(chunkSize, 0, chunkSize); // Set collider size based on chunk size
-            collider.center = new Vector3(chunkSize * 0.5f, 0, -chunkSize * 0.5f);
-            collider.transform.rotation = Quaternion.Euler(90, 0, 0); 
+            // BoxCollider collider = chunkObject.AddComponent<BoxCollider>();
+            // collider.size = new Vector3(chunkSize, 0, chunkSize); // Set collider size based on chunk size
+            // collider.center = new Vector3(chunkSize * 0.5f, 0, -chunkSize * 0.5f);
+            // collider.transform.rotation = Quaternion.Euler(90, 0, 0); 
         }
 
         // Main Generate method
