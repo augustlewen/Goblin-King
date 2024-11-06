@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4410187127630951290}
   - component: {fileID: 4884550431140055}
   - component: {fileID: 9153013809961413121}
+  - component: {fileID: 6664355043073703244}
   m_Layer: 0
   m_Name: Block_Stone
   m_TagString: Untagged
@@ -164,6 +165,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInteraction: 1
+  toolRequired: 0
   dropItem: {fileID: 11400000, guid: 1e331e24dc9632048b1e3a58ce822fb6, type: 2}
   hp: 20
+--- !u!114 &6664355043073703244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553250431770247839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991a02d68d013b9429e209cb12c0f3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
