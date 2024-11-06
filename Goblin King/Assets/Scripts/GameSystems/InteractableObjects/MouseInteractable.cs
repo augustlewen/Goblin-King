@@ -6,8 +6,14 @@ namespace GameSystems.InteractableObjects
 {
     public class MouseInteractable : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent OnSelected = new ();
         bool isHovering;
+        private ISelect[] selectableComponents;
+
+        private void Start()
+        {
+            // Find all components that implement the ISelect interface
+            selectableComponents = GetComponents<ISelect>();
+        }
 
         private void Update()
         {
@@ -15,10 +21,13 @@ namespace GameSystems.InteractableObjects
                 Select();
         }
 
-        protected virtual void Select()
+        private void Select()
         {
-            OnSelected.Invoke();
-
+            // Call OnSelect on each ISelect component
+            foreach (var selectable in selectableComponents)
+            {
+                selectable.OnSelect();
+            }
         }
 
 
