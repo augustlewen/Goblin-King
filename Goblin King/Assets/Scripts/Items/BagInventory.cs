@@ -6,13 +6,18 @@ namespace Items
     public class BagInventory
     {
         public List<ItemSO> items;
-        public int slots;
+        private int slots;
 
         public BagInventory(int slotCount)
         {
             slots = slotCount;
         }
         
+        public void AddItem(ItemSO item)
+        {
+            if(items.Count < slots)
+                items.Add(item);
+        }
         
         
     }
