@@ -31,21 +31,21 @@ namespace GameSystems.World
         
         public void SpawnObjects(Vector2Int chunkCoord, int chunkSize, Transform chunk)
         {
-            // foreach (var objData in objectSpawningList)
-            // {
-            //     switch (objData.spawnBehaviour)
-            //     {
-            //         case ObjectSpawningData.SpawnBehaviour.Normal:
-            //             StartCoroutine(SpawnNormalObjects(chunkCoord, chunkSize, objData, chunk));
-            //             break;
-            //         case ObjectSpawningData.SpawnBehaviour.Cluster:
-            //             StartCoroutine(GenerateCluster(chunkCoord, chunkSize, objData, chunk));
-            //             break;
-            //         case ObjectSpawningData.SpawnBehaviour.Branching:
-            //             StartCoroutine(GenerateBranchingCluster(chunkCoord, chunkSize, objData, chunk));
-            //             break;
-            //     }
-            // }
+            foreach (var objData in objectSpawningList)
+            {
+                switch (objData.spawnBehaviour)
+                {
+                    case ObjectSpawningData.SpawnBehaviour.Normal:
+                        StartCoroutine(SpawnNormalObjects(chunkCoord, chunkSize, objData, chunk));
+                        break;
+                    case ObjectSpawningData.SpawnBehaviour.Cluster:
+                        StartCoroutine(GenerateCluster(chunkCoord, chunkSize, objData, chunk));
+                        break;
+                    case ObjectSpawningData.SpawnBehaviour.Branching:
+                        StartCoroutine(GenerateBranchingCluster(chunkCoord, chunkSize, objData, chunk));
+                        break;
+                }
+            }
         }
         
         private IEnumerator SpawnNormalObjects(Vector2Int chunkCoord, int chunkSize, ObjectSpawningData objData, Transform chunk)
@@ -100,12 +100,9 @@ namespace GameSystems.World
 
                 // Limit the viable positions to the desired maxObjects and spawn
                 viablePositions = viablePositions.Take(maxObjects).ToList();
-
-                // Instantiate objects at positions over multiple frames
+                
                 foreach (var pos in viablePositions)
                 {
-                    // var obj = Instantiate(objData.prefab, pos, Quaternion.identity, chunk);
-                    // WorldGrid.i.AddObject(obj);
                     InstantiateObjectAtPosition(pos, objData, chunk);
 
                     // Optional: yield after each spawn to distribute work
