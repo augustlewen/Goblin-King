@@ -1,4 +1,5 @@
 using GameSystems.Items;
+using GameSystems.Units.Goblins;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,9 +11,10 @@ namespace GameSystems.InteractableObjects
         public ItemSO_Tool.ToolType toolRequired;
         public ItemSO dropItem;
         public int hp;
+        
         public void OnSelect()
         {
-            
+            GoblinManager.i.AssignTask(new Task(Task.TaskType.BreakObject, gameObject));
         }
 
         public void TakeDamage(int damage)
