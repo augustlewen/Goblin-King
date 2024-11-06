@@ -11,7 +11,6 @@ namespace GameSystems.InteractableObjects
 
         private void Start()
         {
-            // Find all components that implement the ISelect interface
             selectableComponents = GetComponents<ISelect>();
         }
 
