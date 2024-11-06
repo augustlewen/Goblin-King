@@ -9,12 +9,17 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinManager : MonoBehaviour
     {
+        public static GoblinManager i;
+        
         public GameObject goblinPrefab;
         public List<GoblinAI> goblins;
         public List<GoblinAI> goblinParty;
-        
-        
-        
+
+        private void Awake()
+        {
+            i = this;
+        }
+
         private void Start()
         {
             var g1 = Instantiate(goblinPrefab, new Vector3(1, 1, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
