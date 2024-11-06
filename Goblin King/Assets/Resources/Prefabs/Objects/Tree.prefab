@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3487821367815363133}
   - component: {fileID: 8012501621043020550}
   - component: {fileID: 4410187127630951290}
+  - component: {fileID: 5792678148457010120}
+  - component: {fileID: 657752410496669707}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -134,3 +136,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.8, y: 1.8}
   m_EdgeRadius: 0
+--- !u!114 &5792678148457010120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553250431770247839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolRequired: 0
+  dropItem: {fileID: 11400000, guid: 676568ba4f92e3048a48b862d2cd3694, type: 2}
+  hp: 30
+--- !u!114 &657752410496669707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553250431770247839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991a02d68d013b9429e209cb12c0f3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

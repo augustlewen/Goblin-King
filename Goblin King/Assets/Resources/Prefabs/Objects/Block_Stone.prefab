@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolRequired: 0
+  toolRequired: 1
   dropItem: {fileID: 11400000, guid: 1e331e24dc9632048b1e3a58ce822fb6, type: 2}
   hp: 20
 --- !u!114 &6664355043073703244

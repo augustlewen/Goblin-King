@@ -1,5 +1,6 @@
 using GameSystems.Items;
 using GameSystems.Units.Goblins;
+using GameSystems.Units.Goblins.AI;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;

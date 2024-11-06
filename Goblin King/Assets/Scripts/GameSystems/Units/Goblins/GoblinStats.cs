@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Items;
+using GameSystems.Units.Goblins.AI;
 using UnityEngine;
 
 namespace GameSystems.Units.Goblins

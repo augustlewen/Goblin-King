@@ -4,7 +4,7 @@ using GameSystems.Items;
 using GameSystems.Units.AI;
 using UnityEngine;
 
-namespace GameSystems.Units.Goblins
+namespace GameSystems.Units.Goblins.AI
 {
     public class GoblinAI : AINavMovement
     {
@@ -63,41 +63,45 @@ namespace GameSystems.Units.Goblins
             
             switch (currentTask.taskType)
             {
-                case Task.TaskType.BreakObject: StartCoroutine(BreakObject());
+                case Task.TaskType.BreakObject: StartCoroutine(currentTask.BreakObject(this));
                     break;
             }
         }
       
 
-        IEnumerator BreakObject()
-        {
-            Debug.Log("Begin Breaking Object");
+        // IEnumerator BreakObject()
+        // {
+        //     Debug.Log("Begin Breaking Object");
+        //
+        //     Task breakTask = currentTask;
+        //     var breakableObj = currentTask.taskObject.GetComponent<BreakableObject>();
+        //     ItemSO_Tool tool = stats.GetTool(breakableObj.toolRequired);
+        //         
+        //     while (true)
+        //     {
+        //         yield return new WaitForSeconds(tool.haste);
+        //
+        //         if (breakableObj == null || currentTask != breakTask)
+        //         {
+        //             OnTaskComplete();
+        //             break;
+        //         }
+        //         
+        //         breakableObj.TakeDamage(tool.power);
+        //
+        //         if (breakableObj == null)
+        //         {
+        //             OnTaskComplete();
+        //             break;
+        //         }
+        //     }
+        // }
 
-            Task breakTask = currentTask;
-            var breakableObj = currentTask.taskObject.GetComponent<BreakableObject>();
-            ItemSO_Tool tool = stats.GetTool(breakableObj.toolRequired);
-                
-            while (true)
-            {
-                yield return new WaitForSeconds(tool.haste);
-
-                if (breakableObj == null || currentTask != breakTask)
-                    break;
-                
-                breakableObj.TakeDamage(tool.power);
-
-                if (breakableObj == null)
-                {
-                    OnTaskComplete();
-                    break;
-                }
-            }
-        }
-
-        private void OnTaskComplete()
+        public void OnTaskComplete()
         {
             state = State.FollowKing;
             currentTask = null;
+            Debug.Log("TASK COMPLETE");
         }
         public bool IsIdle()
         {
