@@ -28,9 +28,11 @@ namespace GameSystems.Units.Goblins
             stats = GetComponent<GoblinStats>();
         }
 
-        private void Update()
+        public override void Update()
         {
-            if (Input.GetMouseButtonDown(1))
+            base.Update();
+            
+            if (IsIdle() && Input.GetMouseButtonDown(1))
             {
                 Vector3 mouseScreenPosition = Input.mousePosition;
                 Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
@@ -42,23 +44,35 @@ namespace GameSystems.Units.Goblins
         public void AssignTask(Task newTask)
         {
             currentTask = newTask;
-            SetDestination(currentTask.taskObject.transform.position);
+            
+            Vector2 targetPosition = currentTask.taskObject.transform.position;
+            Vector2 direction = ((Vector2)transform.position - targetPosition).normalized;
+            float offsetDistance = 1.0f;
+            targetPosition += direction * offsetDistance;
+            SetDestination(targetPosition);
+            
             state = State.MoveToLocation;
         }
 
-        private void OnReachDestination()
+        public override void OnReachDestination()
         {
+            base.OnReachDestination();
+
+            if(currentTask == null)
+                return;
+            
             switch (currentTask.taskType)
             {
-                case Task.TaskType.BreakObject:
-                    state = State.BreakingObject;
-                    StartCoroutine(BreakObject());
+                case Task.TaskType.BreakObject: StartCoroutine(BreakObject());
                     break;
             }
         }
+      
 
         IEnumerator BreakObject()
         {
+            Debug.Log("Begin Breaking Object");
+
             Task breakTask = currentTask;
             var breakableObj = currentTask.taskObject.GetComponent<BreakableObject>();
             ItemSO_Tool tool = stats.GetTool(breakableObj.toolRequired);
@@ -74,12 +88,17 @@ namespace GameSystems.Units.Goblins
 
                 if (breakableObj == null)
                 {
-                    state = State.FollowKing;
+                    OnTaskComplete();
                     break;
                 }
             }
         }
 
+        private void OnTaskComplete()
+        {
+            state = State.FollowKing;
+            currentTask = null;
+        }
         public bool IsIdle()
         {
             return state is State.FollowKing or State.Idle;
