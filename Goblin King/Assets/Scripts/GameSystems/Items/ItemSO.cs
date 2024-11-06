@@ -14,6 +14,7 @@ namespace GameSystems.Items
         {
             Weapon,
             Tool,
+            Bag,
             Utility,
             
             BuildBlock,

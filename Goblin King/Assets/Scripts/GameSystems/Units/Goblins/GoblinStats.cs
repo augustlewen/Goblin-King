@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Items;
 using GameSystems.Units.Goblins.AI;
+using Items;
 using UnityEngine;
 
 namespace GameSystems.Units.Goblins
@@ -10,6 +11,7 @@ namespace GameSystems.Units.Goblins
     public class GoblinStats : UnitStats
     {
         public List<ItemSO> equippedItems = new ();
+        public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
 
@@ -18,6 +20,14 @@ namespace GameSystems.Units.Goblins
             ai = GetComponent<GoblinAI>();
         }
 
+        public void EquipItem(ItemSO item)
+        {
+            equippedItems.Add(item);
+
+            if (item is ItemSO_Bag itemBag)
+                bag = new BagInventory(itemBag.slots);
+        }
+        
         public bool HasToolType(ItemSO_Tool.ToolType type)
         {
             return GetTool(type) != null;
