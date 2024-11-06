@@ -67,7 +67,6 @@ namespace GameSystems.Units.Goblins.AI
                     break;
             }
         }
-      
 
         // IEnumerator BreakObject()
         // {
