@@ -26,7 +26,6 @@ namespace GameSystems.Units.AI
             navMeshData = new NavMeshData();
             NavMesh.AddNavMeshData(navMeshData);
             surface.navMeshData = navMeshData; // Assign the navMeshData to the surface
-            Debug.Log(navMeshData);
             BuildNavMesh(false);
             StartCoroutine(CheckPlayerMovement());
         }
@@ -86,7 +85,6 @@ namespace GameSystems.Units.AI
             //     source.component != null && source.component.gameObject.GetComponents<NavMeshAgent>() != null);
 
             
-            Debug.Log("!");
             if (async)
             {
                 NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData, surface.GetBuildSettings(), sources,
