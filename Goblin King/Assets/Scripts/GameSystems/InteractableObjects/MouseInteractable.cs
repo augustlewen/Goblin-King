@@ -20,7 +20,7 @@ namespace GameSystems.InteractableObjects
                 Select();
         }
 
-        private void Select()
+        public void Select()
         {
             // Call OnSelect on each ISelect component
             foreach (var selectable in selectableComponents)
