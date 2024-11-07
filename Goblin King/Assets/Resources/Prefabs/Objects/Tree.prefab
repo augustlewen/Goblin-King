@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskType: 0
   toolRequired: 0
   dropItem: {fileID: 11400000, guid: 676568ba4f92e3048a48b862d2cd3694, type: 2}
   hp: 30
