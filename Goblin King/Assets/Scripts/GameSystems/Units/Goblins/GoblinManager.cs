@@ -38,7 +38,7 @@ namespace GameSystems.Units.Goblins
         }
 
 
-        public void AssignTask(Task task)
+        public void AddTask(Task task)
         {
             GoblinAI goblinAI = GetAppropriateGoblin(task);
             

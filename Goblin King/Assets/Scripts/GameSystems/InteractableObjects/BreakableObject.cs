@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace GameSystems.InteractableObjects
 {
-    public class BreakableObject : MonoBehaviour, ISelect
+    public class BreakableObject : TaskObject
     {
         public ItemSO_Tool.ToolType toolRequired;
         public ItemSO dropItem;
@@ -20,11 +20,19 @@ namespace GameSystems.InteractableObjects
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            taskType = Task.TaskType.BreakObject;
         }
 
-        public void OnSelect()
+        // public override void OnSelect()
+        // {
+        //     
+        //     GoblinManager.i.AddTask(new Task(Task.TaskType.BreakObject, gameObject));
+        //     spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
+        // }
+
+        public override void OnSelect()
         {
-            GoblinManager.i.AssignTask(new Task(Task.TaskType.BreakObject, gameObject));
+            base.OnSelect();
             spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
         }
 

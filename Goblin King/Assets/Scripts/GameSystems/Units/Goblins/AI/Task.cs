@@ -7,7 +7,7 @@ namespace GameSystems.Units.Goblins.AI
 {
     public class Task
     {
-        public readonly GameObject taskObject;
+        public readonly TaskObject taskObject;
         public readonly TaskType taskType;
 
         public enum TaskType
@@ -19,7 +19,7 @@ namespace GameSystems.Units.Goblins.AI
         }
 
 
-        public Task(TaskType type, GameObject taskObj)
+        public Task(TaskType type, TaskObject taskObj)
         {
             taskType = type;
             taskObject = taskObj;
