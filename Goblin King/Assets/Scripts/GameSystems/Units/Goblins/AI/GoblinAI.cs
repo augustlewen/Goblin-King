@@ -100,7 +100,10 @@ namespace GameSystems.Units.Goblins.AI
         {
             state = State.FollowKing;
             currentTask = null;
-            Debug.Log("TASK COMPLETE");
+
+            var newTask = GoblinManager.i.GetNewTask(this);
+            if(newTask != null)
+                AssignTask(newTask);
         }
         public bool IsIdle()
         {
