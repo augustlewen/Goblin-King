@@ -1,4 +1,4 @@
-namespace GameSystems.InteractableObjects
+namespace GameSystems.Interactions
 {
     public interface ISelect
     {

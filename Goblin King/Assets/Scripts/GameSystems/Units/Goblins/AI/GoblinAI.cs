@@ -1,5 +1,4 @@
 using System.Collections;
-using GameSystems.InteractableObjects;
 using GameSystems.Items;
 using GameSystems.Units.AI;
 using UnityEngine;

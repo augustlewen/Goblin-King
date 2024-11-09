@@ -1,10 +1,11 @@
 using GameSystems.Units.Goblins;
 using GameSystems.Units.Goblins.AI;
+using GameSystems.World.Grid;
 using UnityEngine;
 
-namespace GameSystems.InteractableObjects
+namespace GameSystems.Interactions
 {
-    public class TaskObject : MonoBehaviour, ISelect
+    public class TaskObject : GridObject, ISelect
     {
         [HideInInspector] public Task.TaskType taskType;
         private bool isTask;

@@ -1,4 +1,4 @@
-using GameSystems.InteractableObjects;
+using GameSystems.Interactions;
 using UnityEngine;
 
 namespace ObjectSelection

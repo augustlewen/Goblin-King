@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using GameSystems.InteractableObjects;
+using GameSystems.GridObjects;
 using GameSystems.Units.Goblins.AI;
 using Unity.Mathematics;
 using UnityEngine;
@@ -138,7 +138,7 @@ namespace GameSystems.Units.Goblins
             if (task.taskType == Task.TaskType.BreakObject)
             {
                 BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();
-                if (goblinAI.stats.HasToolType(breakable.toolRequired))
+                if (goblinAI.stats.HasToolType(breakable.breakTool))
                     return true;
             }
             

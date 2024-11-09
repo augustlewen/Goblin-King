@@ -108,12 +108,12 @@ namespace GameSystems.World
         
         public void SetActive(bool isActive)
         {
-            chunkObject.SetActive(isActive); // Activates or deactivates the GameObject
+            chunkObject.SetActive(isActive); 
         }
 
         public bool IsActive()
         {
-            return chunkObject.activeSelf; // Returns whether the GameObject is currently active
+            return chunkObject.activeSelf;
         }
         
     }

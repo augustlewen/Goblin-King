@@ -1,16 +1,16 @@
-using System;
+using GameSystems.Interactions;
 using GameSystems.Items;
-using GameSystems.Units.Goblins;
 using GameSystems.Units.Goblins.AI;
+using GameSystems.World.Grid;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GameSystems.InteractableObjects
+namespace GameSystems.GridObjects
 {
     public class BreakableObject : TaskObject
     {
-        public ItemSO_Tool.ToolType toolRequired;
+        public ItemSO_Tool.ToolType breakTool;
         public ItemSO dropItem;
         public int hp;
 
@@ -23,12 +23,16 @@ namespace GameSystems.InteractableObjects
             taskType = Task.TaskType.BreakObject;
         }
 
-        // public override void OnSelect()
-        // {
-        //     
-        //     GoblinManager.i.AddTask(new Task(Task.TaskType.BreakObject, gameObject));
-        //     spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
-        // }
+        public override void Setup(GridObjectSO gridObjectSO)
+        {
+            base.Setup(gridObjectSO);
+            
+            if (gridObjectSO is GOSO_Breakable gosoBreakable)
+            {
+                hp = gosoBreakable.hp;
+                breakTool = gosoBreakable.breakTool;
+            }
+        }
 
         public override void OnSelect()
         {

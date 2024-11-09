@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace GameSystems.InteractableObjects
+namespace GameSystems.Interactions
 {
     public class MouseInteractable : MonoBehaviour
     {

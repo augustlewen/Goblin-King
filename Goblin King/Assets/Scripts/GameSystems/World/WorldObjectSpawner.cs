@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Functions;
+using GameSystems.GridObjects;
 using GameSystems.World.Grid;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -11,12 +13,15 @@ namespace GameSystems.World
     {
         public Tilemap tilemap;
         public ObjectSpawningData[] objectSpawningList;
+
+        public HashSet<GameObject> breakableObjects;
+        public HashSet<GameObject> nonBreakableObject;
+        
         
         [System.Serializable]
         public class ObjectSpawningData
         {
-            public GameObject prefab;
-            public Transform parent;
+            public GridObjectSO gridObjectSO;
             public Vector2Int spawnCountRange;
             public Vector2Int clusterCountRange;
             public SpawnBehaviour spawnBehaviour;
@@ -56,7 +61,9 @@ namespace GameSystems.World
             for (int i = 0; i < spawnCount; i++)
             {
                 Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
-                Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
+                // Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
+                // ObjectPooling.ActivateObject(breakableObjects, tilemap.GetCellCenterWorld(spawnPosition));
+                ActivateObjects(tilemap.GetCellCenterWorld(spawnPosition), objData, chunk);
 
                 // Optional: Yield after each object to spread out load across frames
                 yield return null;
@@ -103,7 +110,7 @@ namespace GameSystems.World
                 
                 foreach (var pos in viablePositions)
                 {
-                    InstantiateObjectAtPosition(pos, objData, chunk);
+                    ActivateObjects(pos, objData, chunk);
 
                     // Optional: yield after each spawn to distribute work
                     yield return null;
@@ -156,16 +163,27 @@ namespace GameSystems.World
                     Vector2 spawnPos = new Vector2(pos.x * WorldGrid.i.cellSize, pos.y * WorldGrid.i.cellSize);
                     // var obj = Instantiate(objData.prefab, spawnPos, Quaternion.identity, chunk);
                     // WorldGrid.i.AddObject(obj);
-                    InstantiateObjectAtPosition(spawnPos, objData, chunk);
+                    ActivateObjects(spawnPos, objData, chunk);
 
                     yield return null; // Yield after each spawn for smoothness
                 }
             }
         }
         
-        private void InstantiateObjectAtPosition(Vector2 position, ObjectSpawningData objData, Transform chunk)
+        private void ActivateObjects(Vector2 position, ObjectSpawningData objData, Transform chunk)
         {
-            var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
+            // var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
+
+            HashSet<GameObject> objects = nonBreakableObject;
+            switch (objData.gridObjectSO.type)
+            {
+                case GridObjectType.Breakable : objects = breakableObjects;
+                    break;
+            }
+            
+            var obj = ObjectPooling.ActivateObject(objects ,position);
+            obj.transform.parent = chunk;
+            
             WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
         }
         
