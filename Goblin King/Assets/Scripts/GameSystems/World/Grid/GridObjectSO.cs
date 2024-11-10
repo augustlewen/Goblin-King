@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GameSystems.World.Grid
 {
-    [CreateAssetMenu(fileName = "Goso_", menuName = "SO/GridObject/GridObject", order = 0)]
+    [CreateAssetMenu(fileName = "Goso_", menuName = "SO/GridObject/GridObject", order = 10)]
     public class GridObjectSO : ScriptableObject
     {
         public string gosoName;

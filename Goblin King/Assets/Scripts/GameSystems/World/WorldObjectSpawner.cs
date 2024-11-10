@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using GameSystems.GridObjects;
 using GameSystems.World.Grid;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 namespace GameSystems.World
 {
@@ -14,8 +16,11 @@ namespace GameSystems.World
         public Tilemap tilemap;
         public ObjectSpawningData[] objectSpawningList;
 
-        public HashSet<GameObject> breakableObjects;
-        public HashSet<GameObject> nonBreakableObject;
+        public Transform breakableObjectsParent;
+        public Transform nonBreakableObjectsParent;
+
+        public HashSet<GameObject> breakableObjects = new ();
+        public HashSet<GameObject> nonBreakableObjects = new ();
         
         
         [System.Serializable]
@@ -33,7 +38,20 @@ namespace GameSystems.World
                 Cluster
             }
         }
-        
+
+        private void Awake()
+        {
+            foreach (Transform child in breakableObjectsParent)
+            {
+                breakableObjects.Add(child.gameObject);
+            }
+            
+            foreach (Transform child in nonBreakableObjectsParent)
+            {
+                nonBreakableObjects.Add(child.gameObject);
+            }
+        }
+
         public void SpawnObjects(Vector2Int chunkCoord, int chunkSize, Transform chunk)
         {
             foreach (var objData in objectSpawningList)
@@ -135,7 +153,7 @@ namespace GameSystems.World
                 while (clusterPositions.Count < maxObjects && positionsToCheck.Count > 0)
                 {
                     Vector2Int currentPos = positionsToCheck.Dequeue();
-                    if (!WorldGrid.i.IsOccupied(currentPos))
+                    if (IsValidPosition(currentPos))
                         clusterPositions.Add(currentPos);
 
                     List<Vector2Int> neighbors = GetShuffledNeighbors(currentPos);
@@ -174,15 +192,16 @@ namespace GameSystems.World
         {
             // var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
 
-            HashSet<GameObject> objects = nonBreakableObject;
+            HashSet<GameObject> objects = nonBreakableObjects;
             switch (objData.gridObjectSO.type)
             {
                 case GridObjectType.Breakable : objects = breakableObjects;
                     break;
             }
             
-            var obj = ObjectPooling.ActivateObject(objects ,position);
+            var obj = ObjectPooling.ActivateObject(objects, position);
             obj.transform.parent = chunk;
+            obj.GetComponent<GridObject>().Setup(objData.gridObjectSO);
             
             WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
         }

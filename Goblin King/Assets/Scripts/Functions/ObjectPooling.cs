@@ -11,7 +11,10 @@ namespace Functions
             var obj = objects.FirstOrDefault(obj => !obj.gameObject.activeSelf);
 
             if (obj != null)
+            {
                 obj.transform.position = pos;
+                obj.gameObject.SetActive(true);
+            }
             
             return obj;
         }
