@@ -55,7 +55,7 @@ namespace GameSystems.GridObjects
             var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
             item.AddComponent<DroppedItem>().itemSO = dropItem;
             
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
     }
