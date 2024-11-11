@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace GameSystems.Items
 {
@@ -9,6 +10,7 @@ namespace GameSystems.Items
         public string itemName;
         [HideInInspector] public ItemType itemType;
         [HideInInspector] public bool isEquipable;
+        public Sprite sprite;
         
         public enum ItemType
         {
