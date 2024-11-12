@@ -12,9 +12,12 @@ namespace UI.GoblinPanel
         public Image goblinImage;
         public Image itemImage;
 
+        private GoblinStats stats;
+
         public void SetGoblin(GoblinStats goblinStats)
         {
-            
+            stats = goblinStats;
+            gameObject.SetActive(true);
         }
 
         public void SetItem(ItemSO itemSO)

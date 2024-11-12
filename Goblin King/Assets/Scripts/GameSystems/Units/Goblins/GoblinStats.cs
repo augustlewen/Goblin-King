@@ -5,12 +5,13 @@ using GameSystems.Items;
 using GameSystems.Units.Goblins.AI;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public List<ItemSO> equippedItems = new ();
+        public ItemSO equippedItem = new ();
         public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
@@ -22,7 +23,7 @@ namespace GameSystems.Units.Goblins
 
         public void EquipItem(ItemSO item)
         {
-            equippedItems.Add(item);
+            equippedItem = item;
 
             if (item is ItemSO_Bag itemBag)
                 bag = new BagInventory(itemBag.slots);
@@ -35,16 +36,14 @@ namespace GameSystems.Units.Goblins
 
         public ItemSO_Tool GetTool(ItemSO_Tool.ToolType type)
         {
-            foreach (var item in equippedItems)
-            {
-                // Check if item can be cast to ItemSO_Tool
-                if (item is not ItemSO_Tool toolItem) 
-                    continue;
-                
-                if (toolItem.toolType == type)
-                    return toolItem;
-            }
-            return null;
+            // Check if item can be cast to ItemSO_Tool
+            if (equippedItem is not ItemSO_Tool toolItem) 
+                return null;
+            
+            if (toolItem.toolType != type)
+                return null;
+        
+            return toolItem;
         }
     }
 }
