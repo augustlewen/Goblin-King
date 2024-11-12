@@ -18,6 +18,11 @@ namespace Items
             if(items.Count < slots)
                 items.Add(item);
         }
+
+        private bool CanAddItem(ItemSO item)
+        {
+            return items.Count < slots;
+        }
         
         
     }
