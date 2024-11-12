@@ -11,7 +11,7 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public ItemSO equippedItem = new ();
+        public ItemSO equippedItem;
         public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
@@ -19,6 +19,9 @@ namespace GameSystems.Units.Goblins
         private void Awake()
         {
             ai = GetComponent<GoblinAI>();
+            
+            if(equippedItem != null)
+                EquipItem(equippedItem);
         }
 
         public void EquipItem(ItemSO item)

@@ -18,10 +18,16 @@ namespace UI.GoblinPanel
         {
             stats = goblinStats;
             gameObject.SetActive(true);
+
+            SetItem(stats.equippedItem);
         }
 
         public void SetItem(ItemSO itemSO)
         {
+            itemImage.gameObject.SetActive(itemSO != null);
+            
+            if(itemSO == null)
+                return;
             itemImage.sprite = itemSO.sprite;
         }
         
