@@ -394,7 +394,7 @@ MonoBehaviour:
   nameText: {fileID: 5096832759105705969}
   goblinImage: {fileID: 6977037365285704907}
   itemImage: {fileID: 4101560223455580639}
-  itemSlot: {fileID: 0}
+  itemSlot: {fileID: 8293972316187932398}
 --- !u!1 &6982256780820540513
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,5 +901,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8293972316187932398 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5795519941217031523, guid: 0c7283ffc79bb314a911af0f04ac1ade, type: 3}
+  m_PrefabInstance: {fileID: 6667639382500891763}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c293b7e3e4f44be1a10fb849e8f546bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

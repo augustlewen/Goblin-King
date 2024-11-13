@@ -6,16 +6,23 @@ namespace UI.GoblinPanel
 {
     public class GoblinPanelUI : MonoBehaviour
     {
+        public static GoblinPanelUI i;
+        
         public Transform equipmentLayout;
         public Transform inventoryLayout;
-        
+
+        private void Awake()
+        {
+            i = this;
+        }
+
         private void OnEnable()
         {
             UpdateUI();
         }
 
 
-        private void UpdateUI()
+        public void UpdateUI()
         {
             DisableChildren(equipmentLayout);
             DisableChildren(inventoryLayout);
@@ -25,6 +32,8 @@ namespace UI.GoblinPanel
                 var goblinStats = GoblinManager.i.goblinParty[i].stats;
                 equipmentLayout.GetChild(i).GetComponent<EquipmentUI>().SetGoblin(goblinStats);
 
+                Debug.Log(goblinStats.bag);
+                
                 if (goblinStats.bag != null)
                 {
                     inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);

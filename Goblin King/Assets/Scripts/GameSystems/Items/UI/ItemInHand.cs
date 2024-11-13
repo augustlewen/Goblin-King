@@ -1,22 +1,26 @@
 using System;
+using System.Collections.Generic;
+using UI.GoblinPanel;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace GameSystems.Items.UI
 {
     public class ItemInHand : MonoBehaviour
     {
-        private static ItemInHand i;
+        private ItemSlotUI itemInHandSlot;
         private ItemSO item;
         private bool isHoldingItem;
 
-        private SpriteRenderer spriteRenderer;
+        public Image itemImage;
         private RectTransform rectTransform;
+        
+        public EventSystem eventSystem;  // Link to the EventSystem in the scene
+        
         
         private void Awake()
         {
-            i = this;
-            spriteRenderer = GetComponent<SpriteRenderer>();
             rectTransform = GetComponent<RectTransform>();
         }
 
@@ -24,6 +28,13 @@ namespace GameSystems.Items.UI
         {
             if (Input.GetMouseButtonDown(0))
             {
+                var itemSlot = GetHoveredItemSlot();
+                if (itemSlot != null)
+                    HoldItem(itemSlot.item, itemSlot);
+            }
+            else if (Input.GetMouseButtonUp(0) && isHoldingItem)
+            {
+                ReleaseItem();
             }
             
             if(!isHoldingItem)
@@ -32,21 +43,55 @@ namespace GameSystems.Items.UI
             rectTransform.anchoredPosition = Input.mousePosition;
         }
 
-        public static void HoldItem(ItemSO itemSO)
+        private void HoldItem(ItemSO itemSO, ItemSlotUI itemSlotUI)
         {
-            i.item = itemSO;
-            i.isHoldingItem = i.item != null;
-            i.spriteRenderer.gameObject.SetActive(i.isHoldingItem);
+            itemInHandSlot = itemSlotUI;
+            
+            item = itemSO;
+            isHoldingItem = item != null;
+            itemImage.gameObject.SetActive(isHoldingItem);
 
-            if (i.isHoldingItem)
-            {
-                i.spriteRenderer.sprite = itemSO.sprite;
-            }
+            if (isHoldingItem)
+                itemImage.sprite = itemSO.sprite;
         }
         
-        public static void ReleaseItem()
+        private void ReleaseItem()
         {
-            HoldItem(null);
+            var itemSlot = GetHoveredItemSlot();
+            if (itemSlot != null)
+            {
+                itemInHandSlot.SetItem(itemSlot.item);
+                itemSlot.SetItem(item);    
+            }
+            
+            HoldItem(null, null);
+            GoblinPanelUI.i.UpdateUI();
+        }
+        
+        
+        
+        // ReSharper disable Unity.PerformanceAnalysis
+        private ItemSlotUI GetHoveredItemSlot()
+        {
+            // Raycast from the current mouse position
+            PointerEventData pointerData = new PointerEventData(eventSystem)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+            eventSystem.RaycastAll(pointerData, raycastResults);
+
+            foreach (RaycastResult result in raycastResults)
+            {
+                var itemSlot = result.gameObject.GetComponent<ItemSlotUI>();
+                if (itemSlot != null)
+                {
+                    return itemSlot;
+                }
+            }
+
+            return null;
         }
         
     }
