@@ -7,7 +7,7 @@ namespace Items
     public class BagInventory
     {
         public List<ItemSO> items = new();
-        private int slots;
+        [HideInInspector] public int slots;
 
         public BagInventory(int slotCount)
         {

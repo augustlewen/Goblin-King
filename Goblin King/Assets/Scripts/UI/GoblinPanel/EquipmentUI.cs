@@ -13,22 +13,19 @@ namespace UI.GoblinPanel
         public Image itemImage;
 
         private GoblinStats stats;
+        public ItemSlotUI itemSlot;
 
         public void SetGoblin(GoblinStats goblinStats)
         {
             stats = goblinStats;
             gameObject.SetActive(true);
 
-            SetItem(stats.equippedItem);
+            itemSlot.SetItem(stats.equippedItem);
         }
 
         public void SetItem(ItemSO itemSO)
         {
-            itemImage.gameObject.SetActive(itemSO != null);
-            
-            if(itemSO == null)
-                return;
-            itemImage.sprite = itemSO.sprite;
+            itemSlot.SetItem(itemSO);
         }
         
     }

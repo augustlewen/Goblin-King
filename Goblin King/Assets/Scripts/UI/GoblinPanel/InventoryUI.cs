@@ -25,15 +25,11 @@ namespace UI.GoblinPanel
             for (int i = 0; i < slotsLayout.childCount; i++)
             {
                 var slot = slotsLayout.GetChild(i).gameObject;
+                
+                slot.SetActive(stats.bag.slots > i);
+                
                 if (stats.bag.items.Count > i)
-                {
-                    slot.SetActive(true);
-                    slot.GetComponent<InventorySlotUI>().SetItem(stats.bag.items[i]);
-                }
-                else
-                {
-                    slot.SetActive(false);
-                }
+                    slot.GetComponent<ItemSlotUI>().SetItem(stats.bag.items[i]);
                 
             }
         }
