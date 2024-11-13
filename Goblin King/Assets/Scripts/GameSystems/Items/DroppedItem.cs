@@ -8,13 +8,14 @@ namespace GameSystems.Items
     {
         public ItemSO itemSO;
         
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             GoblinStats goblinStats = other.GetComponent<GoblinStats>();
 
             if (goblinStats != null && goblinStats.bag != null)
             {
-                goblinStats.bag.AddItem(itemSO);
+                if(goblinStats.bag.AddItem(itemSO))
+                    Destroy(gameObject);
             }
         }
     }

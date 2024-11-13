@@ -7,7 +7,7 @@ namespace UI.GoblinPanel
     public class InventoryUI : MonoBehaviour
     {
         private GoblinStats stats;
-        private Transform slotsLayout;
+        public Transform slotsLayout;
 
         private void OnEnable()
         {

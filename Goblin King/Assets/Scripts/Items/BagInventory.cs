@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using GameSystems.Items;
+using UnityEngine;
 
 namespace Items
 {
     public class BagInventory
     {
-        public List<ItemSO> items;
+        public List<ItemSO> items = new();
         private int slots;
 
         public BagInventory(int slotCount)
@@ -13,10 +14,15 @@ namespace Items
             slots = slotCount;
         }
         
-        public void AddItem(ItemSO item)
+        public bool AddItem(ItemSO item)
         {
-            if(items.Count < slots)
+            if (items.Count < slots)
+            {
                 items.Add(item);
+                return true;
+            }
+
+            return false;
         }
 
         private bool CanAddItem(ItemSO item)
