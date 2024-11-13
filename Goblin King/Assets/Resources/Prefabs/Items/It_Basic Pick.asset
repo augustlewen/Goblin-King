@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Basic Pickaxe
   itemType: 1
   isEquipable: 1
+  sprite: {fileID: 21300000, guid: 4e654c4592226d24d8b2c980e2ee4337, type: 3}
   toolType: 1
   power: 2
   haste: 0.5
