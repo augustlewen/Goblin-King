@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Items;
 using GameSystems.Units.Goblins.AI;
-using Items;
+using Specific_Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -15,6 +15,9 @@ namespace GameSystems.Units.Goblins
         public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
+
+        public SpriteRenderer itemSprite;
+        public SpriteRenderer bagSprite;
 
         private void Awake()
         {
@@ -28,8 +31,20 @@ namespace GameSystems.Units.Goblins
         {
             equippedItem = item;
 
+            bool isBag = item.itemType == ItemSO.ItemType.Bag;
+            bagSprite.gameObject.SetActive(isBag);
+            itemSprite.gameObject.SetActive(!isBag);
+
+
             if (item is ItemSO_Bag itemBag)
+            {
                 bag = new BagInventory(itemBag.slots);
+                bagSprite.sprite = item.sprite;
+            }
+            else if(item != null)
+            {
+                itemSprite.sprite = item.sprite;
+            }
         }
         
         public bool HasToolType(ItemSO_Tool.ToolType type)

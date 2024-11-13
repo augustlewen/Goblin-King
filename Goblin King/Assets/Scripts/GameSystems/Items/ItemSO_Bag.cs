@@ -1,5 +1,4 @@
 using System;
-using Items;
 using UnityEngine;
 
 namespace GameSystems.Items
@@ -9,6 +8,10 @@ namespace GameSystems.Items
     {
         public int slots;
         
-        
+        private void OnValidate()
+        {
+            isEquipable = true;
+            itemType = ItemType.Bag;
+        }
     }
 }

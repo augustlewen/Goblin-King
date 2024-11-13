@@ -394,6 +394,7 @@ MonoBehaviour:
   nameText: {fileID: 5096832759105705969}
   goblinImage: {fileID: 6977037365285704907}
   itemImage: {fileID: 4101560223455580639}
+  itemSlot: {fileID: 0}
 --- !u!1 &6982256780820540513
 GameObject:
   m_ObjectHideFlags: 0

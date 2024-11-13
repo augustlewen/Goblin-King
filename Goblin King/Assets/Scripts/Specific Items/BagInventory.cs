@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using GameSystems.Items;
 using UnityEngine;
 
-namespace Items
+namespace Specific_Items
 {
     public class BagInventory
     {
