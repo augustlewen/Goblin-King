@@ -138,7 +138,7 @@ namespace GameSystems.Units.Goblins
             if (task.taskType == Task.TaskType.BreakObject)
             {
                 BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();
-                if (goblinAI.stats.HasToolType(breakable.breakTool))
+                if (goblinAI.stats.HasTool(breakable.breakTool))
                     return true;
             }
             

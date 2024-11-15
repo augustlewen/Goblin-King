@@ -8,7 +8,12 @@ namespace GameSystems.Items
     public class DroppedItem : MonoBehaviour
     {
         public ItemSO item;
-        
+
+        private void Awake()
+        {
+            ItemManager.CreateItemData(item);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             GoblinStats goblinStats = other.GetComponent<GoblinStats>();

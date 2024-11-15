@@ -11,8 +11,8 @@ namespace GameSystems.Items.SO
         private void OnValidate()
         {
             itemType = ItemType.Bag;
-            itemBagData.isEquipable = true;
-            itemBagData.itemType = ItemType.Bag;
+            isEquipable = true;
+            itemType = ItemType.Bag;
         }
     }
 
@@ -21,5 +21,14 @@ namespace GameSystems.Items.SO
     {
         public int slots;
         [HideInInspector] public BagInventory bagInventory;
+
+
+        public ItemBagData(ItemSO_Bag bag)
+        {
+            slots = bag.itemBagData.slots;
+            bagInventory = new BagInventory(slots);
+            itemSO = bag;
+        }
+        
     }
 }

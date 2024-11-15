@@ -14,6 +14,7 @@ namespace GameSystems.Items.UI
         [HideInInspector] public ItemData item;
         public Image itemImage;
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void SetItem(ItemData itemSO)
         {
             if (item != null && item != itemSO)
@@ -26,7 +27,7 @@ namespace GameSystems.Items.UI
             
             if (itemSO != null)
             {
-                itemImage.sprite = itemSO.sprite;
+                itemImage.sprite = itemSO.GetSprite();
                 itemImage.gameObject.SetActive(true);
                 
                 OnAddItem.Invoke(item);

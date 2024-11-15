@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.Items.SO
 {
@@ -6,15 +7,15 @@ namespace GameSystems.Items.SO
     public class ItemSO : ScriptableObject
     {
         [HideInInspector] public ItemType itemType;
+        [HideInInspector] public bool isEquipable;
+        public Sprite sprite;
 
         public ItemData GetItemData()
         {
             switch (itemType)
             {
                 case ItemType.Bag : return ((ItemSO_Bag)this).itemBagData;
-                break;
                 case ItemType.Tool : return ((ItemSO_Tool)this).itemToolData;
-                break;
             }
             
             return null;
@@ -25,10 +26,26 @@ namespace GameSystems.Items.SO
     [System.Serializable]
     public class ItemData
     {
+        public ItemSO itemSO;
         public string itemName;
-        [HideInInspector] public ItemType itemType;
-        [HideInInspector] public bool isEquipable;
-        public Sprite sprite;
+        
+        [HideInInspector] public int itemSOIndex;
+        [HideInInspector] public int itemClassIndex;
+
+        public Sprite GetSprite()
+        {
+            return itemSO.sprite;
+        }
+        
+        public ItemType GetItemType()
+        {
+            return itemSO.itemType;
+        }
+
+        public bool IsEquipable()
+        {
+            return itemSO.isEquipable;
+        }
     }
     
     public enum ItemType

@@ -28,32 +28,41 @@ namespace GameSystems.Units.Goblins
             ai = GetComponent<GoblinAI>();
             if (startItem != null)
             {
-                ItemData itemData = startItem.GetItemData();
-                // EquipItem();
+                ItemData itemData = ItemManager.CreateItemData(startItem);
+                EquipItem(itemData);
             }
         }
 
         public void EquipItem(ItemData item)
         {
+            if (item == null)
+            {
+                Debug.Log("Trying to equip invalid item. ItemData is NULL.");
+                return;
+            }
+            
             equippedItem = item;
 
-            bool isBag = item.itemType == ItemType.Bag;
-            bagSprite.gameObject.SetActive(isBag);
-            itemSprite.gameObject.SetActive(!isBag);
-
-
-            if (item is ItemBagData itemBag)
+            switch (equippedItem.GetItemType())
             {
-                bag = new BagInventory(itemBag.slots);
-                bagSprite.sprite = item.sprite;
-            }
-            else if(item != null)
-            {
-                itemSprite.sprite = item.sprite;
+                case ItemType.Bag:
+                {
+                    bag = new BagInventory(ItemManager.GetBagData(item).slots);
+                    bagSprite.sprite = item.GetSprite();
+                    bagSprite.gameObject.SetActive(true);
+                    itemSprite.gameObject.SetActive(false);
+                } break;
+                default:
+                {
+                    bag = null;
+                    itemSprite.sprite = item.itemSO.sprite;
+                    bagSprite.gameObject.SetActive(false);
+                    itemSprite.gameObject.SetActive(true);
+                } break;
             }
         }
         
-        public bool HasToolType(ItemToolData.ToolType type)
+        public bool HasTool(ItemToolData.ToolType type)
         {
             return GetTool(type) != null;
         }

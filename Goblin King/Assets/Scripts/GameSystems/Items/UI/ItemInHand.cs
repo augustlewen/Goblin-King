@@ -53,12 +53,12 @@ namespace GameSystems.Items.UI
             itemImage.gameObject.SetActive(isHoldingItem);
 
             if (isHoldingItem)
-                itemImage.sprite = item.sprite;
+                itemImage.sprite = item.GetSprite();
         }
         
         private void ReleaseItem()
         {
-            if (item.itemType == ItemType.Bag)
+            if (item.GetItemType() == ItemType.Bag)
             {
             }
             

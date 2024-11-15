@@ -1,4 +1,3 @@
-using GameSystems.Items;
 using GameSystems.Items.SO;
 using GameSystems.Items.UI;
 using GameSystems.Units.Goblins;
@@ -32,7 +31,7 @@ namespace UI.GoblinPanel
         private void OnRemoveItem(ItemData item)
         {
             stats.equippedItem = null;
-            if (item.itemType == ItemType.Bag)
+            if (item.GetItemType() == ItemType.Bag)
                 stats.bag = null;
             
         }

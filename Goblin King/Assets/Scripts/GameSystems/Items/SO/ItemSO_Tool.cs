@@ -8,8 +8,8 @@ namespace GameSystems.Items.SO
         public ItemToolData itemToolData;
         private void OnValidate()
         {
-            itemToolData.isEquipable = true;
-            itemToolData.itemType = ItemType.Tool;
+            isEquipable = true;
+            itemType = ItemType.Tool;
             itemType = ItemType.Bag;
         }
         
@@ -29,6 +29,15 @@ namespace GameSystems.Items.SO
             Sickle,
             Hoe
         }
+
+        public ItemToolData(ItemSO_Tool tool)
+        {
+            toolType = tool.itemToolData.toolType;
+            power = tool.itemToolData.power;
+            haste = tool.itemToolData.haste;
+            itemSO = tool;
+        }
+        
     }
     
 }
