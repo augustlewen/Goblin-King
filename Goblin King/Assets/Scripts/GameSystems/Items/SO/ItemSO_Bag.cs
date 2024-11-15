@@ -12,7 +12,6 @@ namespace GameSystems.Items.SO
         {
             itemType = ItemType.Bag;
             isEquipable = true;
-            itemType = ItemType.Bag;
         }
     }
 

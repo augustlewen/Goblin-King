@@ -11,6 +11,7 @@ namespace GameSystems.Items
 
         private void Awake()
         {
+            Debug.Log(item.itemType);
             ItemManager.CreateItemData(item);
         }
 

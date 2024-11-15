@@ -8,9 +8,8 @@ namespace GameSystems.Items.SO
         public ItemToolData itemToolData;
         private void OnValidate()
         {
-            isEquipable = true;
             itemType = ItemType.Tool;
-            itemType = ItemType.Bag;
+            isEquipable = true;
         }
         
     }

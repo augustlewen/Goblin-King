@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: It_Basic Axe
   m_EditorClassIdentifier: 
   itemType: 1
+  isEquipable: 1
+  sprite: {fileID: 0}
   itemToolData:
+    itemSO: {fileID: 11400000}
     itemName: Axe
-    itemType: 1
-    isEquipable: 1
-    sprite: {fileID: 0}
+    itemSOIndex: 0
+    itemClassIndex: 0
     toolType: 0
     power: 0
     haste: 0
