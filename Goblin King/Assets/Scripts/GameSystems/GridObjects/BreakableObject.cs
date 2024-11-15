@@ -1,5 +1,6 @@
 using GameSystems.Interactions;
 using GameSystems.Items;
+using GameSystems.Items.SO;
 using GameSystems.Units.Goblins.AI;
 using GameSystems.World.Grid;
 using Unity.Mathematics;
@@ -10,8 +11,8 @@ namespace GameSystems.GridObjects
 {
     public class BreakableObject : TaskObject
     {
-        public ItemSO_Tool.ToolType breakTool;
-        public ItemSO dropItem;
+        public ItemToolData.ToolType breakTool;
+        public ItemData dropItem;
         public int hp;
 
         private SpriteRenderer spriteRenderer;
@@ -52,8 +53,8 @@ namespace GameSystems.GridObjects
 
         private void Break()
         {
-            var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
-            item.AddComponent<DroppedItem>().itemSO = dropItem;
+            // var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
+            // item.AddComponent<DroppedItem>().item = dropItem;
             
             gameObject.SetActive(false);
         }

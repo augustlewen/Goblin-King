@@ -2,6 +2,7 @@ using System.Collections;
 using GameSystems.GridObjects;
 using GameSystems.Interactions;
 using GameSystems.Items;
+using GameSystems.Items.SO;
 using UnityEngine;
 
 namespace GameSystems.Units.Goblins.AI
@@ -31,7 +32,7 @@ namespace GameSystems.Units.Goblins.AI
             Debug.Log("Begin Breaking Object");
 
             var breakableObj = taskObject.GetComponent<BreakableObject>();
-            ItemSO_Tool tool = ai.stats.GetTool(breakableObj.breakTool);
+            ItemToolData tool = ai.stats.GetTool(breakableObj.breakTool);
                 
             while (true)
             {

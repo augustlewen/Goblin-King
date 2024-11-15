@@ -1,3 +1,4 @@
+using GameSystems.Items.SO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -7,13 +8,13 @@ namespace GameSystems.Items.UI
 {
     public class ItemSlotUI : MonoBehaviour
     {
-        [HideInInspector] public UnityEvent<ItemSO> OnAddItem = new ();
-        [HideInInspector] public UnityEvent<ItemSO> OnRemoveItem = new ();
+        [HideInInspector] public UnityEvent<ItemData> OnAddItem = new ();
+        [HideInInspector] public UnityEvent<ItemData> OnRemoveItem = new ();
 
-        [HideInInspector] public ItemSO item;
+        [HideInInspector] public ItemData item;
         public Image itemImage;
 
-        public void SetItem(ItemSO itemSO)
+        public void SetItem(ItemData itemSO)
         {
             if (item != null && item != itemSO)
             {

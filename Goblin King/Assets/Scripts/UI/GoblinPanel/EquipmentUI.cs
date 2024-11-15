@@ -1,4 +1,5 @@
 using GameSystems.Items;
+using GameSystems.Items.SO;
 using GameSystems.Items.UI;
 using GameSystems.Units.Goblins;
 using TMPro;
@@ -28,21 +29,21 @@ namespace UI.GoblinPanel
 
         }
 
-        private void OnRemoveItem(ItemSO item)
+        private void OnRemoveItem(ItemData item)
         {
             stats.equippedItem = null;
-            if (item.itemType == ItemSO.ItemType.Bag)
+            if (item.itemType == ItemType.Bag)
                 stats.bag = null;
             
         }
 
 
-        private void OnAddItem(ItemSO item)
+        private void OnAddItem(ItemData item)
         {
             stats.equippedItem = item;
         }
 
-        public void SetItem(ItemSO itemSO)
+        public void SetItem(ItemData itemSO)
         {
             itemSlot.SetItem(itemSO);
         }

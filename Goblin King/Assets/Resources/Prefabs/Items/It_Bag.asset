@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be625777835849e884b0ef69d57f4649, type: 3}
   m_Name: It_Bag
   m_EditorClassIdentifier: 
-  itemName: Bag
-  itemType: 0
-  isEquipable: 0
-  sprite: {fileID: 21300000, guid: cce53a8db785383429911eefb4a23e2a, type: 3}
-  slots: 3
+  itemType: 2
+  itemBagData:
+    itemName: Bag
+    itemType: 2
+    isEquipable: 1
+    sprite: {fileID: 21300000, guid: cce53a8db785383429911eefb4a23e2a, type: 3}
+    slots: 3

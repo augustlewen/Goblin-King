@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameSystems.Items.SO;
 using UI.GoblinPanel;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +11,7 @@ namespace GameSystems.Items.UI
     public class ItemInHand : MonoBehaviour
     {
         private ItemSlotUI itemInHandSlot;
-        private ItemSO item;
+        private ItemData item;
         private bool isHoldingItem;
 
         public Image itemImage;
@@ -43,20 +44,24 @@ namespace GameSystems.Items.UI
             rectTransform.anchoredPosition = Input.mousePosition;
         }
 
-        private void HoldItem(ItemSO itemSO, ItemSlotUI itemSlotUI)
+        private void HoldItem(ItemData item, ItemSlotUI itemSlotUI)
         {
             itemInHandSlot = itemSlotUI;
             
-            item = itemSO;
-            isHoldingItem = item != null;
+            this.item = item;
+            isHoldingItem = this.item != null;
             itemImage.gameObject.SetActive(isHoldingItem);
 
             if (isHoldingItem)
-                itemImage.sprite = itemSO.sprite;
+                itemImage.sprite = item.sprite;
         }
         
         private void ReleaseItem()
         {
+            if (item.itemType == ItemType.Bag)
+            {
+            }
+            
             var itemSlot = GetHoveredItemSlot();
             if (itemSlot != null)
             {

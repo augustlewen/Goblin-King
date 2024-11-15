@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Items;
+using GameSystems.Items.SO;
 using GameSystems.Units.Goblins.AI;
 using Specific_Items;
 using UnityEngine;
@@ -11,32 +12,37 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public ItemSO equippedItem;
+        public ItemSO startItem;
+        
+        public ItemData equippedItem;
         public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
 
         public SpriteRenderer itemSprite;
         public SpriteRenderer bagSprite;
+        
 
         private void Awake()
         {
             ai = GetComponent<GoblinAI>();
-            
-            if(equippedItem != null)
-                EquipItem(equippedItem);
+            if (startItem != null)
+            {
+                ItemData itemData = startItem.GetItemData();
+                // EquipItem();
+            }
         }
 
-        public void EquipItem(ItemSO item)
+        public void EquipItem(ItemData item)
         {
             equippedItem = item;
 
-            bool isBag = item.itemType == ItemSO.ItemType.Bag;
+            bool isBag = item.itemType == ItemType.Bag;
             bagSprite.gameObject.SetActive(isBag);
             itemSprite.gameObject.SetActive(!isBag);
 
 
-            if (item is ItemSO_Bag itemBag)
+            if (item is ItemBagData itemBag)
             {
                 bag = new BagInventory(itemBag.slots);
                 bagSprite.sprite = item.sprite;
@@ -47,15 +53,15 @@ namespace GameSystems.Units.Goblins
             }
         }
         
-        public bool HasToolType(ItemSO_Tool.ToolType type)
+        public bool HasToolType(ItemToolData.ToolType type)
         {
             return GetTool(type) != null;
         }
 
-        public ItemSO_Tool GetTool(ItemSO_Tool.ToolType type)
+        public ItemToolData GetTool(ItemToolData.ToolType type)
         {
             // Check if item can be cast to ItemSO_Tool
-            if (equippedItem is not ItemSO_Tool toolItem) 
+            if (equippedItem is not ItemToolData toolItem) 
                 return null;
             
             if (toolItem.toolType != type)

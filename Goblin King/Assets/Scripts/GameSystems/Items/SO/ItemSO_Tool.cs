@@ -1,16 +1,23 @@
 using UnityEngine;
 
-namespace GameSystems.Items
+namespace GameSystems.Items.SO
 {
     [CreateAssetMenu(fileName = "It_", menuName = "SO/Items/Tool", order = -501)]
     public class ItemSO_Tool : ItemSO
     {
+        public ItemToolData itemToolData;
         private void OnValidate()
         {
-            isEquipable = true;
-            itemType = ItemType.Tool;
+            itemToolData.isEquipable = true;
+            itemToolData.itemType = ItemType.Tool;
+            itemType = ItemType.Bag;
         }
-
+        
+    }
+    
+    [System.Serializable]
+    public class ItemToolData : ItemData
+    {
         public ToolType toolType;
         public int power;
         public float haste;
@@ -22,6 +29,6 @@ namespace GameSystems.Items
             Sickle,
             Hoe
         }
-        
     }
+    
 }
