@@ -15,27 +15,26 @@ namespace GameSystems.Items.UI
         public Image itemImage;
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public void SetItem(ItemData itemSO)
+        public void SetItem(ItemData itemData)
         {
-            if (item != null && item != itemSO)
+            if (itemData == null)
             {
-                Debug.Log("Remove Item");
+                itemImage.gameObject.SetActive(false);
+                return;
+            }
+            
+            if (item != null && item != itemData)
+            {
                 OnRemoveItem.Invoke(item);
             }
             
-            item = itemSO;
+            item = itemData;
             
-            if (itemSO != null)
-            {
-                itemImage.sprite = itemSO.GetSprite();
-                itemImage.gameObject.SetActive(true);
-                
-                OnAddItem.Invoke(item);
-            }
-            else
-            {
-                itemImage.gameObject.SetActive(false);
-            }
+            itemImage.sprite = itemData.GetSprite();
+            itemImage.gameObject.SetActive(true);
+            
+            OnAddItem.Invoke(item);
+            
         }
         
     }

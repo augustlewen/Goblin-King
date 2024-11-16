@@ -39,7 +39,7 @@ namespace UI.GoblinPanel
 
         private void OnAddItem(ItemData item)
         {
-            stats.equippedItem = item;
+            stats.EquipItem(item);
         }
 
         public void SetItem(ItemData itemSO)
