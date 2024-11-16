@@ -36,10 +36,10 @@ namespace GameSystems.Units.Goblins.AI
                 
             while (true)
             {
-                yield return new WaitForSeconds(tool.haste);
+                yield return new WaitForSeconds(tool.toolSO.haste);
 
                 if(breakableObj != null)
-                    breakableObj.TakeDamage(tool.power);
+                    breakableObj.TakeDamage(tool.toolSO.power);
 
                 if (breakableObj == null)
                 {

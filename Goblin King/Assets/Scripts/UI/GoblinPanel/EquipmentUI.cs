@@ -22,7 +22,7 @@ namespace UI.GoblinPanel
             gameObject.SetActive(true);
 
             itemSlot.SetItem(stats.equippedItem);
-            
+            Debug.Log(stats.equippedItem.itemSO);
             itemSlot.OnAddItem.AddListener(OnAddItem);
             itemSlot.OnRemoveItem.AddListener(OnRemoveItem);
 
@@ -41,11 +41,7 @@ namespace UI.GoblinPanel
         {
             stats.EquipItem(item);
         }
-
-        public void SetItem(ItemData itemSO)
-        {
-            itemSlot.SetItem(itemSO);
-        }
+        
         
     }
 }

@@ -29,6 +29,7 @@ namespace GameSystems.Items
                     i.bagDatas.Add(bag);
                     return bag;
                 case ItemType.Tool : var tool = new ItemToolData(item as ItemSO_Tool);
+                    Debug.Log(tool);
                     i.toolDatas.Add(tool);
                     return tool;
             }

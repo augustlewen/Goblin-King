@@ -23,7 +23,7 @@ namespace GameSystems.Items.SO
     }
 
 
-    [System.Serializable]
+    
     public class ItemData
     {
         public ItemSO itemSO;

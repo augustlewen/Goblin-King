@@ -6,6 +6,11 @@ namespace GameSystems.Items.SO
     public class ItemSO_Tool : ItemSO
     {
         public ItemToolData itemToolData;
+        public ToolType toolType;
+
+        public int power;
+        public float haste;
+        
         private void OnValidate()
         {
             itemType = ItemType.Tool;
@@ -14,28 +19,25 @@ namespace GameSystems.Items.SO
         
     }
     
-    [System.Serializable]
+    public enum ToolType
+    {
+        Axe,
+        Pickaxe,
+        Sickle,
+        Hoe
+    }
+    
     public class ItemToolData : ItemData
     {
-        public ToolType toolType;
-        public int power;
-        public float haste;
+        public ItemSO_Tool toolSO;
         
-        public enum ToolType
-        {
-            Axe,
-            Pickaxe,
-            Sickle,
-            Hoe
-        }
-
         public ItemToolData(ItemSO_Tool tool)
         {
-            toolType = tool.itemToolData.toolType;
-            power = tool.itemToolData.power;
-            haste = tool.itemToolData.haste;
+            toolSO = tool;
             itemSO = tool;
         }
+        
+        
         
     }
     

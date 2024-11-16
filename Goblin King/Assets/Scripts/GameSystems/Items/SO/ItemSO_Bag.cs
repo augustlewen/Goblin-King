@@ -8,6 +8,8 @@ namespace GameSystems.Items.SO
     public class ItemSO_Bag : ItemSO
     {
         public ItemBagData itemBagData;
+        public int slots;
+
         private void OnValidate()
         {
             itemType = ItemType.Bag;
@@ -15,18 +17,22 @@ namespace GameSystems.Items.SO
         }
     }
 
-    [System.Serializable]
+    
     public class ItemBagData : ItemData
     {
-        public int slots;
         [HideInInspector] public BagInventory bagInventory;
-
+        public ItemSO_Bag bagSO;
 
         public ItemBagData(ItemSO_Bag bag)
         {
-            slots = bag.itemBagData.slots;
-            bagInventory = new BagInventory(slots);
+            bagInventory = new BagInventory(bag.slots);
+            bagSO = bag;
             itemSO = bag;
+        }
+
+        public int GetSlots()
+        {
+            return bagSO.slots;
         }
         
     }

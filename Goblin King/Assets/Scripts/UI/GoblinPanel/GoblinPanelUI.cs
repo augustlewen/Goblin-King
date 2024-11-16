@@ -32,8 +32,6 @@ namespace UI.GoblinPanel
                 var goblinStats = GoblinManager.i.goblinParty[i].stats;
                 equipmentLayout.GetChild(i).GetComponent<EquipmentUI>().SetGoblin(goblinStats);
                 
-                Debug.Log(goblinStats.bag);
-                
                 if (goblinStats.bag != null)
                 {
                     inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);

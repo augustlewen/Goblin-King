@@ -11,7 +11,7 @@ namespace GameSystems.GridObjects
 {
     public class BreakableObject : TaskObject
     {
-        public ItemToolData.ToolType breakTool;
+        public ToolType breakTool;
         public ItemData dropItem;
         public int hp;
 

@@ -47,7 +47,7 @@ namespace GameSystems.Units.Goblins
             {
                 case ItemType.Bag:
                 {
-                    bag = new BagInventory(ItemManager.GetBagData(item).slots);
+                    bag = new BagInventory(ItemManager.GetBagData(item).GetSlots());
                     bagSprite.sprite = item.GetSprite();
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);
@@ -62,18 +62,18 @@ namespace GameSystems.Units.Goblins
             }
         }
         
-        public bool HasTool(ItemToolData.ToolType type)
+        public bool HasTool(ToolType type)
         {
             return GetTool(type) != null;
         }
 
-        public ItemToolData GetTool(ItemToolData.ToolType type)
+        public ItemToolData GetTool(ToolType type)
         {
             // Check if item can be cast to ItemSO_Tool
             if (equippedItem is not ItemToolData toolItem) 
                 return null;
             
-            if (toolItem.toolType != type)
+            if (toolItem.toolSO.toolType != type)
                 return null;
         
             return toolItem;

@@ -8,7 +8,7 @@ namespace GameSystems.World.Grid
     public class GOSO_Breakable : GridObjectSO
     {
         public int hp;
-        public ItemToolData.ToolType breakTool;
+        public ToolType breakTool;
         
     }
 }

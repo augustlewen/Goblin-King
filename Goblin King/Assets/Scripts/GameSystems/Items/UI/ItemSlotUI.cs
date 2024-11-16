@@ -1,3 +1,4 @@
+using System;
 using GameSystems.Items.SO;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,8 @@ namespace GameSystems.Items.UI
         [HideInInspector] public UnityEvent<ItemData> OnRemoveItem = new ();
 
         [HideInInspector] public ItemData item;
+        [HideInInspector] public ItemData testItem;
+
         public Image itemImage;
 
         // ReSharper disable Unity.PerformanceAnalysis

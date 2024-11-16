@@ -51,6 +51,8 @@ namespace GameSystems.Items.UI
             this.item = item;
             isHoldingItem = this.item != null;
             itemImage.gameObject.SetActive(isHoldingItem);
+            
+            Debug.Log(item.itemSO);
 
             if (isHoldingItem)
                 itemImage.sprite = item.GetSprite();
@@ -62,11 +64,16 @@ namespace GameSystems.Items.UI
             {
             }
             
-            var itemSlot = GetHoveredItemSlot();
-            if (itemSlot != null)
+            var hoveredItemSlot = GetHoveredItemSlot();
+            if (hoveredItemSlot != null)
             {
-                itemInHandSlot.SetItem(itemSlot.item);
-                itemSlot.SetItem(item);    
+                if (hoveredItemSlot.item != null)
+                {
+                    Debug.Log(hoveredItemSlot.item);
+                    itemInHandSlot.SetItem(hoveredItemSlot.item);
+                }
+                
+                hoveredItemSlot.SetItem(item);    
             }
             
             HoldItem(null, null);
