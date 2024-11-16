@@ -15,9 +15,4 @@ MonoBehaviour:
   itemType: 2
   isEquipable: 1
   sprite: {fileID: 21300000, guid: cce53a8db785383429911eefb4a23e2a, type: 3}
-  itemBagData:
-    itemSO: {fileID: 11400000}
-    itemName: Bag
-    itemSOIndex: 0
-    itemClassIndex: 0
-    slots: 3
+  slots: 3
