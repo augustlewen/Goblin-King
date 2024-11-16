@@ -30,7 +30,7 @@ namespace GameSystems.Items.UI
             if (Input.GetMouseButtonDown(0))
             {
                 var itemSlot = GetHoveredItemSlot();
-                if (itemSlot != null)
+                if (itemSlot != null && itemSlot.item != null)
                     HoldItem(itemSlot.item, itemSlot);
             }
             else if (Input.GetMouseButtonUp(0) && isHoldingItem)
