@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GameSystems.Items.SO;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameSystems.Items
@@ -16,11 +17,20 @@ namespace GameSystems.Items
         private List<ItemToolData> toolDatas = new();
         private List<ItemBagData> bagDatas = new();
 
+        public DroppedItem droppedItemPrefab;
+
         private void Awake()
         {
             i = this;
         }
 
+        public void DropNewItem(ItemSO itemSO, Vector2 position)
+        {
+            var droppedItem = Instantiate(droppedItemPrefab, position, quaternion.identity).GetComponent<DroppedItem>();
+            droppedItem.SetItem(itemSO);
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
         public static ItemData CreateItemData(ItemSO item)
         {
             switch (item.itemType)
@@ -29,7 +39,6 @@ namespace GameSystems.Items
                     i.bagDatas.Add(bag);
                     return bag;
                 case ItemType.Tool : var tool = new ItemToolData(item as ItemSO_Tool);
-                    Debug.Log(tool);
                     i.toolDatas.Add(tool);
                     return tool;
             }
