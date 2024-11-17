@@ -9,6 +9,6 @@ namespace GameSystems.World.Grid
     {
         public int hp;
         public ToolType breakTool;
-        
+        public DropTable dropTable;
     }
 }
