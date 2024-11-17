@@ -1,3 +1,4 @@
+using Functions;
 using GameSystems.Units.AI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -108,7 +109,12 @@ namespace GameSystems.World
         
         public void SetActive(bool isActive)
         {
-            chunkObject.SetActive(isActive); 
+            chunkObject.SetActive(isActive);
+            if (isActive == false)
+            {
+                foreach (Transform child in chunkObject.transform)
+                    child.gameObject.SetActive(false);
+            }
         }
 
         public bool IsActive()
