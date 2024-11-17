@@ -12,7 +12,7 @@ namespace GameSystems.GridObjects
     public class BreakableObject : TaskObject
     {
         public ToolType breakTool;
-        public ItemData dropItem;
+        public DropTable dropTable;
         public int hp;
 
         private SpriteRenderer spriteRenderer;
@@ -32,6 +32,7 @@ namespace GameSystems.GridObjects
             {
                 hp = gosoBreakable.hp;
                 breakTool = gosoBreakable.breakTool;
+                dropTable = gosoBreakable.dropTable;
             }
         }
 
@@ -55,7 +56,7 @@ namespace GameSystems.GridObjects
         {
             // var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
             // item.AddComponent<DroppedItem>().item = dropItem;
-            
+            dropTable.DropItems(transform.position);
             gameObject.SetActive(false);
         }
 
