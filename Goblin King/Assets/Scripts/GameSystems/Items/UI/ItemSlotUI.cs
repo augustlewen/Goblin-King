@@ -32,10 +32,7 @@ namespace GameSystems.Items.UI
                 return;
             }
             
-            
             item = itemData;
-            Debug.Log(itemData);
-            Debug.Log(itemData.itemSO);
             itemImage.sprite = itemData.GetSprite();
             itemImage.gameObject.SetActive(true);
             
