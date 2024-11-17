@@ -200,6 +200,9 @@ namespace GameSystems.World
             }
             
             var obj = ObjectPooling.ActivateObject(objects, position);
+            if (obj == null)
+                return;
+            
             obj.transform.parent = chunk;
             obj.GetComponent<GridObject>().Setup(objData.gridObjectSO);
             
