@@ -362,11 +362,6 @@ MonoBehaviour:
   hp: 30
   moveSpeed: 3
   startItem: {fileID: 11400000, guid: f5b07c83ffcdf6d4998869b09cb70bc0, type: 2}
-  equippedItem:
-    itemSO: {fileID: 0}
-    itemName: Bag
-    itemSOIndex: 0
-    itemClassIndex: 0
   ai: {fileID: 0}
   itemSprite: {fileID: 1352168945258402803}
   bagSprite: {fileID: 6221202830433390111}
