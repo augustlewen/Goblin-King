@@ -167,11 +167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 0
   breakTool: 0
-  dropItem:
-    itemSO: {fileID: 0}
-    itemName: 
-    itemSOIndex: 0
-    itemClassIndex: 0
   hp: 20
 --- !u!114 &8798492629826963349
 MonoBehaviour:
