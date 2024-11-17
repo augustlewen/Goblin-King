@@ -22,7 +22,6 @@ namespace UI.GoblinPanel
             gameObject.SetActive(true);
 
             itemSlot.SetItem(stats.equippedItem);
-            Debug.Log(stats.equippedItem.itemSO);
             itemSlot.OnAddItem.AddListener(OnAddItem);
             itemSlot.OnRemoveItem.AddListener(OnRemoveItem);
 
@@ -31,6 +30,7 @@ namespace UI.GoblinPanel
         private void OnRemoveItem(ItemData item)
         {
             stats.equippedItem = null;
+            Debug.Log(item);
             if (item.GetItemType() == ItemType.Bag)
                 stats.bag = null;
             

@@ -13,31 +13,33 @@ namespace GameSystems.Items.UI
         [HideInInspector] public UnityEvent<ItemData> OnRemoveItem = new ();
 
         [HideInInspector] public ItemData item;
-        [HideInInspector] public ItemData testItem;
 
         public Image itemImage;
 
-        // ReSharper disable Unity.PerformanceAnalysis
         public void SetItem(ItemData itemData)
         {
-            if (itemData == null)
-            {
-                itemImage.gameObject.SetActive(false);
-                return;
-            }
-            
+            //Remove current Item
             if (item != null && item != itemData)
             {
                 OnRemoveItem.Invoke(item);
             }
             
-            item = itemData;
+            //Set Slot To Empty
+            if (itemData == null)
+            {
+                item = null;
+                itemImage.gameObject.SetActive(false);
+                return;
+            }
             
+            
+            item = itemData;
+            Debug.Log(itemData);
+            Debug.Log(itemData.itemSO);
             itemImage.sprite = itemData.GetSprite();
             itemImage.gameObject.SetActive(true);
             
             OnAddItem.Invoke(item);
-            
         }
         
     }

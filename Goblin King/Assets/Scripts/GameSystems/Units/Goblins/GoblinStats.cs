@@ -13,7 +13,7 @@ namespace GameSystems.Units.Goblins
     public class GoblinStats : UnitStats
     {
         public ItemSO startItem;
-        
+        public ItemSO startBagItem;
         public ItemData equippedItem;
         public BagInventory bag;
         private int maxEquipCount;
@@ -48,6 +48,7 @@ namespace GameSystems.Units.Goblins
                 case ItemType.Bag:
                 {
                     bag = new BagInventory(ItemManager.GetBagData(item).GetSlots());
+                    bag.AddItem(ItemManager.CreateItemData(startBagItem));
                     bagSprite.sprite = item.GetSprite();
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);
