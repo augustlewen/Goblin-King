@@ -8,9 +8,18 @@ namespace GameSystems.Items
     public class DroppedItem : MonoBehaviour
     {
         public ItemSO item;
+        public SpriteRenderer spriteRenderer;
 
         private void Start()
         {
+            if(item != null)
+                SetItem(item);
+        }
+
+        public void SetItem(ItemSO itemSO)
+        {
+            item = itemSO;
+            spriteRenderer.sprite = item.sprite;
             ItemManager.CreateItemData(item);
         }
 
