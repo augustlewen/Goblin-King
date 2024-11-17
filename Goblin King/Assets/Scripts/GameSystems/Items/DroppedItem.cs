@@ -18,6 +18,7 @@ namespace GameSystems.Items
 
         public void SetItem(ItemSO itemSO)
         {
+            gameObject.name = itemSO.name;
             item = itemSO;
             spriteRenderer.sprite = item.sprite;
             ItemManager.CreateItemData(item);
