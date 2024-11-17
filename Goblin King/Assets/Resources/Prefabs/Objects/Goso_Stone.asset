@@ -18,3 +18,13 @@ MonoBehaviour:
   sprite: {fileID: -1087036990, guid: 478464071ace0f640b7a526cc361b3f1, type: 3}
   hp: 12
   breakTool: 1
+  dropTable:
+    itemDrops:
+    - item: {fileID: 11400000, guid: 718ed2de6314e5c46822d4ba0080f9d8, type: 2}
+      dropChance: 100
+    - item: {fileID: 11400000, guid: 718ed2de6314e5c46822d4ba0080f9d8, type: 2}
+      dropChance: 100
+    - item: {fileID: 11400000, guid: 718ed2de6314e5c46822d4ba0080f9d8, type: 2}
+      dropChance: 75
+    - item: {fileID: 11400000, guid: 718ed2de6314e5c46822d4ba0080f9d8, type: 2}
+      dropChance: 50
