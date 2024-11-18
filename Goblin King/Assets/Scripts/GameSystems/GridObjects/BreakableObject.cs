@@ -12,7 +12,7 @@ namespace GameSystems.GridObjects
     public class BreakableObject : TaskObject
     {
         public ToolType breakTool;
-        public DropTable dropTable;
+        [FormerlySerializedAs("dropTable")] public LootTable lootTable;
         public int hp;
 
         private SpriteRenderer spriteRenderer;
@@ -21,7 +21,6 @@ namespace GameSystems.GridObjects
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-            taskType = Task.TaskType.BreakObject;
         }
 
         public override void Setup(GridObjectSO gridObjectSO)
@@ -32,13 +31,13 @@ namespace GameSystems.GridObjects
             {
                 hp = gosoBreakable.hp;
                 breakTool = gosoBreakable.breakTool;
-                dropTable = gosoBreakable.dropTable;
+                lootTable = gosoBreakable.lootTable;
             }
         }
 
-        public override void OnSelect()
+        public override void OnSelectTask()
         {
-            base.OnSelect();
+            base.OnSelectTask();
             spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
         }
 
@@ -56,7 +55,7 @@ namespace GameSystems.GridObjects
         {
             // var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
             // item.AddComponent<DroppedItem>().item = dropItem;
-            dropTable.DropItems(transform.position);
+            lootTable.DropItems(transform.position);
             gameObject.SetActive(false);
         }
 

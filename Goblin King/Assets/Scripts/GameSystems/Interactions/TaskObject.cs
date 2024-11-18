@@ -7,10 +7,10 @@ namespace GameSystems.Interactions
 {
     public class TaskObject : GridObject, ISelect
     {
-        [HideInInspector] public Task.TaskType taskType;
+        public Task.TaskType taskType;
         private bool isTask;
         
-        public virtual void OnSelect()
+        public virtual void OnSelectTask()
         {
             if (!isTask)
             {

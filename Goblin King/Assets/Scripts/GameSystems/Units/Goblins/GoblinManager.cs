@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameSystems.GridObjects;
+using GameSystems.Items;
 using GameSystems.Units.Goblins.AI;
 using Unity.Mathematics;
 using UnityEngine;
@@ -58,40 +59,23 @@ namespace GameSystems.Units.Goblins
         private GoblinAI GetAppropriateGoblin(Task task)
         {
             List<GoblinAI> viableGoblins = new();
-            GoblinAI appropriateGoblin;
             
-            // if (taskType == Task.TaskType.BreakObject)
-            // {
-            //     BreakableObject breakable = taskObject.GetComponent<BreakableObject>();
-            //     
-            //     foreach (var goblinAI in goblinParty)
-            //         if(goblinAI.IsIdle() && goblinAI.stats.HasToolType(breakable.toolRequired))
-            //             viableGoblins.Add(goblinAI);
-            // }
             foreach (var goblinAI in goblinParty)
                 if(goblinAI.IsIdle() && IsGoblinViableForTask(goblinAI, task))
                     viableGoblins.Add(goblinAI);
             
             if (viableGoblins.Count == 0)
             {
-                Debug.LogWarning("No Viable Goblins To Be Assigned");
+                Debug.LogWarning("No Viable Goblins To Be Assigned to : " + task.taskType);
                 return null;
             }
 
-            appropriateGoblin = viableGoblins[0];
+            GoblinAI appropriateGoblin = viableGoblins[0];
             float shortestDistance =
-                Vector2.Distance(viableGoblins[0].transform.position, task.taskObject.transform.position);
+                Vector2.Distance(appropriateGoblin.transform.position, task.taskObject.transform.position);
                 
             foreach (var goblin in viableGoblins)
             {
-                // float newDistance =
-                //     Vector2.Distance(goblin.transform.position, task.taskObject.transform.position);
-                //
-                // if (newDistance < shortestDistance)
-                // {
-                //     shortestDistance = newDistance;
-                //     appropriateGoblin = goblin;
-                // }
                 if (!isShorterDistance(shortestDistance, goblin.transform, task.taskObject.transform,
                         out float newDistance)) continue;
                 shortestDistance = newDistance;
@@ -117,9 +101,6 @@ namespace GameSystems.Units.Goblins
             {
                 if (IsGoblinViableForTask(goblinAI, task))
                 {
-                    // float newTaskDistance = Vector2.Distance(goblinAI.transform.position, task.taskObject.transform.position);
-                    // if (newTaskDistance < taskDistance)
-                    //     appropriateTask = task;
                     if (!isShorterDistance(taskDistance, goblinAI.transform, task.taskObject.transform,
                             out float newDistance)) continue;
                     taskDistance = newDistance;
@@ -133,13 +114,14 @@ namespace GameSystems.Units.Goblins
             return appropriateTask;
         }
         
+        // ReSharper disable Unity.PerformanceAnalysis
         private bool IsGoblinViableForTask(GoblinAI goblinAI, Task task)
         {
-            if (task.taskType == Task.TaskType.BreakObject)
+            switch (task.taskType)
             {
-                BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();
-                if (goblinAI.stats.HasTool(breakable.breakTool))
-                    return true;
+                case Task.TaskType.BreakObject : BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();
+                        return goblinAI.stats.HasTool(breakable.breakTool);
+                case Task.TaskType.Loot : return goblinAI.stats.bag != null;
             }
             
             return false;

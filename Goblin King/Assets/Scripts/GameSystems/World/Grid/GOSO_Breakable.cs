@@ -1,6 +1,7 @@
 using GameSystems.Items;
 using GameSystems.Items.SO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.World.Grid
 {
@@ -9,6 +10,6 @@ namespace GameSystems.World.Grid
     {
         public int hp;
         public ToolType breakTool;
-        public DropTable dropTable;
+        public LootTable lootTable;
     }
 }

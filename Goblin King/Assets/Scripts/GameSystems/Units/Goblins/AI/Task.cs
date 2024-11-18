@@ -41,7 +41,7 @@ namespace GameSystems.Units.Goblins.AI
                 if(breakableObj != null)
                     breakableObj.TakeDamage(tool.toolSO.power);
 
-                if (breakableObj == null)
+                if (breakableObj.hp <= 0)
                 {
                     ai.OnTaskComplete();
                     break;

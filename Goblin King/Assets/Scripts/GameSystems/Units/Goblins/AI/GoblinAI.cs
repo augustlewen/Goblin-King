@@ -1,4 +1,5 @@
 using System.Collections;
+using GameSystems.Items;
 using GameSystems.Units.AI;
 using UnityEngine;
 
@@ -62,6 +63,9 @@ namespace GameSystems.Units.Goblins.AI
             switch (currentTask.taskType)
             {
                 case Task.TaskType.BreakObject: StartCoroutine(currentTask.BreakObject(this));
+                    break;
+                case Task.TaskType.Loot: currentTask.taskObject.GetComponent<Loot>().LootItems(stats.bag);
+                    OnTaskComplete();
                     break;
             }
         }

@@ -28,7 +28,7 @@ namespace GameSystems.Units.Goblins
             ai = GetComponent<GoblinAI>();
             if (startItem != null)
             {
-                ItemData itemData = ItemManager.CreateItemData(startItem);
+                ItemData itemData = startItem.CreateItemData();
                 EquipItem(itemData);
             }
         }
@@ -47,8 +47,8 @@ namespace GameSystems.Units.Goblins
             {
                 case ItemType.Bag:
                 {
-                    bag = new BagInventory(ItemManager.GetBagData(item).GetSlots());
-                    bag.AddItem(ItemManager.CreateItemData(startBagItem));
+                    bag = new BagInventory(item.GetSpecificData<ItemBagData>().GetSlots());
+                    bag.AddItem(startBagItem.CreateItemData());
                     bagSprite.sprite = item.GetSprite();
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);

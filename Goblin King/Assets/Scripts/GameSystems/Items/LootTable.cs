@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace GameSystems.Items
 {
     [Serializable]
-    public class DropTable
+    public class LootTable
     {
         public ItemDrop[] itemDrops;
         
@@ -17,13 +17,18 @@ namespace GameSystems.Items
             public ItemSO item;
             public float dropChance;
         }
-
+        
         public void DropItems(Vector2 position)
         {
             var items = GetDroppedItems();
-
+            List<ItemData> loot = new();
             foreach (var itemSO in items)
-                ItemManager.i.DropNewItem(itemSO, position);
+            {
+                var item = itemSO.CreateItemData();
+                loot.Add(item);
+            }
+            
+            ItemManager.i.DropItems(loot, position);
         }
 
         private ItemSO[] GetDroppedItems()

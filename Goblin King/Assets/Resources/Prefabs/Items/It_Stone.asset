@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a55fb21f38ca4ca449d59f6f2d5426e3, type: 3}
-  m_Name: Item_Stone
+  m_Script: {fileID: 11500000, guid: 77212868b1ba47639db5d730a8256f44, type: 3}
+  m_Name: It_Stone
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 5
   isEquipable: 0
   sprite: {fileID: 21300000, guid: ab6609b66309a164f81e4f3e29181b90, type: 3}
+  stackSize: 50

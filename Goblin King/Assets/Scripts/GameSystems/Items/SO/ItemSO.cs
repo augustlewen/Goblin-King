@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,16 +11,21 @@ namespace GameSystems.Items.SO
         [HideInInspector] public bool isEquipable;
         public Sprite sprite;
 
-        public ItemData GetItemData()
+        public ItemData CreateItemData()
         {
             switch (itemType)
             {
-                case ItemType.Bag : return ((ItemSO_Bag)this).itemBagData;
-                case ItemType.Tool : return ((ItemSO_Tool)this).itemToolData;
+                case ItemType.Bag : var bag = new ItemBagData(this as ItemSO_Bag);
+                    return bag;
+                case ItemType.Tool : var tool = new ItemToolData(this as ItemSO_Tool);
+                    return tool;
+                case ItemType.Resource : var resource = new ItemData(this as ItemSO_Resource);
+                    return resource;
             }
-            
+        
             return null;
         }
+        
     }
 
 
@@ -32,6 +38,37 @@ namespace GameSystems.Items.SO
         [HideInInspector] public int itemSOIndex;
         [HideInInspector] public int itemClassIndex;
 
+
+        public System.Object GetItemSO()
+        {
+            switch (itemSO.itemType)
+            {
+                case ItemType.Bag: return itemSO as ItemSO_Bag;
+                case ItemType.Tool: return itemSO as ItemSO_Tool;
+                case ItemType.Resource: return itemSO as ItemSO_Resource;
+            }
+        
+            return null;
+        }
+
+        // public ItemBagData GetBagData()
+        // {
+        //     return this as ItemBagData;
+        // }
+        // public ItemToolData GetToolData()
+        // {
+        //     return this as ItemToolData;
+        // }
+        // public ItemResourceData GetResourceData()
+        // {
+        //     return this as ItemResourceData;
+        // }
+        
+        public T GetSpecificData<T>() where T : class
+        {
+            return this as T;
+        }
+        
         public Sprite GetSprite()
         {
             return itemSO.sprite;
@@ -45,6 +82,15 @@ namespace GameSystems.Items.SO
         public bool IsEquipable()
         {
             return itemSO.isEquipable;
+        }
+
+        public ItemData(ItemSO item)
+        {
+            itemSO = item;
+        }
+        
+        protected ItemData()
+        {
         }
     }
     

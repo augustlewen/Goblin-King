@@ -37,8 +37,6 @@ namespace GameSystems.Items.SO
             itemSO = tool;
         }
         
-        
-        
     }
     
 }

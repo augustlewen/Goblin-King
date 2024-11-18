@@ -17,6 +17,9 @@ namespace Specific_Items
         
         public bool AddItem(ItemData item)
         {
+            if (!CanAddItem(item))
+                return false;
+            
             if (items.Count < slots)
             {
                 items.Add(item);
@@ -28,7 +31,18 @@ namespace Specific_Items
 
         private bool CanAddItem(ItemData item)
         {
-            return items.Count < slots;
+            if (items.Count < slots)
+                return true;
+
+            foreach (var itemData in items)
+            {
+                if (itemData.GetItemType() == ItemType.Resource)
+                {
+                    
+                }
+            }
+
+            return false;
         }
         
         
