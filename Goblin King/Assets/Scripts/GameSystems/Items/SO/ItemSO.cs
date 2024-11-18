@@ -7,6 +7,7 @@ namespace GameSystems.Items.SO
     [CreateAssetMenu(fileName = "Item_", menuName = "SO/Items/Item", order = -500)]
     public class ItemSO : ScriptableObject
     {
+        public string itemName;
         [HideInInspector] public ItemType itemType;
         [HideInInspector] public bool isEquipable;
         public Sprite sprite;
@@ -19,7 +20,7 @@ namespace GameSystems.Items.SO
                     return bag;
                 case ItemType.Tool : var tool = new ItemToolData(this as ItemSO_Tool);
                     return tool;
-                case ItemType.Resource : var resource = new ItemData(this as ItemSO_Resource);
+                case ItemType.Resource : var resource = new ItemResourceData(this as ItemSO_Resource);
                     return resource;
             }
         
@@ -33,12 +34,7 @@ namespace GameSystems.Items.SO
     public class ItemData
     {
         public ItemSO itemSO;
-        public string itemName;
         
-        [HideInInspector] public int itemSOIndex;
-        [HideInInspector] public int itemClassIndex;
-
-
         public System.Object GetItemSO()
         {
             switch (itemSO.itemType)
@@ -84,14 +80,16 @@ namespace GameSystems.Items.SO
             return itemSO.isEquipable;
         }
 
-        public ItemData(ItemSO item)
+        public ItemData(ItemSO itemSO)
         {
-            itemSO = item;
+            this.itemSO = itemSO;
         }
         
         protected ItemData()
         {
         }
+        
+        
     }
     
     public enum ItemType

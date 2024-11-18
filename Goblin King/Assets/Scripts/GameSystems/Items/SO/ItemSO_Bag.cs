@@ -23,13 +23,12 @@ namespace GameSystems.Items.SO
         [HideInInspector] public BagInventory bagInventory;
         public ItemSO_Bag bagSO;
 
-        public ItemBagData(ItemSO_Bag bag)
+        // Derived class constructor
+        public ItemBagData(ItemSO_Bag bag) : base(bag) // Call base constructor
         {
             bagInventory = new BagInventory(bag.slots);
             bagSO = bag;
-            itemSO = bag;
         }
-
         public int GetSlots()
         {
             return bagSO.slots;

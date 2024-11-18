@@ -35,14 +35,11 @@ namespace GameSystems.Units.Goblins
 
         public void EquipItem(ItemData item)
         {
-            if (item == null)
-            {
-                Debug.Log("Trying to equip invalid item. ItemData is NULL.");
-                return;
-            }
-            
             equippedItem = item;
 
+            if (item == null)
+                return;
+            
             switch (equippedItem.GetItemType())
             {
                 case ItemType.Bag:

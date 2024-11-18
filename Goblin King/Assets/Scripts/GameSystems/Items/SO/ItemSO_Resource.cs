@@ -6,6 +6,7 @@ namespace GameSystems.Items.SO
     [CreateAssetMenu(fileName = "It_", menuName = "SO/Items/Resource", order = -503)]
     public class ItemSO_Resource : ItemSO
     {
+        public ItemResourceData itemResourceData;
         public int stackSize;
         
         private void OnValidate()
@@ -21,10 +22,10 @@ namespace GameSystems.Items.SO
         public ItemSO_Resource resourceSO;
         public int count;
 
-        public ItemResourceData(ItemSO_Resource resource)
+        // Derived class constructor
+        public ItemResourceData(ItemSO_Resource resource) : base(resource) // Call base constructor
         {
             resourceSO = resource;
-            itemSO = resource;
         }
 
         public int AddToStack(int addCount)
@@ -40,6 +41,11 @@ namespace GameSystems.Items.SO
 
 
             return 0;
+        }
+
+        public bool CanAddToStack()
+        {
+            return count < resourceSO.stackSize;
         }
         
     }
