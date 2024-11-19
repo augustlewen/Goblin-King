@@ -1,5 +1,6 @@
 using System;
 using GameSystems.Items.SO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -13,6 +14,7 @@ namespace GameSystems.Items.UI
         [HideInInspector] public UnityEvent<ItemData> OnRemoveItem = new ();
 
         [HideInInspector] public ItemData item;
+        public TextMeshProUGUI countText;
 
         public Image itemImage;
 
@@ -22,6 +24,8 @@ namespace GameSystems.Items.UI
             if (item != null && item != itemData)
             {
                 OnRemoveItem.Invoke(item);
+                if (item.GetItemType() == ItemType.Resource)
+                    UpdateItemCount(0);
             }
             
             //Set Slot To Empty
@@ -35,8 +39,16 @@ namespace GameSystems.Items.UI
             item = itemData;
             itemImage.sprite = itemData.GetSprite();
             itemImage.gameObject.SetActive(true);
+
+            if (item.GetItemType() == ItemType.Resource)
+                UpdateItemCount(item.GetSpecificData<ItemResourceData>().count);
             
             OnAddItem.Invoke(item);
+        }
+
+        private void UpdateItemCount(int count)
+        {
+            countText.text = count != 0 ? count.ToString() : "";
         }
         
     }
