@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49670ad7ac9a4566ac34846e0ddf067a, type: 3}
   m_Name: It_Basic Axe
   m_EditorClassIdentifier: 
+  itemName: Axe
   itemType: 1
   isEquipable: 1
   sprite: {fileID: 0}

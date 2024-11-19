@@ -14,18 +14,14 @@ namespace UI.GoblinPanel
         private void Awake()
         {
             i = this;
-        }
 
-        private void OnEnable()
-        {
-            UpdateUI();
+            UpdateEquipmentUI();
         }
 
 
-        public void UpdateUI()
+        public void UpdateEquipmentUI()
         {
             DisableChildren(equipmentLayout);
-            DisableChildren(inventoryLayout);
             
             for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
             {
@@ -37,7 +33,19 @@ namespace UI.GoblinPanel
                     inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
                 }
             }
+        }
+
+        public void UpdateInventoryUI()
+        {
+            DisableChildren(inventoryLayout);
             
+            for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
+            {
+                var goblinStats = GoblinManager.i.goblinParty[i].stats;
+                
+                if (goblinStats.bag != null)
+                    inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
+            }
         }
 
         private void DisableChildren(Transform parent)

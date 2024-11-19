@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49670ad7ac9a4566ac34846e0ddf067a, type: 3}
   m_Name: It_Basic Pick
   m_EditorClassIdentifier: 
+  itemName: Pick
   itemType: 1
   isEquipable: 1
   sprite: {fileID: 21300000, guid: 4e654c4592226d24d8b2c980e2ee4337, type: 3}

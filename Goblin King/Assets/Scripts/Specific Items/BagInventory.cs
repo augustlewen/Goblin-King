@@ -30,6 +30,7 @@ namespace Specific_Items
                     return true;
                 }
             }
+            Debug.Log("ADDING: " + item.itemSO.itemName);
             items.Add(item);
             return true;
         }
@@ -51,9 +52,6 @@ namespace Specific_Items
             {
                 if (itemData.itemSO.itemType == ItemType.Resource && itemData.itemSO == itemSO)
                 {
-                    Debug.Log(itemData.itemSO.itemName);
-                    Debug.Log(itemData.GetSpecificData<ItemResourceData>());
-                    
                     if (itemData.GetSpecificData<ItemResourceData>().CanAddToStack())
                         return itemData.GetSpecificData<ItemResourceData>();
                 }

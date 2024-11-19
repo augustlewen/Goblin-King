@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 0
   breakTool: 1
-  dropTable:
+  lootTable:
     itemDrops: []
   hp: 20
 --- !u!114 &8798492629826963349

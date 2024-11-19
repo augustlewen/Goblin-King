@@ -78,7 +78,7 @@ namespace GameSystems.Items.UI
             }
             
             HoldItem(null, null);
-            GoblinPanelUI.i.UpdateUI();
+            GoblinPanelUI.i.UpdateInventoryUI();
         }
         
         

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77212868b1ba47639db5d730a8256f44, type: 3}
   m_Name: It_Log
   m_EditorClassIdentifier: 
+  itemName: Log
   itemType: 5
   isEquipable: 0
   sprite: {fileID: 21300000, guid: e9446ee786f8024428be31d9504a8dde, type: 3}
