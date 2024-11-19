@@ -36,6 +36,7 @@ namespace GameSystems.Items.UI
             else if (Input.GetMouseButtonUp(0) && isHoldingItem)
             {
                 ReleaseItem();
+                HoldItem(null, null);
             }
             
             if(!isHoldingItem)
@@ -44,42 +45,60 @@ namespace GameSystems.Items.UI
             rectTransform.anchoredPosition = Input.mousePosition;
         }
 
-        private void HoldItem(ItemData item, ItemSlotUI itemSlotUI)
+        private void HoldItem(ItemData newHoldItem, ItemSlotUI itemSlotUI)
         {
             itemInHandSlot = itemSlotUI;
             
-            this.item = item;
-            isHoldingItem = this.item != null;
+            item = newHoldItem;
+            isHoldingItem = item != null;
             itemImage.gameObject.SetActive(isHoldingItem);
             
             if (isHoldingItem)
-                itemImage.sprite = item.GetSprite();
+                itemImage.sprite = newHoldItem.GetSprite();
         }
         
         private void ReleaseItem()
         {
-            if (item.GetItemType() == ItemType.Bag)
-            {
-            }
+            if(IsItemNonEmptyBag(item))
+                return;
             
             var hoveredItemSlot = GetHoveredItemSlot();
             if (hoveredItemSlot != null)
             {
-                if (hoveredItemSlot.item != null)
-                {
-                    itemInHandSlot.SetItem(hoveredItemSlot.item);
-                }
-                else
+                var hoveredItem = hoveredItemSlot.item;
+                if(IsItemNonEmptyBag(hoveredItem))
+                    return;
+                    
+                //Set the hovered slots item, and return remaining resource count if there are any
+                int remaining = hoveredItemSlot.SetItem(item);
+
+                //Set Old ItemSlot To Empty
+                if (hoveredItem == null || (hoveredItem.GetItemType() == ItemType.Resource && remaining > 0))
                 {
                     itemInHandSlot.SetItem(null);
                 }
-                
-                hoveredItemSlot.SetItem(item);    
+                else  
+                {
+                    if (hoveredItem.GetItemType() == ItemType.Resource)
+                        hoveredItem.GetSpecificData<ItemResourceData>().count = remaining;
+                    
+                    itemInHandSlot.SetItem(hoveredItem);
+                }
             }
-            
-            HoldItem(null, null);
         }
         
+        
+        private bool IsItemNonEmptyBag(ItemData itemData)
+        {
+            if (itemData == null)
+                return false;
+            
+            if (itemData.GetItemType() == ItemType.Bag)
+                if(itemData.GetSpecificData<ItemBagData>().bagInventory.items.Count != 0)
+                    return true;
+
+            return false;
+        }
         
         
         // ReSharper disable Unity.PerformanceAnalysis

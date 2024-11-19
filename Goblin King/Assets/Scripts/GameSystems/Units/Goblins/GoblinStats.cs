@@ -12,8 +12,6 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public ItemSO startItem;
-        public ItemSO startBagItem;
         public ItemData equippedItem;
         public BagInventory bag;
         private int maxEquipCount;
@@ -26,11 +24,6 @@ namespace GameSystems.Units.Goblins
         private void Awake()
         {
             ai = GetComponent<GoblinAI>();
-            if (startItem != null)
-            {
-                ItemData itemData = startItem.CreateItemData();
-                EquipItem(itemData);
-            }
         }
 
         public void EquipItem(ItemData item)
@@ -44,8 +37,7 @@ namespace GameSystems.Units.Goblins
             {
                 case ItemType.Bag:
                 {
-                    bag = new BagInventory(item.GetSpecificData<ItemBagData>().GetSlots());
-                    bag.AddItem(startBagItem.CreateItemData());
+                    bag = item.GetSpecificData<ItemBagData>().bagInventory;
                     bagSprite.sprite = item.GetSprite();
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);

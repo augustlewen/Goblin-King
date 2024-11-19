@@ -84,8 +84,9 @@ namespace GameSystems.World
                 ActivateObjects(tilemap.GetCellCenterWorld(spawnPosition), objData, chunk);
 
                 // Optional: Yield after each object to spread out load across frames
-                yield return null;
             }
+            yield return null;
+
         }
 
         private Vector3Int GetRandomPosition(Vector2Int chunkCoord, int chunkSize)
@@ -131,8 +132,9 @@ namespace GameSystems.World
                     ActivateObjects(pos, objData, chunk);
 
                     // Optional: yield after each spawn to distribute work
-                    yield return null;
                 }
+                yield return null;
+
             }
         }
         
@@ -169,10 +171,7 @@ namespace GameSystems.World
                     }
 
                     // Yield every few positions to control frame load
-                    if (clusterPositions.Count % 10 == 0)
-                    {
-                        yield return null;
-                    }
+                    
                 }
 
                 // Instantiate objects over time at cluster positions
@@ -183,8 +182,9 @@ namespace GameSystems.World
                     // WorldGrid.i.AddObject(obj);
                     ActivateObjects(spawnPos, objData, chunk);
 
-                    yield return null; // Yield after each spawn for smoothness
                 }
+                yield return null;
+
             }
         }
         

@@ -18,14 +18,25 @@ namespace GameSystems.Items.UI
 
         public Image itemImage;
 
-        public void SetItem(ItemData itemData)
+        public int SetItem(ItemData itemData)
         {
             //Remove current Item
             if (item != null && item != itemData)
             {
-                OnRemoveItem.Invoke(item);
-                if (item.GetItemType() == ItemType.Resource)
-                    UpdateItemCount(0);
+                if (item.GetItemType() != ItemType.Resource)
+                    OnRemoveItem.Invoke(item);
+                else
+                {
+                    var resourceData = item.GetSpecificData<ItemResourceData>();
+                    if (item.itemSO == itemData.itemSO && resourceData.CanAddToStack())
+                    {
+                        int remaining = resourceData.AddToStack(itemData.GetSpecificData<ItemResourceData>().count);
+                        UpdateItemCount(resourceData.count);
+                        return remaining;
+                    }
+                }
+                    
+                
             }
             
             //Set Slot To Empty
@@ -33,7 +44,7 @@ namespace GameSystems.Items.UI
             {
                 item = null;
                 itemImage.gameObject.SetActive(false);
-                return;
+                return 0;
             }
             
             item = itemData;
@@ -44,6 +55,7 @@ namespace GameSystems.Items.UI
                 UpdateItemCount(item.GetSpecificData<ItemResourceData>().count);
             
             OnAddItem.Invoke(item);
+            return 0;
         }
 
         private void UpdateItemCount(int count)

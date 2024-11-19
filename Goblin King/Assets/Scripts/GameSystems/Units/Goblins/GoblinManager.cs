@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using GameSystems.GridObjects;
 using GameSystems.Items;
+using GameSystems.Items.SO;
+using GameSystems.Units.AI;
 using GameSystems.Units.Goblins.AI;
 using Unity.Mathematics;
 using UnityEngine;
@@ -16,26 +18,28 @@ namespace GameSystems.Units.Goblins
         public List<GoblinAI> goblinParty;
 
         private HashSet<Task> queuedTasks = new();
+
+        [SerializeField] private List<ItemSO> startItems = new();
+        
         
         private void Awake()
         {
             i = this;
+            FindAnyObjectByType<ChunkNavBaker>().OnNavMeshBuilt.AddListener(SpawnGoblins);
         }
 
-        private void Start()
+        private void SpawnGoblins()
         {
-            var g1 = Instantiate(goblinPrefab, new Vector3(1, 1, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
-            var g2 = Instantiate(goblinPrefab, new Vector3(-1, -1, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
-            var g3 = Instantiate(goblinPrefab, new Vector3(-2, 1, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
+            for (int i = 0; i < startItems.Count; i++)
+            {
+                var goblin = Instantiate(goblinPrefab, new Vector3(i, i, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
+                goblins.Add(goblin);
+                goblinParty.Add(goblin);
 
+                goblin.GetComponent<GoblinStats>().EquipItem(startItems[i].CreateItemData());
+            }
             
-            goblins.Add(g1);
-            goblins.Add(g2);
-            goblins.Add(g3);
-
-            goblinParty.Add(g1);
-            goblinParty.Add(g2);
-            goblinParty.Add(g3);
+            FindAnyObjectByType<ChunkNavBaker>().OnNavMeshBuilt.RemoveListener(SpawnGoblins);
         }
 
 

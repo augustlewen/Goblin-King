@@ -29,8 +29,6 @@ namespace GameSystems.Units.Goblins.AI
         
         public IEnumerator BreakObject(GoblinAI ai)
         {
-            Debug.Log("Begin Breaking Object");
-
             var breakableObj = taskObject.GetComponent<BreakableObject>();
             ItemToolData tool = ai.stats.GetTool(breakableObj.breakTool);
                 

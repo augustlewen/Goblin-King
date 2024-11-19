@@ -5,12 +5,15 @@ using GameSystems.Units.King;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using NavMeshBuilder = UnityEngine.AI.NavMeshBuilder;
 
 namespace GameSystems.Units.AI
 {
     public class ChunkNavBaker : MonoBehaviour
     {
+        public UnityEvent OnNavMeshBuilt = new();
+        
         public NavMeshSurface surface;
         public KingMovement king;
         public float updateRate = 0.1f;
@@ -26,8 +29,13 @@ namespace GameSystems.Units.AI
             navMeshData = new NavMeshData();
             NavMesh.AddNavMeshData(navMeshData);
             surface.navMeshData = navMeshData; // Assign the navMeshData to the surface
-            BuildNavMesh(false);
             StartCoroutine(CheckPlayerMovement());
+        }
+        
+
+        private void Start()
+        {
+            BuildNavMesh(false);
         }
 
         private IEnumerator CheckPlayerMovement()
@@ -51,15 +59,8 @@ namespace GameSystems.Units.AI
             Bounds navMeshBounds = new Bounds(king.transform.position, navMeshSize);
             List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
             
-            List<NavMeshModifier> modifiers;
-            if (surface.collectObjects == CollectObjects.Children)
-            {
-                modifiers = new List<NavMeshModifier>(surface.GetComponentsInChildren<NavMeshModifier>());
-            }
-            else
-            {
-                modifiers = NavMeshModifier.activeModifiers;
-            }
+            List<NavMeshModifier> modifiers = surface.collectObjects == CollectObjects.Children ? 
+                new List<NavMeshModifier>(surface.GetComponentsInChildren<NavMeshModifier>()) : NavMeshModifier.activeModifiers;
 
             foreach (var t in modifiers)
             {
@@ -83,7 +84,7 @@ namespace GameSystems.Units.AI
                 
             // sources.RemoveAll(source =>
             //     source.component != null && source.component.gameObject.GetComponents<NavMeshAgent>() != null);
-
+            
             
             if (async)
             {
@@ -97,6 +98,8 @@ namespace GameSystems.Units.AI
             }
             
             surface.BuildNavMesh();
+            OnNavMeshBuilt.Invoke();
+
         }
     }
     
