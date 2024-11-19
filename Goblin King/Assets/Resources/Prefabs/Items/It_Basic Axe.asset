@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Axe
   itemType: 1
   isEquipable: 1
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: ceda9d645c4de3a4bad11bf1142d1904, type: 3}
   toolType: 0
   power: 6
   haste: 1

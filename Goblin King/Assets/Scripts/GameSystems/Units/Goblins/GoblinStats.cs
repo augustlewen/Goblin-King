@@ -19,7 +19,7 @@ namespace GameSystems.Units.Goblins
 
         public SpriteRenderer itemSprite;
         public SpriteRenderer bagSprite;
-        
+        public Animator itemAnimator;        
 
         private void Awake()
         {

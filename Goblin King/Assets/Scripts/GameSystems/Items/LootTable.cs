@@ -24,6 +24,7 @@ namespace GameSystems.Items
             List<ItemData> loot = new();
             foreach (var itemSO in items)
             {
+                Debug.Log(itemSO);
                 var item = itemSO.CreateItemData();
                 loot.Add(item);
             }

@@ -71,8 +71,12 @@ namespace ObjectSelection
             Vector2 bottomLeft = new Vector2(Mathf.Min(worldStart.x, worldEnd.x), Mathf.Min(worldStart.y, worldEnd.y));
             Vector2 topRight = new Vector2(Mathf.Max(worldStart.x, worldEnd.x), Mathf.Max(worldStart.y, worldEnd.y));
 
-            // Use Physics2D.OverlapArea to find all colliders within the selection box
-            Collider2D[] colliders = Physics2D.OverlapAreaAll(bottomLeft, topRight);
+            // Calculate the center and size of the overlap box
+            Vector3 center = (bottomLeft + topRight) / 2;
+            Vector3 size = new Vector3(Mathf.Abs(topRight.x - bottomLeft.x), Mathf.Abs(topRight.y - bottomLeft.y), 1);
+
+            // Use Physics.OverlapBox to find all colliders within the selection box
+            Collider[] colliders = Physics.OverlapBox(center, size / 2, Quaternion.identity); // size / 2 because OverlapBox uses half-extents
 
             foreach (var collider in colliders)
             {

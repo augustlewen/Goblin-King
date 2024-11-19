@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9153013809961413121}
   - component: {fileID: 8798492629826963349}
   - component: {fileID: 3205984195420486918}
-  - component: {fileID: 1896814998687480830}
+  - component: {fileID: 4854578428086883415}
   m_Layer: 0
   m_Name: Block_Stone
   m_TagString: Untagged
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991a02d68d013b9429e209cb12c0f3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1896814998687480830
+--- !u!65 &4854578428086883415
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,5 +151,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 2}
+  m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
