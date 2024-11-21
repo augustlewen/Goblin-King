@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  kingOffsetDistance: 1
 --- !u!61 &7322999468451558236
 BoxCollider2D:
   m_ObjectHideFlags: 0

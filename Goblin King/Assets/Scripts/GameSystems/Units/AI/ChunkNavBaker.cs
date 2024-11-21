@@ -16,11 +16,11 @@ namespace GameSystems.Units.AI
         
         public NavMeshSurface surface;
         public KingMovement king;
-        public float updateRate = 0.1f;
-        public float movementThreshold = 3;
+        // public float updateRate = 0.1f;
+        // public float movementThreshold = 3;
         public Vector3 navMeshSize = new Vector3(25, 1, 25);
 
-        private Vector3 worldAnchor;
+        // private Vector3 worldAnchor;
         private NavMeshData navMeshData;
         private List<NavMeshBuildSource> sources = new();
 
@@ -29,30 +29,36 @@ namespace GameSystems.Units.AI
             navMeshData = new NavMeshData();
             NavMesh.AddNavMeshData(navMeshData);
             surface.navMeshData = navMeshData; // Assign the navMeshData to the surface
-            StartCoroutine(CheckPlayerMovement());
+            // StartCoroutine(CheckPlayerMovement());
         }
         
 
         private void Start()
         {
             BuildNavMesh(false);
+            KingMovement.i.OnMoveUpdate.AddListener(OnKingMoveUpdate);
         }
 
-        private IEnumerator CheckPlayerMovement()
+        private void OnKingMoveUpdate()
         {
-            WaitForSeconds wait = new WaitForSeconds(updateRate);
-
-            while (true)
-            {
-                if (Vector3.Distance(worldAnchor, king.transform.position) > movementThreshold)
-                {
-                    BuildNavMesh(true);
-                    worldAnchor = king.transform.position;
-                }
-
-                yield return wait;
-            }
+            BuildNavMesh(true);
         }
+
+        // private IEnumerator CheckPlayerMovement()
+        // {
+        //     WaitForSeconds wait = new WaitForSeconds(updateRate);
+        //
+        //     while (true)
+        //     {
+        //         if (Vector3.Distance(worldAnchor, king.transform.position) > movementThreshold)
+        //         {
+        //             BuildNavMesh(true);
+        //             worldAnchor = king.transform.position;
+        //         }
+        //
+        //         yield return wait;
+        //     }
+        // }
 
         private void BuildNavMesh(bool async)
         {

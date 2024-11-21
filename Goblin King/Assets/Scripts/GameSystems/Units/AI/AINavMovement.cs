@@ -12,7 +12,7 @@ namespace GameSystems.Units.AI
         private bool hasDestination;
         
         
-        private void Start()
+        protected virtual void Start()
         {
             agent = GetComponent<NavMeshAgent>();
             agent.updateRotation = false; // Prevents rotation in 2D
@@ -27,7 +27,7 @@ namespace GameSystems.Units.AI
             }
         }
 
-        public virtual void OnReachDestination()
+        protected virtual void OnReachDestination()
         {
             hasDestination = false;
         }

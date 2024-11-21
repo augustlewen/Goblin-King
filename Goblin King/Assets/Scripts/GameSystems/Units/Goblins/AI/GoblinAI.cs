@@ -1,6 +1,8 @@
 using System.Collections;
 using GameSystems.Items;
 using GameSystems.Units.AI;
+using GameSystems.Units.King;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GameSystems.Units.Goblins.AI
@@ -8,35 +10,60 @@ namespace GameSystems.Units.Goblins.AI
     public class GoblinAI : AINavMovement
     {
         private Task currentTask;
-        private State state;
-        [HideInInspector] public GoblinStats stats; 
+        // private State state;
+        [HideInInspector] public GoblinStats stats;
         
-        private enum State
-        {
-            FollowKing,
-            MoveToLocation,
-            BreakingObject,
-            Looting,
-            Attacking,
-            AssignedToStation,
-            Idle
-        }
+        public float kingOffsetDistance;
+        private bool isIdle;
+        
+        // private enum State
+        // {
+        //     FollowKing,
+        //     MoveToLocation,
+        //     BreakingObject,
+        //     Looting,
+        //     Attacking,
+        //     AssignedToStation,
+        //     Idle
+        // }
 
         private void Awake()
         {
             stats = GetComponent<GoblinStats>();
+            isIdle = true;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            KingMovement.i.OnMoveUpdate.AddListener(OnKingMoveUpdate);
+        }
+
+        private void OnKingMoveUpdate()
+        {
+            if (!isIdle) 
+                return;
+            
+            Vector2 kingPosition = KingMovement.i.transform.position;
+            Vector2 directionToKing = (kingPosition - (Vector2)transform.position).normalized;
+
+            Vector2 offset = directionToKing * kingOffsetDistance;
+            Vector2 destination = kingPosition - offset;
+
+            SetDestination(destination);
         }
 
         public override void Update()
         {
             base.Update();
             
-            if (IsIdle() && Input.GetMouseButtonDown(1))
-            {
-                Vector3 mouseScreenPosition = Input.mousePosition;
-                Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-                SetDestination(mouseWorldPosition);
-            }
+            
+            // if (IsIdle() && Input.GetMouseButtonDown(1))
+            // {
+            //     Vector3 mouseScreenPosition = Input.mousePosition;
+            //     Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+            //     SetDestination(mouseWorldPosition);
+            // }
         }
 
         public void AssignTask(Task newTask)
@@ -48,11 +75,12 @@ namespace GameSystems.Units.Goblins.AI
             float offsetDistance = 1.0f;
             targetPosition += direction * offsetDistance;
             SetDestination(targetPosition);
-            
-            state = State.MoveToLocation;
+
+            isIdle = false;
+            // state = State.MoveToLocation;
         }
 
-        public override void OnReachDestination()
+        protected override void OnReachDestination()
         {
             base.OnReachDestination();
 
@@ -69,46 +97,19 @@ namespace GameSystems.Units.Goblins.AI
             }
         }
 
-        // IEnumerator BreakObject()
-        // {
-        //     Debug.Log("Begin Breaking Object");
-        //
-        //     Task breakTask = currentTask;
-        //     var breakableObj = currentTask.taskObject.GetComponent<BreakableObject>();
-        //     ItemSO_Tool tool = stats.GetTool(breakableObj.toolRequired);
-        //         
-        //     while (true)
-        //     {
-        //         yield return new WaitForSeconds(tool.haste);
-        //
-        //         if (breakableObj == null || currentTask != breakTask)
-        //         {
-        //             OnTaskComplete();
-        //             break;
-        //         }
-        //         
-        //         breakableObj.TakeDamage(tool.power);
-        //
-        //         if (breakableObj == null)
-        //         {
-        //             OnTaskComplete();
-        //             break;
-        //         }
-        //     }
-        // }
-
         public void OnTaskComplete()
         {
-            state = State.FollowKing;
             currentTask = null;
 
             var newTask = GoblinManager.i.GetNewTask(this);
             if(newTask != null)
                 AssignTask(newTask);
+            else
+                isIdle = true;
         }
         public bool IsIdle()
         {
-            return state is State.FollowKing or State.Idle;
+            return isIdle;
         }
     }
 }
