@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8012501621043020550}
   - component: {fileID: -240677459912669618}
   - component: {fileID: 7115843647267161784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Block_Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1821888525
+  m_SortingLayer: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d31692048f1408b43916badb6cdfbc76, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
