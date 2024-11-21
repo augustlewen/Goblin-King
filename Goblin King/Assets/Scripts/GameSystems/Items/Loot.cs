@@ -14,10 +14,15 @@ namespace GameSystems.Items
     {
         private List<ItemData> items = new();
         
-
         public void SetLootTable(List<ItemData> loot)
         {
             items = loot;
+            foreach (var itemData in items)
+            {
+                if(itemData.itemSO == null)
+                    Debug.Log(itemData + "'s is null");
+            }
+            
             OnSelectTask();
         }
 
