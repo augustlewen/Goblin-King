@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using GameSystems.Units.King;
 using Unity.AI.Navigation;
@@ -15,21 +13,17 @@ namespace GameSystems.Units.AI
         public UnityEvent OnNavMeshBuilt = new();
         
         public NavMeshSurface surface;
-        public KingMovement king;
-        // public float updateRate = 0.1f;
-        // public float movementThreshold = 3;
-        public Vector3 navMeshSize = new Vector3(25, 1, 25);
+        public Vector3 navMeshSize = new(25, 1, 25);
 
         // private Vector3 worldAnchor;
         private NavMeshData navMeshData;
-        private List<NavMeshBuildSource> sources = new();
+        private readonly List<NavMeshBuildSource> sources = new();
 
         private void Awake()
         {
             navMeshData = new NavMeshData();
             NavMesh.AddNavMeshData(navMeshData);
             surface.navMeshData = navMeshData; // Assign the navMeshData to the surface
-            // StartCoroutine(CheckPlayerMovement());
         }
         
 
@@ -44,25 +38,9 @@ namespace GameSystems.Units.AI
             BuildNavMesh(true);
         }
 
-        // private IEnumerator CheckPlayerMovement()
-        // {
-        //     WaitForSeconds wait = new WaitForSeconds(updateRate);
-        //
-        //     while (true)
-        //     {
-        //         if (Vector3.Distance(worldAnchor, king.transform.position) > movementThreshold)
-        //         {
-        //             BuildNavMesh(true);
-        //             worldAnchor = king.transform.position;
-        //         }
-        //
-        //         yield return wait;
-        //     }
-        // }
-
         private void BuildNavMesh(bool async)
         {
-            Bounds navMeshBounds = new Bounds(king.transform.position, navMeshSize);
+            Bounds navMeshBounds = new Bounds(KingMovement.i.transform.position, navMeshSize);
             List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
             
             List<NavMeshModifier> modifiers = surface.collectObjects == CollectObjects.Children ? 
@@ -95,12 +73,12 @@ namespace GameSystems.Units.AI
             if (async)
             {
                 NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData, surface.GetBuildSettings(), sources,
-                    new Bounds(king.transform.position, navMeshSize));
+                    new Bounds(KingMovement.i.transform.position, navMeshSize));
             }
             else
             {
                 NavMeshBuilder.UpdateNavMeshData(navMeshData, surface.GetBuildSettings(), sources,
-                    new Bounds(king.transform.position, navMeshSize));
+                    new Bounds(KingMovement.i.transform.position, navMeshSize));
             }
             
             surface.BuildNavMesh();

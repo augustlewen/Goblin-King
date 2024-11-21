@@ -10,22 +10,11 @@ namespace GameSystems.Units.Goblins.AI
     public class GoblinAI : AINavMovement
     {
         private Task currentTask;
-        // private State state;
         [HideInInspector] public GoblinStats stats;
         
         public float kingOffsetDistance;
         private bool isIdle;
         
-        // private enum State
-        // {
-        //     FollowKing,
-        //     MoveToLocation,
-        //     BreakingObject,
-        //     Looting,
-        //     Attacking,
-        //     AssignedToStation,
-        //     Idle
-        // }
 
         private void Awake()
         {
@@ -52,19 +41,7 @@ namespace GameSystems.Units.Goblins.AI
 
             SetDestination(destination);
         }
-
-        public override void Update()
-        {
-            base.Update();
-            
-            
-            // if (IsIdle() && Input.GetMouseButtonDown(1))
-            // {
-            //     Vector3 mouseScreenPosition = Input.mousePosition;
-            //     Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
-            //     SetDestination(mouseWorldPosition);
-            // }
-        }
+        
 
         public void AssignTask(Task newTask)
         {
@@ -77,7 +54,6 @@ namespace GameSystems.Units.Goblins.AI
             SetDestination(targetPosition);
 
             isIdle = false;
-            // state = State.MoveToLocation;
         }
 
         protected override void OnReachDestination()
