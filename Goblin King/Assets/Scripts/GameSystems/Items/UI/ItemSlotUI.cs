@@ -20,47 +20,74 @@ namespace GameSystems.Items.UI
 
         public int SetItem(ItemData itemData)
         {
-            //Remove current Item
-            if (item != null && item != itemData)
+            if (itemData == item)
             {
-                if (item.GetItemType() != ItemType.Resource)
-                    OnRemoveItem.Invoke(item);
-                else
-                {
-                    var resourceData = item.GetSpecificData<ItemResourceData>();
-                    if (item.itemSO == itemData.itemSO && resourceData.CanAddToStack())
-                    {
-                        int remaining = resourceData.AddToStack(itemData.GetSpecificData<ItemResourceData>().count);
-                        UpdateItemCount(resourceData.count);
-                        return remaining;
-                    }
-                }
-                    
-                
+                UpdateItemCount();
+                return 0;
             }
             
             //Set Slot To Empty
             if (itemData == null)
             {
-                item = null;
-                itemImage.gameObject.SetActive(false);
+                RemoveItem();
                 return 0;
             }
+            
+            //If moving resource to another resource stack, make sure that all the counted resources can be added to stack
+            if (item != null && item.GetItemType() != ItemType.Resource)
+            {
+                var resourceData = item.GetSpecificData<ItemResourceData>();
+                if (item.itemSO == itemData.itemSO && resourceData.CanAddToStack())
+                {
+                    int remaining = resourceData.AddToStack(itemData.GetSpecificData<ItemResourceData>().count);
+                    UpdateItemCount();
+
+                    if (remaining == 0)
+                    {
+                        RemoveItem();
+                        OnRemoveItem.Invoke(item);
+                    }
+                        
+                    return remaining;
+                }
+            }
+            else if(item != null)
+                RemoveItem();
+            
             
             item = itemData;
             itemImage.sprite = itemData.GetSprite();
             itemImage.gameObject.SetActive(true);
 
-            if (item.GetItemType() == ItemType.Resource)
-                UpdateItemCount(item.GetSpecificData<ItemResourceData>().count);
+            UpdateItemCount();
             
             OnAddItem.Invoke(item);
             return 0;
         }
 
-        private void UpdateItemCount(int count)
+        private void RemoveItem()
         {
+            item = null;
+            itemImage.gameObject.SetActive(false);
+            UpdateItemCount();
+            OnRemoveItem.Invoke(item);
+        }
+        
+        private void UpdateItemCount()
+        {
+            if (item == null)
+            {
+                countText.text = "";
+                return;
+            }
+            
+            if (item.GetItemType() != ItemType.Resource)
+                return;
+            
+            int count = item.GetSpecificData<ItemResourceData>().count;
+            Debug.Log(item.itemSO.itemName + " " + count);
             countText.text = count != 0 ? count.ToString() : "";
+            
         }
         
     }

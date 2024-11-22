@@ -79,7 +79,7 @@ namespace GameSystems.Items.UI
                 }
                 else  
                 {
-                    if (hoveredItem.GetItemType() == ItemType.Resource)
+                    if (hoveredItem.itemSO == item.itemSO && hoveredItem.GetItemType() == ItemType.Resource)
                         hoveredItem.GetSpecificData<ItemResourceData>().count = remaining;
                     
                     itemInHandSlot.SetItem(hoveredItem);
