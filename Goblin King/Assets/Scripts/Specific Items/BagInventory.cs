@@ -3,11 +3,15 @@ using System.Linq;
 using GameSystems.Items;
 using GameSystems.Items.SO;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Specific_Items
 {
     public class BagInventory
     {
+        public UnityEvent<ItemData> onAddItem = new();
+        public UnityEvent<ItemData> onUpdateItemStack = new();
+
         public List<ItemData> items = new();
         [HideInInspector] public int slots;
 
@@ -27,10 +31,11 @@ namespace Specific_Items
                 if (itemResourceData != null)
                 {
                     itemResourceData.AddToStack(1);
+                    onUpdateItemStack.Invoke(itemResourceData);
                     return true;
                 }
             }
-            Debug.Log("ADDING: " + item.itemSO.itemName);
+            onAddItem.Invoke(item);
             items.Add(item);
             return true;
         }

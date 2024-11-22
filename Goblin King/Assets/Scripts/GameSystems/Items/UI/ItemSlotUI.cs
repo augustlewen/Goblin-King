@@ -22,7 +22,7 @@ namespace GameSystems.Items.UI
         {
             if (itemData == item)
             {
-                UpdateItemCount();
+                Debug.Log("NOT MOVE ITEM");
                 return 0;
             }
             
@@ -43,10 +43,7 @@ namespace GameSystems.Items.UI
                     UpdateItemCount();
 
                     if (remaining == 0)
-                    {
                         RemoveItem();
-                        OnRemoveItem.Invoke(item);
-                    }
                         
                     return remaining;
                 }
@@ -67,10 +64,10 @@ namespace GameSystems.Items.UI
 
         private void RemoveItem()
         {
+            OnRemoveItem.Invoke(item);
             item = null;
             itemImage.gameObject.SetActive(false);
             UpdateItemCount();
-            OnRemoveItem.Invoke(item);
         }
         
         private void UpdateItemCount()
@@ -85,7 +82,6 @@ namespace GameSystems.Items.UI
                 return;
             
             int count = item.GetSpecificData<ItemResourceData>().count;
-            Debug.Log(item.itemSO.itemName + " " + count);
             countText.text = count != 0 ? count.ToString() : "";
             
         }

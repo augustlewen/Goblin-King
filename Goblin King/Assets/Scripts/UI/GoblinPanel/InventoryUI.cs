@@ -1,4 +1,5 @@
 using System;
+using GameSystems.Items.SO;
 using GameSystems.Items.UI;
 using GameSystems.Units.Goblins;
 using UnityEngine;
@@ -10,10 +11,11 @@ namespace UI.GoblinPanel
         private GoblinStats stats;
         public Transform slotsLayout;
 
-        private void OnEnable()
+        private void Awake()
         {
-            UpdateUI();
+            SetupUI();
         }
+
 
         public void SetGoblinStats(GoblinStats goblinStats)
         {
@@ -21,7 +23,7 @@ namespace UI.GoblinPanel
             gameObject.SetActive(true);
         }
 
-        private void UpdateUI()
+        private void SetupUI()
         {
             for (int i = 0; i < slotsLayout.childCount; i++)
             {
@@ -32,5 +34,18 @@ namespace UI.GoblinPanel
                     slot.GetComponent<ItemSlotUI>().SetItem(stats.bag.items[i]);
             }
         }
+
+        private void AddItemToUI(ItemData item)
+        {
+            for (int i = 0; i < slotsLayout.childCount; i++)
+            {
+                var slot = slotsLayout.GetChild(i).gameObject;
+                var itemSlot = slot.GetComponent<ItemSlotUI>();
+
+                if (itemSlot.item == null)
+                    itemSlot.SetItem(item);
+            }
+        }
+        
     }
 }

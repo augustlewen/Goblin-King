@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using GameSystems.Items;
 using GameSystems.Items.SO;
 using GameSystems.Units.Goblins.AI;
 using Specific_Items;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameSystems.Units.Goblins
 {

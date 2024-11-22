@@ -63,6 +63,10 @@ namespace GameSystems.Items.UI
                 return;
             
             var hoveredItemSlot = GetHoveredItemSlot();
+            
+            if(hoveredItemSlot == itemInHandSlot)
+                return;
+            
             if (hoveredItemSlot != null)
             {
                 var hoveredItem = hoveredItemSlot.item;
