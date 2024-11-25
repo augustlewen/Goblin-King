@@ -11,10 +11,10 @@ namespace GameSystems.Units.Goblins.AI
     {
         private Task currentTask;
         [HideInInspector] public GoblinStats stats;
-        
+
+        public float interactOffsetDistance;
         public float kingOffsetDistance;
         private bool isIdle;
-        
 
         private void Awake()
         {
@@ -33,13 +33,7 @@ namespace GameSystems.Units.Goblins.AI
             if (!isIdle) 
                 return;
             
-            Vector2 kingPosition = KingMovement.i.transform.position;
-            Vector2 directionToKing = (kingPosition - (Vector2)transform.position).normalized;
-
-            Vector2 offset = directionToKing * kingOffsetDistance;
-            Vector2 destination = kingPosition - offset;
-
-            SetDestination(destination);
+            SetDestination( KingMovement.i.transform.position, kingOffsetDistance);
         }
         
 
@@ -48,11 +42,7 @@ namespace GameSystems.Units.Goblins.AI
             currentTask = newTask;
             
             Vector2 targetPosition = currentTask.taskObject.transform.position;
-            Vector2 direction = ((Vector2)transform.position - targetPosition).normalized;
-            float offsetDistance = 1.0f;
-            targetPosition += direction * offsetDistance;
-            SetDestination(targetPosition);
-
+            SetDestination(targetPosition, interactOffsetDistance);
             isIdle = false;
         }
 
