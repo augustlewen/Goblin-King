@@ -32,7 +32,15 @@ namespace GameSystems.Units.AI
             hasDestination = false;
         }
 
-        protected void SetDestination(Vector2 pos)
+        public void SetDestination(Vector2 targetPosition, float offsetDistance)
+        {
+            Vector2 directionToKing = (targetPosition - (Vector2)transform.position).normalized;
+
+            Vector2 offset = directionToKing * offsetDistance;
+            SetDestination(targetPosition - offset);
+        }
+
+        private void SetDestination(Vector2 pos)
         {
             hasDestination = true;
             NavMeshPath path = new NavMeshPath();
