@@ -17,20 +17,17 @@ namespace GameSystems.Units.Enemies
         private void OnValidate()
         {
             if (sightCollider == null)
-            {
                 sightCollider = GetComponent<SphereCollider>();
-            }
-
-            if (sightCollider != null)
-            {
+            else
                 sightCollider.radius = sightRadius;
-            }
 
             loseSightDistance = sightRadius * 1.25f;
         }
 
-        private void Update()
+        public override void Update()
         {
+            base.Update();
+            
             foreach (var goblinStats in goblinsInSight)
             {
                 var distance = Vector2.Distance(transform.position, goblinStats.transform.position);
@@ -39,9 +36,9 @@ namespace GameSystems.Units.Enemies
                     goblinsInSight.Remove(goblinStats);
                 }
             }
-            
-            
         }
+
+       
 
         private void OnTriggerEnter2D(Collider2D other)
         {
