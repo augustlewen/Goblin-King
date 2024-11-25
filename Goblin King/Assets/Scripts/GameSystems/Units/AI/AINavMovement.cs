@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace GameSystems.Units.AI
 {
     public class AINavMovement : MonoBehaviour
     {
+        public UnityEvent OnReachDestination = new();
         private NavMeshAgent agent;
         
         private AIGrid grid; // Reference to the grid
@@ -23,13 +25,14 @@ namespace GameSystems.Units.AI
         {
             if (hasDestination &&  HasReachedDestination())
             {
-                OnReachDestination();
+                ReachedDestination();
             }
         }
 
-        protected virtual void OnReachDestination()
+        protected virtual void ReachedDestination()
         {
             hasDestination = false;
+            OnReachDestination.Invoke();
         }
 
         public void SetDestination(Vector2 targetPosition, float offsetDistance)
