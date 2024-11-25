@@ -46,9 +46,9 @@ namespace GameSystems.Units.Goblins.AI
             isIdle = false;
         }
 
-        protected override void OnReachDestination()
+        protected override void ReachedDestination()
         {
-            base.OnReachDestination();
+            base.ReachedDestination();
 
             if(currentTask == null)
                 return;
