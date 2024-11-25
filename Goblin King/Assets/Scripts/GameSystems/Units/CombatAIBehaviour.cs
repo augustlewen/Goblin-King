@@ -14,6 +14,21 @@ namespace GameSystems.Units
         private void Awake()
         {
             navMovement = GetComponent<AINavMovement>();
+            navMovement.OnReachDestination.AddListener(OnReachDestination);
+        }
+
+        private void Update()
+        {
+            if(targetStats == null)
+                return;
+            
+            
+        }
+
+
+        private void OnReachDestination()
+        {
+            
         }
 
         public void SetTarget(UnitStats stats)
