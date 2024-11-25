@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 0}
+  interactOffsetDistance: 1
   kingOffsetDistance: 1
 --- !u!61 &7322999468451558236
 BoxCollider2D:
@@ -361,6 +362,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   moveSpeed: 3
+  attackRange: 0
+  attackDamage: 0
+  attackRate: 0
   ai: {fileID: 0}
   itemSprite: {fileID: 1352168945258402803}
   bagSprite: {fileID: 6221202830433390111}
