@@ -299,6 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210abb94e3464ddfbd2751671134e878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnReachDestination:
+    m_PersistentCalls:
+      m_Calls: []
   stats: {fileID: 0}
   interactOffsetDistance: 1
   kingOffsetDistance: 1

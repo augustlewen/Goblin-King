@@ -6,11 +6,7 @@ namespace GameSystems.Units
     {
         public int hp;
         public float moveSpeed;
-
-        [HideInInspector] public float attackRange;
-        [HideInInspector] public float attackDamage;
-        [HideInInspector] public float attackRate;
-
+        
         public virtual void OnTakeDamage(int damage)
         {
             hp -= damage;
