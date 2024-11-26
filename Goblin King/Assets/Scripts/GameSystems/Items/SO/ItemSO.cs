@@ -42,6 +42,7 @@ namespace GameSystems.Items.SO
                 case ItemType.Bag: return itemSO as ItemSO_Bag;
                 case ItemType.Tool: return itemSO as ItemSO_Tool;
                 case ItemType.Resource: return itemSO as ItemSO_Resource;
+                case ItemType.Weapon: return itemSO as ItemSO_Weapon;
             }
         
             return null;
@@ -75,20 +76,10 @@ namespace GameSystems.Items.SO
             return itemSO.itemType;
         }
 
-        public bool IsEquipable()
-        {
-            return itemSO.isEquipable;
-        }
-
-        public ItemData(ItemSO itemSO)
+        protected ItemData(ItemSO itemSO)
         {
             this.itemSO = itemSO;
         }
-        
-        protected ItemData()
-        {
-        }
-        
         
     }
     
