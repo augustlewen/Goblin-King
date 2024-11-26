@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded4bb47da3c4e53bf3ea52b15c1f2b4, type: 3}
   m_Name: It_Bow
   m_EditorClassIdentifier: 
-  itemName: Sword
+  itemName: Bow
   itemType: 1
   isEquipable: 1
-  sprite: {fileID: 21300000, guid: 239612fedd15f734cb4679503b9012f5, type: 3}
-  power: 8
-  haste: 1
+  sprite: {fileID: 21300000, guid: 93cdea62012b9fb40b4afe44ca5a7a77, type: 3}
+  power: 4
+  haste: 1.5
   range: 1
-  projectile: {fileID: 0}
+  projectile: {fileID: 486951121475867134, guid: 66965e7ad6cc9564b9b5dbbe19112e19, type: 3}
