@@ -140,7 +140,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9177208534044734959, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5750568032840976839, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
       insertIndex: -1
@@ -149,9 +150,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1719411659511714487, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2405686833876082729}
-    - targetCorrespondingSourceObject: {fileID: 9177208534044734959, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1719411659511714487, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8870373728737109863}
+      addedObject: {fileID: 3840761425933355649}
   m_SourcePrefab: {fileID: 100100000, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
 --- !u!212 &1352168945258402803 stripped
 SpriteRenderer:
@@ -186,18 +187,13 @@ MonoBehaviour:
   itemAnimator: {fileID: 1592650249069466281}
   ai: {fileID: 0}
   bagSprite: {fileID: 4405264560404586901}
---- !u!1 &5883208281712549245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9177208534044734959, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
-  m_PrefabInstance: {fileID: 3386324612235634834}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8870373728737109863
+--- !u!114 &3840761425933355649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5883208281712549245}
+  m_GameObject: {fileID: 4116914034239601189}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 210abb94e3464ddfbd2751671134e878, type: 3}
@@ -206,9 +202,10 @@ MonoBehaviour:
   OnReachDestination:
     m_PersistentCalls:
       m_Calls: []
+  combatAI: {fileID: 0}
   stats: {fileID: 2405686833876082729}
   interactOffsetDistance: 1
-  kingOffsetDistance: 2
+  kingOffsetDistance: 0.75
 --- !u!4 &7003303456052322645 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5750568032840976839, guid: a596ec978dd27d148b658aab9e14b377, type: 3}

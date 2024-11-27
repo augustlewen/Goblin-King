@@ -31,8 +31,9 @@ namespace GameSystems.Units.Goblins.AI
         {
             if (!isIdle) 
                 return;
-            
-            SetDestination( KingMovement.i.transform.position, kingOffsetDistance);
+
+            Vector3 randomOffset = new Vector2(Random.Range(-2, 2), Random.Range(-2, 2));
+            SetDestination( KingMovement.i.transform.position + randomOffset, kingOffsetDistance);
         }
         
 
