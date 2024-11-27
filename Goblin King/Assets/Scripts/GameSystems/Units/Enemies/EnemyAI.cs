@@ -75,7 +75,6 @@ namespace GameSystems.Units.Enemies
         private void OnTriggerEnter(Collider other)
         {
             var goblinStats = other.gameObject.GetComponent<GoblinStats>();
-            Debug.Log(goblinStats);
             if (goblinStats != null)
             {
                 goblinsInSight.Add(goblinStats);
