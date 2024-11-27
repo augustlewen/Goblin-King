@@ -126,6 +126,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   speed: 2.6
+  navArea: {fileID: 2219456911862800703}
   updateRate: 0.1
   movementThreshold: 3
 --- !u!65 &4646114894793697834

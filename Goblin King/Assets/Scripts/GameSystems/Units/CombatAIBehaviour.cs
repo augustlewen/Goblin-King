@@ -77,22 +77,6 @@ namespace GameSystems.Units
             isAttackOnCooldown = false;
         }
         
-        // private void Update()
-        // {
-        //     if(targetStats == null)
-        //         return;
-        //
-        //     if (IsInRangeOfTarget())
-        //     {
-        //     }
-        //     else
-        //     {
-        //         navMovement.SetDestination(targetStats.transform.position, attackRange);
-        //     }
-        //     
-        // }
-        //
-        
 
         bool IsInRangeOfTarget()
         {
@@ -108,11 +92,11 @@ namespace GameSystems.Units
         public void SetTarget(UnitStats stats)
         {
             targetStats = stats;
-            StartCoroutine(AttackBehaviour());
-            // navMovement.SetDestination(stats.transform.position, myStats.attackRange);
+            if(stats != null)
+                StartCoroutine(AttackBehaviour());
         }
 
-
+        
         
     }
 }

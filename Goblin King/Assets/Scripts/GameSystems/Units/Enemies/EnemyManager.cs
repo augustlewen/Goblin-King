@@ -12,39 +12,37 @@ namespace GameSystems.Units.Enemies
     public class EnemyManager : MonoBehaviour
     {
         public float spawnRate;
-        private Transform enemyParent;
+        public Transform enemyParent;
         private readonly HashSet<GameObject> enemies = new();
-        [FormerlySerializedAs("maxEnemies")] public int maxActiveEnemies;
+        public int maxActiveEnemies;
 
         public Vector2 minSpawnOffset;
         
-        private void Awake()
+        private void Start()
         {
             foreach (Transform child in enemyParent)
                 enemies.Add(child.gameObject);
             
             StartCoroutine(Spawner());
-
         }
 
         IEnumerator Spawner()
         {
             while (true)
             {
-                yield return new WaitForSeconds(spawnRate);
-
                 if (enemies.Count(enemy => enemy.activeSelf) >= maxActiveEnemies) 
-                    continue;
+                    yield return new WaitForSeconds(spawnRate);
                 
                 Vector2 kingPos = KingMovement.i.transform.position;
                 var area = KingMovement.i.navArea.size;
 
-                float xOffset = Random.Range(minSpawnOffset.x, area.x);
-                float yOffset = Random.Range(minSpawnOffset.y, area.z);
+                float xOffset = Random.Range(minSpawnOffset.x, area.x / 2 - 1);
+                float yOffset = Random.Range(minSpawnOffset.y, area.z / 2 - 1);
                 xOffset *= Random.value > 0.5f ? 1 : -1;
                 yOffset *= Random.value > 0.5f ? 1 : -1;
 
                 ObjectPooling.ActivateObject(enemies, kingPos + new Vector2(xOffset, yOffset));
+                yield return new WaitForSeconds(spawnRate);
             }
         }
     }

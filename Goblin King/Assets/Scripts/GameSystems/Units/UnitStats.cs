@@ -14,11 +14,6 @@ namespace GameSystems.Units
         
         [SerializeField] private Animator itemAnimator;
 
-        private void Awake()
-        {
-            gameObject.AddComponent<CombatAIBehaviour>();
-        }
-
         public virtual void OnTakeDamage(int damage)
         {
             hp -= damage;
