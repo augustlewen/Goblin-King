@@ -1,7 +1,6 @@
-using System;
+using GameSystems.Interactions;
 using GameSystems.Items;
 using GameSystems.Items.SO;
-using Specific_Items;
 using UnityEngine;
 
 namespace GameSystems.Units.Enemies
@@ -10,11 +9,19 @@ namespace GameSystems.Units.Enemies
     {
         public ItemSO startItem;
         public LootTable lootTable;
+        public Transform targetArrow;
         
         private void Start()
         {
             if(startItem != null)
                 EquipItem(startItem.CreateItemData());
+            
+            GetComponent<TaskObject>().OnSelectTask.AddListener(OnSelectTask);
+        }
+
+        private void OnSelectTask()
+        {
+            targetArrow.gameObject.SetActive(true);
         }
 
         protected override void OnDeath()
