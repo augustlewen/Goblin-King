@@ -1,6 +1,7 @@
 using System;
 using GameSystems.Items;
 using GameSystems.Items.SO;
+using Specific_Items;
 using UnityEngine;
 
 namespace GameSystems.Units.Enemies
@@ -33,7 +34,7 @@ namespace GameSystems.Units.Enemies
                 return;
             
             var weapon = item.GetSpecificData<ItemWeaponData>().weaponSO;
-            GetComponent<CombatAIBehaviour>().UpdateStats(weapon.power, weapon.range, weapon.haste);
+            GetComponent<CombatAIBehaviour>().UpdateStats(weapon);
         }
 
     }

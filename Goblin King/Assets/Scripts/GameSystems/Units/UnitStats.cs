@@ -14,12 +14,20 @@ namespace GameSystems.Units
         
         [SerializeField] private Animator itemAnimator;
 
-        public virtual void OnTakeDamage(int damage)
+        public virtual void OnTakeDamage(int damage, float knockBackForce, Vector3 sourcePos)
         {
             hp -= damage;
             
             if(hp <= 0)
                 OnDeath();
+            else
+            {
+                if (knockBackForce > 0)
+                {
+                    Vector2 direction = (transform.position - sourcePos).normalized;
+                    GetComponent<Rigidbody>().AddForce(direction, ForceMode.Impulse);
+                }
+            }
         }
 
         protected virtual void OnDeath()

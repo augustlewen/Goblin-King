@@ -1,5 +1,7 @@
 using System.Collections;
+using GameSystems.Items.SO;
 using GameSystems.Units.AI;
+using GameSystems.Units.Enemies;
 using Specific_Items;
 using Unity.Mathematics;
 using UnityEngine;
@@ -15,11 +17,13 @@ namespace GameSystems.Units
 
         private bool isInRangeOfTarget;
         private bool isAttackOnCooldown;
-        
-        int attackDamage;
-        float attackRange;
-        float attackRate;
-        private Projectile projectilePrefab;
+
+        private ItemSO_Weapon weapon;
+        // int attackDamage;
+        // float attackRange;
+        // float attackRate;
+        // private float knockBackForce;
+        // private Projectile projectilePrefab;
         
         private void Awake()
         {
@@ -28,11 +32,9 @@ namespace GameSystems.Units
             myStats = GetComponent<UnitStats>();
         }
 
-        public void UpdateStats(int dmg, float range, float ar)
+        public void UpdateStats(ItemSO_Weapon weaponSO)
         {
-            attackDamage = dmg;
-            attackRange = range;
-            attackRate = ar;
+            weapon = weaponSO;
         }
 
         IEnumerator AttackBehaviour()
@@ -41,7 +43,7 @@ namespace GameSystems.Units
             {
                 if (!IsInRangeOfTarget())
                 {
-                    navMovement.SetDestination(targetStats.transform.position, attackRange);
+                    navMovement.SetDestination(targetStats.transform.position, weapon.range);
                     yield return new WaitForSeconds(0.5f);
                 }
                 else
@@ -58,24 +60,23 @@ namespace GameSystems.Units
         IEnumerator Attack()
         {
             isAttackOnCooldown = true;
-            Debug.Log("ATTACK!");
 
             yield return new WaitForSeconds(0.2f);
 
-            if (projectilePrefab != null)
+            if (weapon.projectile != null)
             {
                 var position = transform.position;
-                var projectile = Instantiate(projectilePrefab, position, quaternion.identity);
+                var projectile = Instantiate(weapon.projectile, position, quaternion.identity).GetComponent<Projectile>();
                 Vector2 direction = (targetStats.transform.position - position).normalized;
-                projectile.Setup(attackDamage, direction, true);
+                projectile.Setup(weapon.damage, direction, true, myStats as EnemyStats);
             }
             else
             {
-                targetStats.OnTakeDamage(attackDamage);
+                targetStats.OnTakeDamage(weapon.damage, weapon.knockBack, transform.position);
                 myStats.PlayItemAnimation();
             }
 
-            yield return new WaitForSeconds(attackRate);
+            yield return new WaitForSeconds(weapon.attackRate);
             isAttackOnCooldown = false;
         }
         
@@ -83,7 +84,7 @@ namespace GameSystems.Units
         bool IsInRangeOfTarget()
         {
             float distance = Vector2.Distance(transform.position, targetStats.transform.position);
-            return distance <= attackRange;
+            return distance <= weapon.range;
         }
 
         private void OnReachDestination()
@@ -93,7 +94,6 @@ namespace GameSystems.Units
 
         public void SetTarget(UnitStats stats)
         {
-            Debug.Log("SET TARGET: " + stats);
             targetStats = stats;
             if(stats != null)
                 StartCoroutine(AttackBehaviour());

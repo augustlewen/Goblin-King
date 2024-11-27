@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.Items.SO
 {
@@ -7,9 +8,10 @@ namespace GameSystems.Items.SO
     {
         private ItemWeaponData itemWeaponData;
 
-        public int power;
-        public float haste;
+        [FormerlySerializedAs("power")] public int damage;
+        [FormerlySerializedAs("haste")] public float attackRate;
         public float range;
+        public float knockBack;
         public GameObject projectile;
         
         private void OnValidate()
