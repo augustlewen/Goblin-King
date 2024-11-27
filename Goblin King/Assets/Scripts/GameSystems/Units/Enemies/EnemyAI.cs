@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using GameSystems.Units.AI;
 using GameSystems.Units.Goblins;
+using GameSystems.Units.King;
 using UnityEngine;
 
 namespace GameSystems.Units.Enemies
@@ -26,6 +28,13 @@ namespace GameSystems.Units.Enemies
 
         public override void Update()
         {
+            float distanceFromKing = Vector2.Distance(transform.position, KingMovement.i.transform.position);
+            if (distanceFromKing > 20)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            
             base.Update();
             
             foreach (var goblinStats in goblinsInSight)
@@ -38,13 +47,12 @@ namespace GameSystems.Units.Enemies
             }
         }
 
-       
-
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             var goblinStats = other.gameObject.GetComponent<GoblinStats>();
             if (goblinStats != null)
                 goblinsInSight.Add(goblinStats);
         }
+        
     }
 }

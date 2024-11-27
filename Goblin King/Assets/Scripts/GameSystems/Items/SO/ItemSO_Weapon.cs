@@ -14,7 +14,7 @@ namespace GameSystems.Items.SO
         
         private void OnValidate()
         {
-            itemType = ItemType.Tool;
+            itemType = ItemType.Weapon;
             isEquipable = true;
         }
         

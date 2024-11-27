@@ -23,7 +23,7 @@ namespace GameSystems.Units
         
         private void Awake()
         {
-            navMovement = GetComponent<AINavMovement>();
+            navMovement = GetComponentInChildren<AINavMovement>();
             navMovement.OnReachDestination.AddListener(OnReachDestination);
         }
 

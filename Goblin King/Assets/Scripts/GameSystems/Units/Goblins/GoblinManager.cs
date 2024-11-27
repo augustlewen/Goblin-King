@@ -32,11 +32,11 @@ namespace GameSystems.Units.Goblins
         {
             for (int i = 0; i < startItems.Count; i++)
             {
-                var goblin = Instantiate(goblinPrefab, new Vector3(i, i, 0), quaternion.identity, transform).GetComponent<GoblinAI>();
+                var goblin = Instantiate(goblinPrefab, new Vector3(i, i, 0), quaternion.identity, transform).GetComponentInChildren<GoblinAI>();
                 goblins.Add(goblin);
                 goblinParty.Add(goblin);
 
-                goblin.GetComponent<GoblinStats>().EquipItem(startItems[i].CreateItemData());
+                goblin.stats.EquipItem(startItems[i].CreateItemData());
             }
             
             FindAnyObjectByType<ChunkNavBaker>().OnNavMeshBuilt.RemoveListener(SpawnGoblins);

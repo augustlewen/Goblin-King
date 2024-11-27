@@ -11,12 +11,14 @@ namespace GameSystems.Units.King
         public static KingMovement i;
         [HideInInspector] public UnityEvent OnMoveUpdate = new();
         public float speed;
+
+        public BoxCollider navArea;
         
         [Header("Movement Update")]
         public float updateRate = 0.1f;
         public float movementThreshold = 3;
         private Vector3 worldAnchor;
-
+        
 
         private void Awake()
         {

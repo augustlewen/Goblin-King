@@ -10,7 +10,7 @@ namespace GameSystems.Units.Goblins.AI
     public class GoblinAI : AINavMovement
     {
         private Task currentTask;
-        [HideInInspector] public GoblinStats stats;
+        public GoblinStats stats;
 
         public float interactOffsetDistance;
         public float kingOffsetDistance;
@@ -18,7 +18,6 @@ namespace GameSystems.Units.Goblins.AI
 
         private void Awake()
         {
-            stats = GetComponent<GoblinStats>();
             isIdle = true;
         }
 
