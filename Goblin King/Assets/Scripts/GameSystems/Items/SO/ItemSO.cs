@@ -22,6 +22,9 @@ namespace GameSystems.Items.SO
                     return tool;
                 case ItemType.Resource : var resource = new ItemResourceData(this as ItemSO_Resource);
                     return resource;
+                case ItemType.Weapon :
+                    var weapon = new ItemWeaponData(this as ItemSO_Weapon);
+                    return weapon;
             }
         
             return null;

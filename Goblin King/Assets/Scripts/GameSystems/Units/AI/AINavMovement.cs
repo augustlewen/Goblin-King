@@ -17,7 +17,7 @@ namespace GameSystems.Units.AI
         [FormerlySerializedAs("combatAIBehaviour")] [HideInInspector]public CombatAIBehaviour combatAI;
         
         
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             agent.updateRotation = false; // Prevents rotation in 2D

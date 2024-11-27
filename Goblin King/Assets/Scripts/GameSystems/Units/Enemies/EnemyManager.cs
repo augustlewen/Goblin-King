@@ -30,7 +30,7 @@ namespace GameSystems.Units.Enemies
         {
             while (true)
             {
-                if (enemies.Count(enemy => enemy.activeSelf) >= maxActiveEnemies) 
+                if (enemies.Count(enemy => enemy.activeSelf) >= maxActiveEnemies)
                     yield return new WaitForSeconds(spawnRate);
                 
                 Vector2 kingPos = KingMovement.i.transform.position;
@@ -41,7 +41,7 @@ namespace GameSystems.Units.Enemies
                 xOffset *= Random.value > 0.5f ? 1 : -1;
                 yOffset *= Random.value > 0.5f ? 1 : -1;
 
-                ObjectPooling.ActivateObject(enemies, kingPos + new Vector2(xOffset, yOffset));
+                var go = ObjectPooling.ActivateObject(enemies, kingPos + new Vector2(xOffset, yOffset));
                 yield return new WaitForSeconds(spawnRate);
             }
         }

@@ -31,7 +31,8 @@ namespace GameSystems.Units.Enemies
             float distanceFromKing = Vector2.Distance(transform.position, KingMovement.i.transform.position);
             if (distanceFromKing > 20)
             {
-                transform.parent.gameObject.SetActive(false);
+                Debug.Log("Distance is " + distanceFromKing + ", time to despawn");
+                gameObject.SetActive(false);
                 return;
             }
             
@@ -43,20 +44,21 @@ namespace GameSystems.Units.Enemies
                 if (distance > loseSightDistance)
                 {
                     goblinsInSight.Remove(goblinStats);
+                    
+                    if(goblinsInSight.Count == 0)
+                        combatAI.SetTarget(null);
                 }
             }
 
             if (goblinsInSight.Count > 0)
                 combatAI.SetTarget(GetBestTarget());
-            else
-                combatAI.SetTarget(null);
         }
 
         GoblinStats GetBestTarget()
         {
             GoblinStats closestGoblin = null;
             float closestDistance = Mathf.Infinity;
-
+            
             foreach (var goblin in goblinsInSight)
             {
                 float distance = Vector3.Distance(transform.position, goblin.transform.position);
@@ -75,8 +77,9 @@ namespace GameSystems.Units.Enemies
         {
             var goblinStats = other.gameObject.GetComponent<GoblinStats>();
             if (goblinStats != null)
+            {
                 goblinsInSight.Add(goblinStats);
+            }
         }
-        
     }
 }

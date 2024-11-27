@@ -16,16 +16,18 @@ namespace GameSystems.Units.Goblins.AI
         public float kingOffsetDistance;
         private bool isIdle;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             isIdle = true;
         }
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             KingMovement.i.OnMoveUpdate.AddListener(OnKingMoveUpdate);
         }
+        
+        
 
         private void OnKingMoveUpdate()
         {

@@ -25,6 +25,7 @@ namespace GameSystems.Units
         {
             navMovement = GetComponentInChildren<AINavMovement>();
             navMovement.OnReachDestination.AddListener(OnReachDestination);
+            myStats = GetComponent<UnitStats>();
         }
 
         public void UpdateStats(int dmg, float range, float ar)
@@ -57,6 +58,7 @@ namespace GameSystems.Units
         IEnumerator Attack()
         {
             isAttackOnCooldown = true;
+            Debug.Log("ATTACK!");
 
             yield return new WaitForSeconds(0.2f);
 
@@ -91,6 +93,7 @@ namespace GameSystems.Units
 
         public void SetTarget(UnitStats stats)
         {
+            Debug.Log("SET TARGET: " + stats);
             targetStats = stats;
             if(stats != null)
                 StartCoroutine(AttackBehaviour());

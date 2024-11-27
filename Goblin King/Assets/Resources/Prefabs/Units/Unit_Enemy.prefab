@@ -114,11 +114,11 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8809083004459344566
 MonoBehaviour:
@@ -136,7 +136,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   combatAI: {fileID: 0}
-  sightRadius: 4
+  sightRadius: 7
   sightCollider: {fileID: 5616643122448837686}
 --- !u!212 &7684428433216552716 stripped
 SpriteRenderer:

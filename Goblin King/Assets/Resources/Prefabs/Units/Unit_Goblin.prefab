@@ -99,6 +99,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit_Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 3797851876955137444, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797851876955137444, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5750568032840976839, guid: a596ec978dd27d148b658aab9e14b377, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
