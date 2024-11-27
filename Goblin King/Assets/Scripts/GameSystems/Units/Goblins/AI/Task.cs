@@ -36,7 +36,7 @@ namespace GameSystems.Units.Goblins.AI
             {
                 yield return new WaitForSeconds(tool.toolSO.haste);
                 
-                ai.stats.itemAnimator.SetTrigger("PlayOnce");
+                ai.stats.PlayItemAnimation();
                 
                 if(breakableObj != null)
                     breakableObj.TakeDamage(tool.toolSO.power);

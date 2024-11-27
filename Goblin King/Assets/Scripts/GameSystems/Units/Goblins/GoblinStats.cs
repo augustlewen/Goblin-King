@@ -7,14 +7,11 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public ItemData equippedItem;
         public BagInventory bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
 
-        public SpriteRenderer itemSprite;
         public SpriteRenderer bagSprite;
-        public Animator itemAnimator;        
 
         private void Awake()
         {
