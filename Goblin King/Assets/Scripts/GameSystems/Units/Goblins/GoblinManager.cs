@@ -48,6 +48,7 @@ namespace GameSystems.Units.Goblins
             if (task.taskType == Task.TaskType.Attack)
             {
                 var viableGoblins = GetAllViableGoblins(task);
+                Debug.Log("ADD TASK ATTACK TO " + viableGoblins.Count + " Goblins");
                 foreach (var goblin in viableGoblins)
                     goblin.AssignTask(task);
                 return;

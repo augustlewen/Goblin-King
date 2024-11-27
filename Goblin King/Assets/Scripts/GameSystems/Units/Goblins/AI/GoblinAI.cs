@@ -45,7 +45,10 @@ namespace GameSystems.Units.Goblins.AI
             isIdle = false;
 
             if (currentTask.taskType == Task.TaskType.Attack)
+            {
                 combatAI.SetTarget(newTask.taskObject.GetComponent<UnitStats>());
+                Debug.Log("SET TARGET Enemy");
+            }
             else
             {
                 Vector2 targetPosition = currentTask.taskObject.transform.position;
