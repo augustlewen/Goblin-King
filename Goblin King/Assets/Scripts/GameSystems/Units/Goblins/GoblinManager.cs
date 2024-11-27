@@ -45,28 +45,38 @@ namespace GameSystems.Units.Goblins
 
         public void AddTask(Task task)
         {
+            if (task.taskType == Task.TaskType.Attack)
+            {
+                var viableGoblins = GetAllViableGoblins(task);
+                foreach (var goblin in viableGoblins)
+                    goblin.AssignTask(task);
+                return;
+            }
+                
             GoblinAI goblinAI = GetAppropriateGoblin(task);
-            
-            if(goblinAI != null)
+
+            if (goblinAI != null)
+            {
                 goblinAI.AssignTask(task);
+            }
             else
                 queuedTasks.Add(task);
-            
-            
-            // switch (task.taskType)
-            // {
-            //     case Task.TaskType.BreakObject: GetAppropriateGoblin(task.taskType, task.taskObject)?.AssignTask(task);
-            //         break;
-            // }
         }
-
-        private GoblinAI GetAppropriateGoblin(Task task)
+        
+        private List<GoblinAI> GetAllViableGoblins(Task task)
         {
             List<GoblinAI> viableGoblins = new();
             
             foreach (var goblinAI in goblinParty)
                 if(goblinAI.IsIdle() && IsGoblinViableForTask(goblinAI, task))
                     viableGoblins.Add(goblinAI);
+
+            return viableGoblins;
+        }
+
+        private GoblinAI GetAppropriateGoblin(Task task)
+        {
+            List<GoblinAI> viableGoblins = GetAllViableGoblins(task);
             
             if (viableGoblins.Count == 0)
             {
@@ -127,9 +137,10 @@ namespace GameSystems.Units.Goblins
                         return goblinAI.stats.HasTool(breakable.breakTool);
                 case Task.TaskType.Loot : return goblinAI.stats.bag != null;
             }
-            
             return false;
         }
+
+        
         
         
         

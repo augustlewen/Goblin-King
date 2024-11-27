@@ -23,7 +23,7 @@ namespace GameSystems.Interactions
             // Call OnSelect on each ISelect component
             foreach (var selectable in selectableComponents)
             {
-                selectable.OnSelectTask();
+                selectable.SelectTask();
             }
         }
 

@@ -31,7 +31,6 @@ namespace GameSystems.Units.Enemies
             float distanceFromKing = Vector2.Distance(transform.position, KingMovement.i.transform.position);
             if (distanceFromKing > 20)
             {
-                Debug.Log("Distance is " + distanceFromKing + ", time to despawn");
                 gameObject.SetActive(false);
                 return;
             }
@@ -76,6 +75,7 @@ namespace GameSystems.Units.Enemies
         private void OnTriggerEnter(Collider other)
         {
             var goblinStats = other.gameObject.GetComponent<GoblinStats>();
+            Debug.Log(goblinStats);
             if (goblinStats != null)
             {
                 goblinsInSight.Add(goblinStats);

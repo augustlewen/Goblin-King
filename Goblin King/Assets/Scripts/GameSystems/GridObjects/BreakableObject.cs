@@ -3,16 +3,15 @@ using GameSystems.Items;
 using GameSystems.Items.SO;
 using GameSystems.Units.Goblins.AI;
 using GameSystems.World.Grid;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace GameSystems.GridObjects
 {
-    public class BreakableObject : TaskObject
+    public class BreakableObject : GridObject
     {
         public ToolType breakTool;
-        [FormerlySerializedAs("dropTable")] public LootTable lootTable;
+        public LootTable lootTable;
         public int hp;
 
         private SpriteRenderer spriteRenderer;
@@ -21,6 +20,9 @@ namespace GameSystems.GridObjects
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            var taskObj = gameObject.AddComponent<TaskObject>();
+            taskObj.taskType = Task.TaskType.BreakObject;
+            taskObj.OnSelectTask.AddListener(OnSelectTask);
         }
 
         public override void Setup(GridObjectSO gridObjectSO)
@@ -34,10 +36,9 @@ namespace GameSystems.GridObjects
                 lootTable = gosoBreakable.lootTable;
             }
         }
-
-        public override void OnSelectTask()
+        
+        private void OnSelectTask()
         {
-            base.OnSelectTask();
             spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
         }
 
@@ -53,8 +54,6 @@ namespace GameSystems.GridObjects
 
         private void Break()
         {
-            // var item = Instantiate(new GameObject(), transform.position, quaternion.identity);
-            // item.AddComponent<DroppedItem>().item = dropItem;
             lootTable.DropItems(transform.position);
             gameObject.SetActive(false);
         }

@@ -1,21 +1,30 @@
+using System;
 using GameSystems.Units.Goblins;
 using GameSystems.Units.Goblins.AI;
 using GameSystems.World.Grid;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameSystems.Interactions
 {
-    public class TaskObject : GridObject, ISelect
+    public class TaskObject : MonoBehaviour, ISelect
     {
+        [HideInInspector] public readonly UnityEvent OnSelectTask = new();
         public Task.TaskType taskType;
         private bool isTask;
-        
-        public virtual void OnSelectTask()
+
+        private void Awake()
+        {
+            gameObject.AddComponent<MouseInteractable>();
+        }
+
+        public virtual void SelectTask()
         {
             if (!isTask)
             {
                 GoblinManager.i.AddTask(new Task(taskType, this));
                 isTask = true;
+                OnSelectTask.Invoke();
             }
         }
         

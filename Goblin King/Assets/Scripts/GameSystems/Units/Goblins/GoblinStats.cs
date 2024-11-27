@@ -49,6 +49,11 @@ namespace GameSystems.Units.Goblins
             return GetTool(type) != null;
         }
 
+        public bool HasWeapon()
+        {
+            return equippedItem != null && equippedItem.GetItemType() == ItemType.Weapon;
+        }
+
         public ItemToolData GetTool(ToolType type)
         {
             // Check if item can be cast to ItemSO_Tool

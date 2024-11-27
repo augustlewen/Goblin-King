@@ -42,10 +42,16 @@ namespace GameSystems.Units.Goblins.AI
         public void AssignTask(Task newTask)
         {
             currentTask = newTask;
-            
-            Vector2 targetPosition = currentTask.taskObject.transform.position;
-            SetDestination(targetPosition, interactOffsetDistance);
             isIdle = false;
+
+            if (currentTask.taskType == Task.TaskType.Attack)
+                combatAI.SetTarget(newTask.taskObject.GetComponent<UnitStats>());
+            else
+            {
+                Vector2 targetPosition = currentTask.taskObject.transform.position;
+                SetDestination(targetPosition, interactOffsetDistance);
+            }
+            
         }
 
         protected override void ReachedDestination()

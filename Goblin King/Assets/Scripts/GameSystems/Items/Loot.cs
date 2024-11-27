@@ -23,7 +23,7 @@ namespace GameSystems.Items
                     Debug.Log(itemData + "'s is null");
             }
             
-            OnSelectTask();
+            SelectTask();
         }
 
         public void LootItems(BagInventory bagInventory)
