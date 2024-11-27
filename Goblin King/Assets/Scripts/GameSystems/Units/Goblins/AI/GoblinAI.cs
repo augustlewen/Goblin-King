@@ -47,7 +47,6 @@ namespace GameSystems.Units.Goblins.AI
             if (currentTask.taskType == Task.TaskType.Attack)
             {
                 combatAI.SetTarget(newTask.taskObject.GetComponent<UnitStats>());
-                Debug.Log("SET TARGET Enemy");
             }
             else
             {

@@ -1,18 +1,26 @@
 using System;
 using GameSystems.Items.SO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.Units
 {
     public class UnitStats : MonoBehaviour
     {
-        public int hp;
+        [SerializeField] private int maxHp;
+        [HideInInspector] public int hp;
         public float moveSpeed;
         public ItemData equippedItem;
         
         public SpriteRenderer itemSprite;
         
         [SerializeField] private Animator itemAnimator;
+
+
+        private void OnEnable()
+        {
+            hp = maxHp;
+        }
 
         public virtual void OnTakeDamage(int damage, float knockBackForce, Vector3 sourcePos)
         {
@@ -32,6 +40,7 @@ namespace GameSystems.Units
 
         protected virtual void OnDeath()
         {
+            gameObject.SetActive(false);
         }
 
         public void PlayItemAnimation()

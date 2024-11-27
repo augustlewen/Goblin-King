@@ -27,6 +27,7 @@ namespace GameSystems.Units.Enemies
         protected override void OnDeath()
         {
             lootTable.DropItems(transform.position);
+            targetArrow.gameObject.SetActive(false);
             base.OnDeath();
         }
 

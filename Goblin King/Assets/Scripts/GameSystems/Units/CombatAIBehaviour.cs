@@ -39,7 +39,7 @@ namespace GameSystems.Units
 
         IEnumerator AttackBehaviour()
         {
-            while (targetStats != null)
+            while (targetStats != null && targetStats.hp > 0)
             {
                 if (!IsInRangeOfTarget())
                 {

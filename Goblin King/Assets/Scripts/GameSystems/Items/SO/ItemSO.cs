@@ -38,32 +38,6 @@ namespace GameSystems.Items.SO
     {
         public ItemSO itemSO;
         
-        public System.Object GetItemSO()
-        {
-            switch (itemSO.itemType)
-            {
-                case ItemType.Bag: return itemSO as ItemSO_Bag;
-                case ItemType.Tool: return itemSO as ItemSO_Tool;
-                case ItemType.Resource: return itemSO as ItemSO_Resource;
-                case ItemType.Weapon: return itemSO as ItemSO_Weapon;
-            }
-        
-            return null;
-        }
-
-        // public ItemBagData GetBagData()
-        // {
-        //     return this as ItemBagData;
-        // }
-        // public ItemToolData GetToolData()
-        // {
-        //     return this as ItemToolData;
-        // }
-        // public ItemResourceData GetResourceData()
-        // {
-        //     return this as ItemResourceData;
-        // }
-        
         public T GetSpecificData<T>() where T : class
         {
             return this as T;

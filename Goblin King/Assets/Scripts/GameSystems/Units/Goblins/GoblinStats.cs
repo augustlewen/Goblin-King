@@ -40,6 +40,11 @@ namespace GameSystems.Units.Goblins
                     itemSprite.sprite = item.itemSO.sprite;
                     bagSprite.gameObject.SetActive(false);
                     itemSprite.gameObject.SetActive(true);
+
+                    if (equippedItem.GetItemType() == ItemType.Weapon)
+                    {
+                        GetComponent<CombatAIBehaviour>().UpdateStats(equippedItem.GetSpecificData<ItemWeaponData>().weaponSO);
+                    }
                 } break;
             }
         }

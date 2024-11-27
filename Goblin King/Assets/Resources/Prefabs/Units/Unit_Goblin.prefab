@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc3db6284434d33898a1aa1fa8529d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 20
   hp: 20
   moveSpeed: 4
   itemSprite: {fileID: 1352168945258402803}

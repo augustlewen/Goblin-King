@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameSystems.GridObjects;
+using GameSystems.Interactions;
 using GameSystems.Items;
 using GameSystems.Items.SO;
 using GameSystems.Units.AI;
@@ -48,7 +49,6 @@ namespace GameSystems.Units.Goblins
             if (task.taskType == Task.TaskType.Attack)
             {
                 var viableGoblins = GetAllViableGoblins(task);
-                Debug.Log("ADD TASK ATTACK TO " + viableGoblins.Count + " Goblins");
                 foreach (var goblin in viableGoblins)
                     goblin.AssignTask(task);
                 return;
@@ -137,6 +137,7 @@ namespace GameSystems.Units.Goblins
                 case Task.TaskType.BreakObject : BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();
                         return goblinAI.stats.HasTool(breakable.breakTool);
                 case Task.TaskType.Loot : return goblinAI.stats.bag != null;
+                case Task.TaskType.Attack : return goblinAI.stats.HasWeapon();
             }
             return false;
         }
