@@ -6,7 +6,7 @@ namespace GameSystems.Units.AI
 {
     public class AINavMovement : MonoBehaviour
     {
-        public UnityEvent OnReachDestination = new();
+        [HideInInspector] public UnityEvent OnReachDestination = new();
         private NavMeshAgent agent;
         
         private AIGrid grid; // Reference to the grid
