@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameSystems.Units.AI;
 using GameSystems.Units.Goblins;
 using GameSystems.Units.King;
@@ -37,7 +38,7 @@ namespace GameSystems.Units.Enemies
             
             base.Update();
             
-            foreach (var goblinStats in goblinsInSight)
+            foreach (var goblinStats in goblinsInSight.ToList())
             {
                 var distance = Vector2.Distance(transform.position, goblinStats.transform.position);
                 if (distance > loseSightDistance)
