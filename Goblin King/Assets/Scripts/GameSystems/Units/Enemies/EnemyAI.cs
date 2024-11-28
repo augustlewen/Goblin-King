@@ -62,12 +62,12 @@ namespace GameSystems.Units.Enemies
             foreach (var goblin in goblinsInSight)
             {
                 float distance = Vector3.Distance(transform.position, goblin.transform.position);
-            
-                if (distance < closestDistance)
-                {
-                    closestDistance = distance;
-                    closestGoblin = goblin;
-                }
+
+                if (!(distance < closestDistance)) 
+                    continue;
+                
+                closestDistance = distance;
+                closestGoblin = goblin;
             }
 
             return closestGoblin;
