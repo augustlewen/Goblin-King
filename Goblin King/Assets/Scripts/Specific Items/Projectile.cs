@@ -14,14 +14,19 @@ namespace Specific_Items
         private float knockBackForce;
 
         private bool isTargetGoblin;
-        
+        private Rigidbody rb;
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
         public void Setup(int dmg, Vector2 direction, bool rotateTowardsDirection, bool isTargetingGoblin)
         {
             isTargetGoblin = isTargetingGoblin;
             damage = dmg;
-            var rb = GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
             
+            rb.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
             rb.AddForce(direction * speed, ForceMode.VelocityChange);
             
             if (rotateTowardsDirection)

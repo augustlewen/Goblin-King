@@ -4,6 +4,7 @@ using System.Linq;
 using GameSystems.Units.AI;
 using GameSystems.Units.Goblins;
 using GameSystems.Units.King;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace GameSystems.Units.Enemies
@@ -11,20 +12,27 @@ namespace GameSystems.Units.Enemies
     public class EnemyAI : AINavMovement
     {
         public float sightRadius;
-        public SphereCollider sightCollider;
+        // public SphereCollider sightCollider;
 
         private float attackRadius;
         private float loseSightDistance;
-        private readonly HashSet<GoblinStats> goblinsInSight = new();
+        List<GoblinStats> goblinsInSight = new();
         
         private void OnValidate()
         {
-            if (sightCollider == null)
-                sightCollider = GetComponent<SphereCollider>();
-            else
-                sightCollider.radius = sightRadius;
+            // if (sightCollider == null)
+            //     sightCollider = GetComponent<SphereCollider>();
+            // else
+            //     sightCollider.radius = sightRadius;
 
+            // loseSightDistance = sightRadius * 1.25f;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             loseSightDistance = sightRadius * 1.25f;
+
         }
 
         public override void Update()
@@ -37,20 +45,22 @@ namespace GameSystems.Units.Enemies
             }
             
             base.Update();
-            
-            foreach (var goblinStats in goblinsInSight.ToList())
-            {
-                var distance = Vector2.Distance(transform.position, goblinStats.transform.position);
-                if (distance > loseSightDistance)
-                {
-                    goblinsInSight.Remove(goblinStats);
-                    
-                    if(goblinsInSight.Count == 0)
-                        combatAI.SetTarget(null);
-                }
-            }
 
-            if (goblinsInSight.Count > 0)
+            var colliders = Physics.OverlapSphere(transform.position, sightRadius, LayerMask.GetMask("Unit"));
+            goblinsInSight.Clear();
+
+            foreach (var overlapCollider in colliders)
+            {
+                GoblinStats goblinStats = overlapCollider.gameObject.GetComponent<GoblinStats>();
+                if (goblinStats == null)
+                    continue;
+
+                goblinsInSight.Add(goblinStats);
+            }
+            
+            if(goblinsInSight.Count == 0)
+                combatAI.SetTarget(null);
+            else
                 combatAI.SetTarget(GetBestTarget());
         }
 
@@ -73,13 +83,13 @@ namespace GameSystems.Units.Enemies
             return closestGoblin;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            var goblinStats = other.gameObject.GetComponent<GoblinStats>();
-            if (goblinStats != null)
-            {
-                goblinsInSight.Add(goblinStats);
-            }
-        }
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     var goblinStats = other.gameObject.GetComponent<GoblinStats>();
+        //     if (goblinStats != null)
+        //     {
+        //         goblinsInSight.Add(goblinStats);
+        //     }
+        // }
     }
 }

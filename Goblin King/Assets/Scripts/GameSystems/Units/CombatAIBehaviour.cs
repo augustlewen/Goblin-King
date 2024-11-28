@@ -5,11 +5,13 @@ using GameSystems.Units.Enemies;
 using Specific_Items;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameSystems.Units
 {
     public class CombatAIBehaviour : MonoBehaviour
     {
+        [HideInInspector] public UnityEvent OnTargetKilled = new();
         private UnitStats targetStats;
 
         private UnitStats myStats;
@@ -19,25 +21,21 @@ namespace GameSystems.Units
         private bool isAttackOnCooldown;
 
         private ItemSO_Weapon weapon;
-        // int attackDamage;
-        // float attackRange;
-        // float attackRate;
-        // private float knockBackForce;
-        // private Projectile projectilePrefab;
+        private bool isProjectileWeapon;
         
         private void Awake()
         {
             navMovement = GetComponentInChildren<AINavMovement>();
-            navMovement.OnReachDestination.AddListener(OnReachDestination);
             myStats = GetComponent<UnitStats>();
         }
 
         public void UpdateStats(ItemSO_Weapon weaponSO)
         {
             weapon = weaponSO;
+            isProjectileWeapon = weaponSO.projectile != null;
         }
 
-        IEnumerator AttackBehaviour()
+        private IEnumerator AttackBehaviour()
         {
             while (targetStats != null && targetStats.hp > 0)
             {
@@ -53,17 +51,19 @@ namespace GameSystems.Units
                     
                     yield return new WaitForSeconds(0.05f);
                 }
-
             }
+
+            OnTargetKilled.Invoke();
+            targetStats = null;
         }
 
-        IEnumerator Attack()
+        private IEnumerator Attack()
         {
             isAttackOnCooldown = true;
 
             yield return new WaitForSeconds(0.2f);
 
-            if (weapon.projectile != null)
+            if (isProjectileWeapon)
             {
                 var position = transform.position;
                 var projectile = Instantiate(weapon.projectile, position, quaternion.identity).GetComponent<Projectile>();
@@ -85,11 +85,6 @@ namespace GameSystems.Units
         {
             float distance = Vector2.Distance(transform.position, targetStats.transform.position);
             return distance <= weapon.range;
-        }
-
-        private void OnReachDestination()
-        {
-            
         }
 
         public void SetTarget(UnitStats stats)

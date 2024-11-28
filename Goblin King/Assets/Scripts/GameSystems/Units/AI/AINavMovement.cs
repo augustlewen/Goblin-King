@@ -14,7 +14,7 @@ namespace GameSystems.Units.AI
         private Vector2Int gridPosition; // The current grid position
         private bool hasDestination;
 
-        [FormerlySerializedAs("combatAIBehaviour")] [HideInInspector]public CombatAIBehaviour combatAI;
+        [HideInInspector]public CombatAIBehaviour combatAI;
         
         
         protected virtual void Awake()

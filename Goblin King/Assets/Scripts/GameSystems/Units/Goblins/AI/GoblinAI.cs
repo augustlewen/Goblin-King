@@ -25,6 +25,7 @@ namespace GameSystems.Units.Goblins.AI
         protected void Start()
         {
             KingMovement.i.OnMoveUpdate.AddListener(OnKingMoveUpdate);
+            combatAI.OnTargetKilled.AddListener(OnTaskComplete);
         }
         
         
