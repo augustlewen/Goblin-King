@@ -21,10 +21,13 @@ namespace GameSystems.Items
         public void DropItems(Vector2 position)
         {
             var items = GetDroppedItems();
+            
+            if(items.Length == 0)
+                return;
+            
             List<ItemData> loot = new();
             foreach (var itemSO in items)
             {
-                Debug.Log(itemSO);
                 var item = itemSO.CreateItemData();
                 loot.Add(item);
             }
