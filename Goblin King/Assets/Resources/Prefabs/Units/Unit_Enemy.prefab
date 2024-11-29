@@ -293,7 +293,6 @@ MonoBehaviour:
       m_Calls: []
   combatAI: {fileID: 0}
   sightRadius: 7
-  sightCollider: {fileID: 1110909556849948609}
 --- !u!114 &4968622135804135335
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskType: 0
   breakTool: 1
   lootTable:
     itemDrops: []
@@ -151,5 +150,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Size: {x: 1, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}

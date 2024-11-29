@@ -78,10 +78,14 @@ namespace GameSystems.World
     
             for (int i = 0; i < spawnCount; i++)
             {
-                Vector3Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
+                Vector2Int spawnPosition = GetRandomPosition(chunkCoord, chunkSize);
+
+                if (!IsValidPosition(spawnPosition))
+                    yield break;
+                
                 // Instantiate(objData.prefab, tilemap.GetCellCenterWorld(spawnPosition), Quaternion.identity, chunk);
                 // ObjectPooling.ActivateObject(breakableObjects, tilemap.GetCellCenterWorld(spawnPosition));
-                ActivateObjects(tilemap.GetCellCenterWorld(spawnPosition), objData, chunk);
+                ActivateObjects(tilemap.GetCellCenterWorld((Vector3Int)spawnPosition), objData, chunk);
 
                 // Optional: Yield after each object to spread out load across frames
             }
@@ -89,11 +93,11 @@ namespace GameSystems.World
 
         }
 
-        private Vector3Int GetRandomPosition(Vector2Int chunkCoord, int chunkSize)
+        private Vector2Int GetRandomPosition(Vector2Int chunkCoord, int chunkSize)
         {
             int x = Random.Range(chunkCoord.x * chunkSize, (chunkCoord.x + 1) * chunkSize);
             int y = Random.Range(chunkCoord.y * chunkSize, (chunkCoord.y + 1) * chunkSize);
-            return new Vector3Int(x, y, 0); // Assuming a 2D game
+            return new Vector2Int(x, y); 
         }
         
         private Vector2Int GetRandomClusterCenter(Vector2Int chunkCoord, int chunkSize)
@@ -147,6 +151,8 @@ namespace GameSystems.World
                 HashSet<Vector2Int> visitedPositions = new HashSet<Vector2Int>();
 
                 Vector2Int startPosition = GetRandomClusterCenter(chunkCoord, chunkSize);
+                if (!IsValidPosition(startPosition))
+                    yield break;
 
                 Queue<Vector2Int> positionsToCheck = new Queue<Vector2Int>();
                 positionsToCheck.Enqueue(startPosition);
@@ -221,9 +227,9 @@ namespace GameSystems.World
             return neighbors.OrderBy(n => Random.value).ToList(); // Shuffle neighbors
         }
         
-        private bool IsValidPosition(Vector2 position)
+        private static bool IsValidPosition(Vector2 position)
         {
-            return !WorldGrid.i.IsOccupied(position);
+            return !WorldGrid.i.IsOccupied(position) && !BaseGenerator.IsPositionInBase(position);
         }
 
         
