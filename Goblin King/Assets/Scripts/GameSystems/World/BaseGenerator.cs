@@ -20,8 +20,6 @@ namespace GameSystems.World
             minX = (-size.x / 2) + center.x;
             maxY = (size.y / 2) + center.y;
             minY = (-size.y / 2) + center.y;
-            
-            Debug.Log(minX + " " + maxY);
         }
 
         public static bool IsPositionInBase(Vector2 position)
