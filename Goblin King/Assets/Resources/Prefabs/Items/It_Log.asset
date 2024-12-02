@@ -16,4 +16,4 @@ MonoBehaviour:
   itemType: 5
   isEquipable: 0
   sprite: {fileID: 21300000, guid: e9446ee786f8024428be31d9504a8dde, type: 3}
-  stackSize: 50
+  stackSize: 20
