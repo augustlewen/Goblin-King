@@ -15,6 +15,7 @@ namespace GameSystems.Items
         public class ItemDrop
         {
             public ItemSO item;
+            public int amount = 1;
             public float dropChance;
         }
         
@@ -41,7 +42,13 @@ namespace GameSystems.Items
             
             foreach (var itemDrop in itemDrops)
             {
-                if (Random.Range(1, 101) <= itemDrop.dropChance)
+                if (!(Random.Range(1, 101) <= itemDrop.dropChance)) 
+                    continue;
+                
+                for(int i = 0; i < itemDrop.amount; i++)
+                    items.Add(itemDrop.item);
+                
+                if(itemDrop.amount == 0)
                     items.Add(itemDrop.item);
             }
 
