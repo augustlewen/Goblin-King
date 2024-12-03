@@ -18,7 +18,7 @@ namespace GameSystems.World
 
         private readonly WorldGenerator worldGenerator;
         
-        public Chunk(Vector2Int coord, Tilemap map, WorldGenerator wg)
+        public Chunk(Vector2Int coord, Tilemap map, WorldGenerator wg, Transform parent)
         {
             chunkCoord = coord;
             tilemap = map;
@@ -34,7 +34,7 @@ namespace GameSystems.World
             // Create the GameObject for the chunk
             chunkObject = new GameObject("Chunk_" + coord);
             chunkObject.transform.position = new Vector3(chunkCoord.x * chunkSize, chunkCoord.y * chunkSize, 0);
-
+            chunkObject.transform.parent = parent;
             // Add a BoxCollider to the chunk
             // BoxCollider collider = chunkObject.AddComponent<BoxCollider>();
             // collider.size = new Vector3(chunkSize, 0, chunkSize); // Set collider size based on chunk size

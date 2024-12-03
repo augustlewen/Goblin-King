@@ -21,11 +21,5 @@ MonoBehaviour:
   lootTable:
     itemDrops:
     - item: {fileID: 11400000, guid: 73dab0e7885c2d94c9d34a0da1186c6f, type: 2}
-      amount: 0
-      dropChance: 100
-    - item: {fileID: 11400000, guid: 73dab0e7885c2d94c9d34a0da1186c6f, type: 2}
-      amount: 0
-      dropChance: 100
-    - item: {fileID: 11400000, guid: 73dab0e7885c2d94c9d34a0da1186c6f, type: 2}
-      amount: 0
+      amount: 8
       dropChance: 100

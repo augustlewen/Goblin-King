@@ -15,8 +15,9 @@ namespace GameSystems.Building
         private Color nonviablePlacementColor = new Color(1, 0.4f, 0.4f, 0.8f);
 
         private bool isBuilding;
+        private Vector2 mousePosition;
 
-        private void Start()
+        private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
@@ -31,8 +32,8 @@ namespace GameSystems.Building
                 return;
             }
             
-            spriteRenderer.sprite = gridObjectSO.sprite;
             gameObject.SetActive(true);
+            spriteRenderer.sprite = gridObjectSO.sprite;
         }
 
         private void Update()
@@ -40,11 +41,11 @@ namespace GameSystems.Building
             if(!isBuilding)
                 return;
             
-            if (IsValidPosition(Input.mousePosition))
+            if (IsValidPosition(mousePosition))
             {
                 spriteRenderer.color = viablePlacementColor;
                 if (Input.GetMouseButton(0))
-                    OnSelectPlacement.Invoke(Input.mousePosition);
+                    OnSelectPlacement.Invoke(mousePosition);
             }
             else
             {
@@ -57,14 +58,15 @@ namespace GameSystems.Building
         
         private void LateUpdate()
         {
-            Vector3 position = Input.mousePosition;
-            transform.position = Vector3.Lerp(transform.position, position, Time.deltaTime);
+            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition = WorldGrid.i.WorldToGridPosition(mousePosition);
+            transform.position = Vector3.Lerp(transform.position, mousePosition, Time.deltaTime * 8f);
         }
         
         
         private static bool IsValidPosition(Vector2 position)
         {
-            return !WorldGrid.i.IsOccupied(position) && !BaseGenerator.IsPositionInBase(position);
+            return !WorldGrid.i.IsOccupied(position) && BaseGenerator.IsPositionInBase(position);
         }
         
     }

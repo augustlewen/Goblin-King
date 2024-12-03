@@ -10,6 +10,7 @@ namespace GameSystems.World.Grid
 
         private Dictionary<Vector2Int, GridCell> grid;
         public float cellSize;
+        private static Vector2 gridOffset = new (0.5f, 0.5f);
 
         private void Awake()
         {
@@ -20,6 +21,7 @@ namespace GameSystems.World.Grid
         // Convert a world position to grid coordinates
         public Vector2Int WorldToGridPosition(Vector2 position)
         {
+            position += gridOffset;
             int x = Mathf.FloorToInt(position.x / cellSize);
             int y = Mathf.FloorToInt(position.y / cellSize);
             return new Vector2Int(x, y);

@@ -16,7 +16,8 @@ namespace GameSystems.World
         public float scale = 0.1f;  // Scale for Perlin Noise
 
         public int seed;
-        
+
+        public Transform chunkParent;
         // Dictionary to store generated chunks
         public readonly Dictionary<Vector2Int, Chunk> chunks = new ();
         public WorldObjectSpawner objectSpawner; // Reference to your object spawner
@@ -34,7 +35,7 @@ namespace GameSystems.World
             if (!chunks.ContainsKey(chunkCoord))
             {
                 // Create a new chunk if it doesn't exist
-                Chunk newChunk = new Chunk(chunkCoord, tilemap, this);
+                Chunk newChunk = new Chunk(chunkCoord, tilemap, this, chunkParent);
                 newChunk.Generate();
                 chunks[chunkCoord] = newChunk;
             }

@@ -15,6 +15,7 @@ namespace GameSystems.Building
 
         private void Awake()
         {
+            i = this;
             placementObject.OnSelectPlacement.AddListener(BuildAtLocation);
         }
 
