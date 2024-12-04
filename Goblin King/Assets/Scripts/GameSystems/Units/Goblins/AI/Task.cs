@@ -17,7 +17,8 @@ namespace GameSystems.Units.Goblins.AI
             BreakObject,
             Loot,
             Assign,
-            Attack
+            Attack,
+            Build
         }
 
 

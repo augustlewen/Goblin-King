@@ -1,5 +1,7 @@
 using System;
+using GameSystems.GridObjects;
 using GameSystems.World.Grid;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameSystems.Building
@@ -12,6 +14,7 @@ namespace GameSystems.Building
         public PlacementObject placementObject;
 
         private bool isBuilding;
+        public PlannedObject plannedObjectPrefab; 
 
         private void Awake()
         {
@@ -44,6 +47,8 @@ namespace GameSystems.Building
 
         private void BuildAtLocation(Vector2 location)
         {
+            var gridObject = Instantiate(plannedObjectPrefab, location, quaternion.identity);
+            gridObject.Setup(buildGridObject);
             ExitBuildMode();
         }
     }
