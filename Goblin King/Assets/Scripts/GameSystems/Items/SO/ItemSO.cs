@@ -1,6 +1,5 @@
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Events;
 
 namespace GameSystems.Items.SO
 {
@@ -38,6 +37,8 @@ namespace GameSystems.Items.SO
     
     public class ItemData
     {
+        public UnityEvent OnUpdateCount = new();
+
         public ItemSO itemSO;
         public int itemCount = 1;
         
@@ -48,19 +49,68 @@ namespace GameSystems.Items.SO
         public ItemType GetItemType() { return itemSO.itemType; }
         protected ItemData(ItemSO itemSO) { this.itemSO = itemSO; }
 
-        public int AddToStack(int count)
+
+        // public void SetItem(ItemData newItem)
+        // {
+        //     if (this == newItem)
+        //         return;
+        //
+        //     if (newItem == null)
+        //     {
+        //         OnRemoveItem.Invoke();
+        //         return;
+        //     }
+        //     
+        //     
+        //     // If moving resource to another resource stack, make sure that all the counted resources can be added to stack
+        //     if (itemSO == newItem.itemSO)
+        //     {
+        //         int remaining = AddToStack(newItem);
+        //
+        //         if(remaining == 0)
+        //             newItem.OnRemoveItem.Invoke();
+        //         
+        //         OnUpdateCount.Invoke();
+        //         newItem.OnUpdateCount.Invoke();
+        //         return;
+        //     }
+        //     
+        //     
+        //     if(slotItem != null)
+        //         RemoveItem();
+        //     
+        //     //Replace the old item with the new item
+        //     
+        //     itemImage.sprite = newItemData.itemSO.sprite;
+        //     itemImage.gameObject.SetActive(true);
+        //
+        //     UpdateItemCount();
+        //     
+        //     OnAddItem.Invoke(slotItem);
+        //     return 0;
+        // }
+        
+        public int AddToStack(ItemData otherItem)
         {
             if (itemSO.stackSize == 0 || itemCount == itemSO.stackSize)
-                return count;
+                return otherItem.itemCount;
 
-            itemCount += count;
+            itemCount += otherItem.itemCount;
+            otherItem.itemCount = 0;
+            
             if (itemCount > itemSO.stackSize)
             {
                 int remaining = itemCount - itemSO.stackSize;
                 itemCount = itemSO.stackSize;
+                
+                otherItem.itemCount = remaining;
+                otherItem.OnUpdateCount.Invoke();
+                OnUpdateCount.Invoke();
                 return remaining;
             }
-                
+            
+            OnUpdateCount.Invoke();
+            otherItem.OnUpdateCount.Invoke();
             return 0;
         }
     }

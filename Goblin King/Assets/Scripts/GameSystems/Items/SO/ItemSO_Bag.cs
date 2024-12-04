@@ -20,13 +20,13 @@ namespace GameSystems.Items.SO
     
     public class ItemBagData : ItemData
     {
-        [HideInInspector] public BagInventory bagInventory;
+        [HideInInspector] public Storage storage;
         public ItemSO_Bag bagSO;
 
         // Derived class constructor
         public ItemBagData(ItemSO_Bag bag) : base(bag) // Call base constructor
         {
-            bagInventory = new BagInventory(bag.slots);
+            storage = new Storage(bag.slots);
             bagSO = bag;
         }
         public int GetSlots()

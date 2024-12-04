@@ -73,21 +73,26 @@ namespace GameSystems.Items.UI
                 if(IsItemNonEmptyBag(hoveredItem))
                     return;
                     
+                hoveredItemSlot.SetItem(item);
+                hoveredItem = hoveredItem.itemCount == 0 ? null : hoveredItem;
+                itemInHandSlot.SetItem(hoveredItem);
+                
                 //Set the hovered slots item, and return remaining resource count if there are any
-                int remaining = hoveredItemSlot.SetItem(item);
-
-                //Set Old ItemSlot To Empty
-                if (hoveredItem == null || (hoveredItem.GetItemType() == ItemType.Resource && remaining > 0))
-                {
-                    itemInHandSlot.SetItem(null);
-                }
-                else  
-                {
-                    if (hoveredItem.itemSO == item.itemSO && hoveredItem.GetItemType() == ItemType.Resource)
-                        hoveredItem.GetSpecificData<ItemResourceData>().count = remaining;
-                    
-                    itemInHandSlot.SetItem(hoveredItem);
-                }
+                // int remaining = hoveredItemSlot.SetItem(item);
+                // //Set Old ItemSlot To Empty
+                // if (hoveredItem == null || remaining == 0)
+                // {
+                //     itemInHandSlot.SetItem(null);
+                // }
+                // else
+                // {
+                //     hoveredItem.itemCount = remaining;
+                //     
+                //     if (hoveredItem.itemSO == item.itemSO && hoveredItem.GetItemType() == ItemType.Resource)
+                //         hoveredItem.GetSpecificData<ItemResourceData>().count = remaining;
+                //     
+                //     itemInHandSlot.SetItem(hoveredItem);
+                // }
             }
         }
         
@@ -98,7 +103,7 @@ namespace GameSystems.Items.UI
                 return false;
             
             if (itemData.GetItemType() == ItemType.Bag)
-                if(itemData.GetSpecificData<ItemBagData>().bagInventory.items.Count != 0)
+                if(itemData.GetSpecificData<ItemBagData>().storage.storageItems.Count != 0)
                     return true;
 
             return false;

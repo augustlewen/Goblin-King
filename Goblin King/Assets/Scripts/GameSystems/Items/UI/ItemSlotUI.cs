@@ -18,45 +18,74 @@ namespace GameSystems.Items.UI
 
         public Image itemImage;
 
-        public int SetItem(ItemData newItemData)
+        public void SetItem(ItemData newItemData)
         {
             if (newItemData == slotItem)
-            {
-                Debug.Log("NOT MOVE ITEM");
-                return 0;
-            }
+                return;
             
             //Set Slot To Empty
             if (newItemData == null)
             {
                 RemoveItem();
-                return 0;
+                return;
             }
 
             // If moving resource to another resource stack, make sure that all the counted resources can be added to stack
-            if (slotItem != null && slotItem.itemSO == newItemData.itemSO)
+            if (slotItem != null)
             {
-                int remaining = slotItem.AddToStack(newItemData.itemCount);
-                UpdateItemCount();
-                
-                if(remaining == 0)
-                    RemoveItem();
-                
-                return remaining;
+                if (slotItem.itemSO == newItemData.itemSO)
+                {
+                    slotItem.AddToStack(newItemData);
+                    return;
+                }
+                OnRemoveItem.Invoke(slotItem);
             }
-            if(slotItem != null)
-                RemoveItem();
             
             //Replace the old item with the new item
             slotItem = newItemData;
+            slotItem.OnUpdateCount.AddListener(UpdateItemCount);
             itemImage.sprite = newItemData.itemSO.sprite;
             itemImage.gameObject.SetActive(true);
 
             UpdateItemCount();
-            
             OnAddItem.Invoke(slotItem);
-            return 0;
         }
+        
+        
+        // public int SetItem(ItemData newItemData)
+        // {
+        //     if (newItemData == slotItem)
+        //         return 1;
+        //     
+        //     //Set Slot To Empty
+        //     if (newItemData == null)
+        //     {
+        //         RemoveItem();
+        //         return 0;
+        //     }
+        //
+        //     // If moving resource to another resource stack, make sure that all the counted resources can be added to stack
+        //     if (slotItem != null)
+        //     {
+        //         if (slotItem.itemSO == newItemData.itemSO)
+        //         {
+        //             int remaining = slotItem.AddToStack(newItemData);
+        //             return remaining;
+        //         }
+        //         OnRemoveItem.Invoke(slotItem);
+        //     }
+        //     
+        //     //Replace the old item with the new item
+        //     slotItem = newItemData;
+        //     slotItem.OnUpdateCount.AddListener(UpdateItemCount);
+        //     itemImage.sprite = newItemData.itemSO.sprite;
+        //     itemImage.gameObject.SetActive(true);
+        //
+        //     UpdateItemCount();
+        //     OnAddItem.Invoke(slotItem);
+        //     return 0;
+        // }
+
 
         private void RemoveItem()
         {
@@ -77,7 +106,7 @@ namespace GameSystems.Items.UI
             if (slotItem.GetItemType() != ItemType.Resource)
                 return;
             
-            int count = slotItem.GetSpecificData<ItemResourceData>().count;
+            int count = slotItem.itemCount;
             countText.text = count != 0 ? count.ToString() : "";
             
         }

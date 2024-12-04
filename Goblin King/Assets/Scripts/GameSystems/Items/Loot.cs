@@ -26,11 +26,11 @@ namespace GameSystems.Items
             SelectTask();
         }
 
-        public void LootItems(BagInventory bagInventory)
+        public void LootItems(Storage storage)
         {
             foreach (var itemData in items.ToList())
             {
-                if (bagInventory.AddItem(itemData))
+                if (storage.AddItem(itemData))
                 {
                     items.Remove(itemData);
                 }

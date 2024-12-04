@@ -5,6 +5,8 @@ using GameSystems.Items;
 using GameSystems.Units.Goblins;
 using GameSystems.Units.Goblins.AI;
 using GameSystems.World.Grid;
+using Specific_Items;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace GameSystems.GridObjects
@@ -13,6 +15,8 @@ namespace GameSystems.GridObjects
     {
         private GridObjectSO gridObjectSO;
         private List<ItemObject> itemObjects;
+
+        public GridObject gridObjectPrefab;
 
         public void Setup(GridObjectSO goso)
         {
@@ -27,12 +31,15 @@ namespace GameSystems.GridObjects
             if (existingItemObj != null)
                 existingItemObj.count += itemObject.count;
             else
-            {
                 itemObjects.Add(itemObject);
+
+            if (gridObjectSO.recipe.IsRequirementsMet(itemObjects))
+            {
+                //Replace with GridObject!
+                var gridObject = Instantiate(gridObjectPrefab, transform.position, quaternion.identity);
+                gridObject.Setup(gridObjectSO);
             }
         }
-        
-        
         
         public Recipe GetRecipe()
         {

@@ -30,8 +30,8 @@ namespace UI.GoblinPanel
                 var slot = slotsLayout.GetChild(i).gameObject;
                 slot.SetActive(stats.bag.slots > i);
                 
-                if (stats.bag.items.Count > i)
-                    slot.GetComponent<ItemSlotUI>().SetItem(stats.bag.items[i]);
+                if (stats.bag.storageItems.Count > i)
+                    slot.GetComponent<ItemSlotUI>().SetItem(stats.bag.storageItems[i]);
             }
         }
 

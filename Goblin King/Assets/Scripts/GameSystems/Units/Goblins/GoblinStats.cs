@@ -7,7 +7,7 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public BagInventory bag;
+        public Storage bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
 
@@ -29,7 +29,7 @@ namespace GameSystems.Units.Goblins
             {
                 case ItemType.Bag:
                 {
-                    bag = item.GetSpecificData<ItemBagData>().bagInventory;
+                    bag = item.GetSpecificData<ItemBagData>().storage;
                     bagSprite.sprite = item.itemSO.sprite;
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);
