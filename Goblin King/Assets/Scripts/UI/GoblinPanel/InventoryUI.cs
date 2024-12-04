@@ -42,7 +42,7 @@ namespace UI.GoblinPanel
                 var slot = slotsLayout.GetChild(i).gameObject;
                 var itemSlot = slot.GetComponent<ItemSlotUI>();
 
-                if (itemSlot.item == null)
+                if (itemSlot.slotItem == null)
                     itemSlot.SetItem(item);
             }
         }
