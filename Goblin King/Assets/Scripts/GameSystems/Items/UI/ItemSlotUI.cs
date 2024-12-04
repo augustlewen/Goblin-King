@@ -13,75 +13,71 @@ namespace GameSystems.Items.UI
         [HideInInspector] public UnityEvent<ItemData> OnAddItem = new ();
         [HideInInspector] public UnityEvent<ItemData> OnRemoveItem = new ();
 
-        [HideInInspector] public ItemData item;
+        [HideInInspector] public ItemData slotItem;
         public TextMeshProUGUI countText;
 
         public Image itemImage;
 
-        public int SetItem(ItemData itemData)
+        public int SetItem(ItemData newItemData)
         {
-            if (itemData == item)
+            if (newItemData == slotItem)
             {
                 Debug.Log("NOT MOVE ITEM");
                 return 0;
             }
             
             //Set Slot To Empty
-            if (itemData == null)
+            if (newItemData == null)
             {
                 RemoveItem();
                 return 0;
             }
-            
-            //If moving resource to another resource stack, make sure that all the counted resources can be added to stack
-            if (item != null && item.GetItemType() != ItemType.Resource)
-            {
-                var resourceData = item.GetSpecificData<ItemResourceData>();
-                if (item.itemSO == itemData.itemSO && resourceData.CanAddToStack())
-                {
-                    int remaining = resourceData.AddToStack(itemData.GetSpecificData<ItemResourceData>().count);
-                    UpdateItemCount();
 
-                    if (remaining == 0)
-                        RemoveItem();
-                        
-                    return remaining;
-                }
+            // If moving resource to another resource stack, make sure that all the counted resources can be added to stack
+            if (slotItem != null && slotItem.itemSO == newItemData.itemSO)
+            {
+                int remaining = slotItem.AddToStack(newItemData.itemCount);
+                UpdateItemCount();
+                
+                if(remaining == 0)
+                    RemoveItem();
+                
+                return remaining;
             }
-            else if(item != null)
+            if(slotItem != null)
                 RemoveItem();
             
-            
-            item = itemData;
-            itemImage.sprite = itemData.GetSprite();
+            //Replace the old item with the new item
+            slotItem = newItemData;
+            itemImage.sprite = newItemData.itemSO.sprite;
             itemImage.gameObject.SetActive(true);
 
             UpdateItemCount();
             
-            OnAddItem.Invoke(item);
+            OnAddItem.Invoke(slotItem);
             return 0;
         }
 
         private void RemoveItem()
         {
-            OnRemoveItem.Invoke(item);
-            item = null;
+            OnRemoveItem.Invoke(slotItem);
+            slotItem = null;
             itemImage.gameObject.SetActive(false);
             UpdateItemCount();
         }
         
         private void UpdateItemCount()
         {
-            if (item == null)
+            if (slotItem == null)
             {
                 countText.text = "";
                 return;
             }
             
-            if (item.GetItemType() != ItemType.Resource)
+            if (slotItem.GetItemType() != ItemType.Resource)
                 return;
             
-            int count = item.GetSpecificData<ItemResourceData>().count;
+            int count = slotItem.GetSpecificData<ItemResourceData>().count;
             countText.text = count != 0 ? count.ToString() : "";
             
         }
