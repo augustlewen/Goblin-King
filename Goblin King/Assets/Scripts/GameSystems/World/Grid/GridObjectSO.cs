@@ -1,3 +1,4 @@
+using GameSystems.Items;
 using UnityEngine;
 
 namespace GameSystems.World.Grid
@@ -10,12 +11,14 @@ namespace GameSystems.World.Grid
         public GridObjectType type;
         public Sprite sprite;
 
+        public Recipe recipe;
     }
 
     public enum GridObjectType
     {
         NonBreakable,
         Breakable,
-        Station
+        Station,
+        Storage
     }
 }
