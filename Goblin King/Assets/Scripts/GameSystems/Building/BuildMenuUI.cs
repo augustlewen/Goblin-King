@@ -16,5 +16,10 @@ namespace GameSystems.Building
                 buildMenuObject.Setup(goso);
             }
         }
+
+        public void ToggleVisibility()
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
     }
 }
