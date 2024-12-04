@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace GameSystems.GridObjects
 {
-    public class BreakableObject : GridObject
+    public class BreakableObject : MonoBehaviour
     {
         public ToolType breakTool;
         public LootTable lootTable;
@@ -25,10 +25,8 @@ namespace GameSystems.GridObjects
             taskObj.OnSelectTask.AddListener(OnSelectTask);
         }
 
-        public override void Setup(GridObjectSO gridObjectSO)
+        public void Setup(GridObjectSO gridObjectSO)
         {
-            base.Setup(gridObjectSO);
-            
             if (gridObjectSO is GOSO_Breakable gosoBreakable)
             {
                 hp = gosoBreakable.hp;
@@ -36,6 +34,7 @@ namespace GameSystems.GridObjects
                 lootTable = gosoBreakable.lootTable;
             }
         }
+        
         
         private void OnSelectTask()
         {
