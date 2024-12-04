@@ -30,8 +30,8 @@ namespace GameSystems.Items.UI
             if (Input.GetMouseButtonDown(0))
             {
                 var itemSlot = GetHoveredItemSlot();
-                if (itemSlot != null && itemSlot.item != null)
-                    HoldItem(itemSlot.item, itemSlot);
+                if (itemSlot != null && itemSlot.slotItem != null)
+                    HoldItem(itemSlot.slotItem, itemSlot);
             }
             else if (Input.GetMouseButtonUp(0) && isHoldingItem)
             {
@@ -54,7 +54,7 @@ namespace GameSystems.Items.UI
             itemImage.gameObject.SetActive(isHoldingItem);
             
             if (isHoldingItem)
-                itemImage.sprite = newHoldItem.GetSprite();
+                itemImage.sprite = newHoldItem.itemSO.sprite;
         }
         
         private void ReleaseItem()
@@ -69,7 +69,7 @@ namespace GameSystems.Items.UI
             
             if (hoveredItemSlot != null)
             {
-                var hoveredItem = hoveredItemSlot.item;
+                var hoveredItem = hoveredItemSlot.slotItem;
                 if(IsItemNonEmptyBag(hoveredItem))
                     return;
                     

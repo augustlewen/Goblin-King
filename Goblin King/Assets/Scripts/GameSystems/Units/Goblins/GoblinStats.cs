@@ -30,7 +30,7 @@ namespace GameSystems.Units.Goblins
                 case ItemType.Bag:
                 {
                     bag = item.GetSpecificData<ItemBagData>().bagInventory;
-                    bagSprite.sprite = item.GetSprite();
+                    bagSprite.sprite = item.itemSO.sprite;
                     bagSprite.gameObject.SetActive(true);
                     itemSprite.gameObject.SetActive(false);
                 } break;
