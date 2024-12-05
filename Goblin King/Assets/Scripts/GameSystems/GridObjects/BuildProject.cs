@@ -11,12 +11,13 @@ using UnityEngine;
 
 namespace GameSystems.GridObjects
 {
-    public class PlannedObject : TaskObject
+    public class BuildProject : TaskObject
     {
         private GridObjectSO gridObjectSO;
         private List<ItemObject> itemObjects;
 
         public GridObject gridObjectPrefab;
+        public float buildDuration = 1f;
 
         public void Setup(GridObjectSO goso)
         {
@@ -37,11 +38,20 @@ namespace GameSystems.GridObjects
 
             if (gridObjectSO.recipe.IsRequirementsMet(itemObjects))
             {
-                //Replace with GridObject!
-                var gridObject = Instantiate(gridObjectPrefab, transform.position, quaternion.identity);
-                gridObject.Setup(gridObjectSO);
-                Destroy(gameObject);
+                // //Replace with GridObject!
+                // var gridObject = Instantiate(gridObjectPrefab, transform.position, quaternion.identity);
+                // gridObject.Setup(gridObjectSO);
+                // Destroy(gameObject);
+                
+                //Begin building?
             }
+        }
+
+        public void CompleteBuild()
+        {
+            var gridObject = Instantiate(gridObjectPrefab, transform.position, quaternion.identity);
+            gridObject.Setup(gridObjectSO);
+            Destroy(gameObject);
         }
         
         public Recipe GetRecipe()
