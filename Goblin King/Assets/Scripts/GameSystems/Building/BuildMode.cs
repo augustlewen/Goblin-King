@@ -3,6 +3,7 @@ using GameSystems.GridObjects;
 using GameSystems.World.Grid;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GameSystems.Building
 {
@@ -14,7 +15,7 @@ namespace GameSystems.Building
         public PlacementObject placementObject;
 
         private bool isBuilding;
-        public PlannedObject plannedObjectPrefab; 
+        [FormerlySerializedAs("buildProjectObjectPrefab")] [FormerlySerializedAs("plannedObjectPrefab")] public BuildProject buildProjectPrefab; 
 
         private void Awake()
         {
@@ -47,7 +48,7 @@ namespace GameSystems.Building
 
         private void BuildAtLocation(Vector2 location)
         {
-            var plannedObject = Instantiate(plannedObjectPrefab, location, quaternion.identity);
+            var plannedObject = Instantiate(buildProjectPrefab, location, quaternion.identity);
             plannedObject.Setup(buildGridObject);
             ExitBuildMode();
         }
