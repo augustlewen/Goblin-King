@@ -138,6 +138,7 @@ namespace GameSystems.Units.Goblins
                         return goblinAI.stats.HasTool(breakable.breakTool);
                 case Task.TaskType.Loot : return goblinAI.stats.bag != null;
                 case Task.TaskType.Attack : return goblinAI.stats.HasWeapon();
+                case Task.TaskType.Build : return goblinAI.stats.HasTool(ToolType.Hammer);
             }
             return false;
         }
