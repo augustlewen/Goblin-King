@@ -10,14 +10,19 @@ namespace GameSystems.World.Grid
         
         private string goName;
         private Vector2Int gridSize;
-        
+        private SpriteRenderer spriteRenderer;
+
+        private void Awake()
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
         public void Setup(GridObjectSO gridObjectSO)
         {
             goName = gridObjectSO.gosoName;
             gridSize = gridObjectSO.gridSize;
             gameObject.name = gridObjectSO.gosoName;
-            
-            GetComponent<SpriteRenderer>().sprite = gridObjectSO.sprite;
+            spriteRenderer.sprite = gridObjectSO.sprite;
             
             OnGridObjectSetup.Invoke(gridObjectSO);
         }
