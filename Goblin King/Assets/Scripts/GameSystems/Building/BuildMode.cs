@@ -47,8 +47,8 @@ namespace GameSystems.Building
 
         private void BuildAtLocation(Vector2 location)
         {
-            var gridObject = Instantiate(plannedObjectPrefab, location, quaternion.identity);
-            gridObject.Setup(buildGridObject);
+            var plannedObject = Instantiate(plannedObjectPrefab, location, quaternion.identity);
+            plannedObject.Setup(buildGridObject);
             ExitBuildMode();
         }
     }

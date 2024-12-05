@@ -119,6 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3eab65d454d476ab2bea069f117aab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnGridObjectSetup:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3205984195420486918
 MonoBehaviour:
   m_ObjectHideFlags: 0
