@@ -25,7 +25,6 @@ namespace GameSystems.GridObjects
             GoblinManager.i.AddTask(task);
             GetComponent<SpriteRenderer>().sprite = goso.sprite;
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1, 0.8f);
-
         }
 
         public void AddItem(ItemObject itemObject)
@@ -41,6 +40,7 @@ namespace GameSystems.GridObjects
                 //Replace with GridObject!
                 var gridObject = Instantiate(gridObjectPrefab, transform.position, quaternion.identity);
                 gridObject.Setup(gridObjectSO);
+                Destroy(gameObject);
             }
         }
         
