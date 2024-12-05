@@ -24,7 +24,8 @@ namespace GameSystems.Items.SO
         Axe,
         Pickaxe,
         Sickle,
-        Hoe
+        Hoe,
+        Hammer
     }
     
     public class ItemToolData : ItemData
