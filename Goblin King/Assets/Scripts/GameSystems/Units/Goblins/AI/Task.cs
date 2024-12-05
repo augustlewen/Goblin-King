@@ -49,6 +49,28 @@ namespace GameSystems.Units.Goblins.AI
                 }
             }
         }
+
+        public IEnumerator Build(GoblinAI ai)
+        {
+            var buildProject = taskObject.GetComponent<BuildProject>();
+                
+            while (true)
+            {
+                yield return new WaitForSeconds(0.5f);
+                
+                ai.stats.PlayItemAnimation();
+                
+                if(buildProject != null)
+                    buildProject.buildDuration -= 0.5f;
+
+                if (buildProject.buildDuration <= 0)
+                {
+                    buildProject.CompleteBuild();
+                    ai.OnTaskComplete();
+                    break;
+                }
+            }
+        }
         
     }
 }
