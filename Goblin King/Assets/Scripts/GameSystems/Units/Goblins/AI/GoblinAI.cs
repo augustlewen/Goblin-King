@@ -68,6 +68,8 @@ namespace GameSystems.Units.Goblins.AI
             {
                 case Task.TaskType.BreakObject: StartCoroutine(currentTask.BreakObject(this));
                     break;
+                case Task.TaskType.Build: StartCoroutine(currentTask.Build(this));
+                    break;
                 case Task.TaskType.Loot: currentTask.taskObject.GetComponent<Loot>().LootItems(stats.bag);
                     OnTaskComplete();
                     break;
