@@ -11,8 +11,8 @@ namespace GameSystems.Building
         [HideInInspector] public UnityEvent<Vector2> OnSelectPlacement = new();
 
         private SpriteRenderer spriteRenderer;
-        private Color viablePlacementColor = new Color(0.5f, 0.75f, 1, 0.8f);
-        private Color nonviablePlacementColor = new Color(1, 0.4f, 0.4f, 0.8f);
+        private readonly Color viablePlacementColor = new (0.3f, 0.75f, 1, 0.8f);
+        private readonly Color nonviablePlacementColor = new (1, 0.3f, 0.3f, 0.8f);
 
         private bool isBuilding;
         private Vector2 mousePosition;
