@@ -24,7 +24,7 @@ namespace GameSystems.Items
                     Debug.Log(itemData + "'s is null");
             }
             
-            SelectTask();
+            SelectObject();
         }
 
         public void LootItems(StorageData storage)

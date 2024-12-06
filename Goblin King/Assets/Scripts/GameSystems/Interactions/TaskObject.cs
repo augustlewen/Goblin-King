@@ -18,7 +18,7 @@ namespace GameSystems.Interactions
             gameObject.AddComponent<MouseInteractable>();
         }
 
-        public virtual void SelectTask()
+        public virtual void SelectObject()
         {
             if (!isTask)
             {
