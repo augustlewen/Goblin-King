@@ -190,3 +190,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskType: 4
   gridObjectPrefab: {fileID: 4536855110683347725, guid: 63b420af4dd2a484490d264b6e74e231, type: 3}
+  buildDuration: 1

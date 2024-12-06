@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Interactions;
 using GameSystems.Items.SO;
+using GameSystems.Storage;
 using GameSystems.Units.Goblins;
 using GameSystems.Units.Goblins.AI;
 using Specific_Items;
@@ -26,7 +27,7 @@ namespace GameSystems.Items
             SelectTask();
         }
 
-        public void LootItems(Storage storage)
+        public void LootItems(StorageData storage)
         {
             foreach (var itemData in items.ToList())
             {

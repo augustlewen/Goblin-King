@@ -1,3 +1,4 @@
+using GameSystems.Storage;
 using Specific_Items;
 using UnityEditor;
 using UnityEngine;
@@ -20,13 +21,13 @@ namespace GameSystems.Items.SO
     
     public class ItemBagData : ItemData
     {
-        [HideInInspector] public Storage storage;
+        [HideInInspector] public StorageData storage;
         public ItemSO_Bag bagSO;
 
         // Derived class constructor
         public ItemBagData(ItemSO_Bag bag) : base(bag) // Call base constructor
         {
-            storage = new Storage(bag.slots);
+            storage = new StorageData(bag.slots);
             bagSO = bag;
         }
         public int GetSlots()

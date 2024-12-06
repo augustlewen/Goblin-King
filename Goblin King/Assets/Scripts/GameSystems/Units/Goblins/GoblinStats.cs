@@ -1,4 +1,5 @@
 using GameSystems.Items.SO;
+using GameSystems.Storage;
 using GameSystems.Units.Goblins.AI;
 using Specific_Items;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace GameSystems.Units.Goblins
 {
     public class GoblinStats : UnitStats
     {
-        public Storage bag;
+        public StorageData bag;
         private int maxEquipCount;
         [HideInInspector] public GoblinAI ai;
 
