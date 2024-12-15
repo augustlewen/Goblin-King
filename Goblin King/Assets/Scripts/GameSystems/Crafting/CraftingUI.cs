@@ -65,7 +65,7 @@ namespace GameSystems.Crafting
         
         private void SetRecipe(Recipe recipe)
         {
-            craftingStation.selectedRecipe = recipe;
+            craftingStation.UpdateSelectedRecipe(recipe);
             
             for (int i = 0; i < reagentImages.Length; i++)
             {

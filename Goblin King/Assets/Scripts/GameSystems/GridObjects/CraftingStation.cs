@@ -17,10 +17,9 @@ namespace GameSystems.GridObjects
         private void Awake()
         {
             gameObject.AddComponent<MouseInteractable>();
-            GetComponent<GridObject>().OnGridObjectSetup.AddListener(OnSetup);
         }
 
-        private void OnSetup(GridObjectSO gridObjectSO)
+        public void Setup(GridObjectSO gridObjectSO)
         {
             var gosoCrafting = gridObjectSO as GOSO_CraftingStation;
             
@@ -34,7 +33,7 @@ namespace GameSystems.GridObjects
                 return;
             
             selectedRecipe = recipe;
-            craftLimit = 0;
+            craftLimit = 1;
         }
 
         public void UpdateCraftLimit(int limit)

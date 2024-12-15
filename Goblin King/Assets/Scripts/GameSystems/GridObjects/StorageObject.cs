@@ -1,4 +1,5 @@
 using GameSystems.Storage;
+using GameSystems.World.Grid;
 using Specific_Items;
 using UnityEngine;
 
@@ -8,9 +9,9 @@ namespace GameSystems.GridObjects
     {
         private StorageData storage;
 
-        public void Setup(int size)
+        public void Setup(GridObjectSO gridObjectSO)
         {
-            storage = new StorageData(size);
+            // storage = new StorageData();
         }
         
         
