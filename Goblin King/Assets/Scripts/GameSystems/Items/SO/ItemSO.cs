@@ -12,6 +12,8 @@ namespace GameSystems.Items.SO
         public Sprite sprite;
 
         public int stackSize;
+        public Recipe craftingRecipe;
+
 
         public ItemData CreateItemData()
         {

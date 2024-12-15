@@ -1,22 +1,51 @@
+using System;
+using System.Collections.Generic;
 using GameSystems.Interactions;
 using GameSystems.Items;
+using GameSystems.World.Grid;
+using UI.General;
 using UnityEngine;
 
 namespace GameSystems.GridObjects
 {
     public class CraftingStation : MonoBehaviour, ISelect
     {
-        private Recipe recipe;
+        [HideInInspector]public List<Recipe> recipeList;
+        [HideInInspector]public Recipe selectedRecipe;
+        [HideInInspector]public int craftLimit = 0;
         
         private void Awake()
         {
             gameObject.AddComponent<MouseInteractable>();
+            GetComponent<GridObject>().OnGridObjectSetup.AddListener(OnSetup);
+        }
+
+        private void OnSetup(GridObjectSO gridObjectSO)
+        {
+            var gosoCrafting = gridObjectSO as GOSO_CraftingStation;
+            
+            foreach (var item in gosoCrafting!.craftingItems)
+                recipeList.Add(item.craftingRecipe);
+        }
+
+        public void UpdateSelectedRecipe(Recipe recipe)
+        {
+            if(recipe == selectedRecipe)
+                return;
+            
+            selectedRecipe = recipe;
+            craftLimit = 0;
+        }
+
+        public void UpdateCraftLimit(int limit)
+        {
+            craftLimit = limit;
         }
 
 
         public void SelectObject()
         {
-            
+            WindowManager.i.OpenCraftingUI(this);
         }
     }
 }
