@@ -21,7 +21,7 @@ namespace GameSystems.GridObjects
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
-            childSpriteRenderer = transform.GetComponentInChildren<SpriteRenderer>();
+            childSpriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
             var taskObj = gameObject.AddComponent<TaskObject>();
             taskObj.taskType = Task.TaskType.BreakObject;
             taskObj.OnSelectTask.AddListener(OnSelectTask);

@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Functions;
-using GameSystems.GridObjects;
 using GameSystems.World.Grid;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -19,23 +17,61 @@ namespace GameSystems.World
         public Transform breakableObjectsParent;
         public Transform nonBreakableObjectsParent;
 
-        public HashSet<GameObject> breakableObjects = new ();
-        public HashSet<GameObject> nonBreakableObjects = new ();
+        readonly HashSet<GameObject> breakableObjects = new ();
+        readonly HashSet<GameObject> nonBreakableObjects = new ();
         
         
         [System.Serializable]
         public class ObjectSpawningData
         {
-            public GridObjectSO gridObjectSO;
+            public SpawnChanceData[] spawnTable;
+            
+            // public GridObjectSO gridObjectSO;
             public Vector2Int spawnCountRange;
             public Vector2Int clusterCountRange;
             public SpawnBehaviour spawnBehaviour;
+
+            private int spawnChainCount;
+            private GridObjectSO currentGOSO;
             
             public enum SpawnBehaviour
             {
                 Normal,
                 Branching,
                 Cluster
+            }
+
+            [System.Serializable]
+            public class SpawnChanceData
+            {
+                public GridObjectSO gridObjectSO;
+                public float spawnChance;
+                public Vector2Int spawnChain;
+            }
+
+            public GridObjectSO GetGridObjectToSpawn()
+            {
+                if (spawnChainCount > 0)
+                {
+                    spawnChainCount--;
+                    return currentGOSO;
+                }
+
+                List<SpawnChanceData> viableSpawnDataList = new();
+                int percentage = Random.Range(1, 101);
+
+                foreach (var spawnData in spawnTable)
+                {
+                    if (spawnData.spawnChance >= percentage)
+                    {
+                        viableSpawnDataList.Add(spawnData);
+                    }
+                }
+
+                int index = Random.Range(0, viableSpawnDataList.Count);
+                currentGOSO = viableSpawnDataList[index].gridObjectSO;
+                spawnChainCount = Random.Range(viableSpawnDataList[index].spawnChain.x, viableSpawnDataList[index].spawnChain.y + 1);
+                return currentGOSO;
             }
         }
 
@@ -184,8 +220,7 @@ namespace GameSystems.World
                 foreach (var pos in clusterPositions)
                 {
                     Vector2 spawnPos = new Vector2(pos.x * WorldGrid.i.cellSize, pos.y * WorldGrid.i.cellSize);
-                    // var obj = Instantiate(objData.prefab, spawnPos, Quaternion.identity, chunk);
-                    // WorldGrid.i.AddObject(obj);
+                    
                     ActivateObjects(spawnPos, objData, chunk);
 
                 }
@@ -196,10 +231,10 @@ namespace GameSystems.World
         
         private void ActivateObjects(Vector2 position, ObjectSpawningData objData, Transform chunk)
         {
-            // var obj = Instantiate(objData.prefab, position, Quaternion.identity, chunk);
-
+            GridObjectSO goso = objData.GetGridObjectToSpawn();
+            
             HashSet<GameObject> objects = nonBreakableObjects;
-            switch (objData.gridObjectSO.type)
+            switch (goso.type)
             {
                 case GridObjectType.Breakable : objects = breakableObjects;
                     break;
@@ -210,7 +245,7 @@ namespace GameSystems.World
                 return;
             
             obj.transform.parent = chunk;
-            obj.GetComponent<GridObject>().Setup(objData.gridObjectSO);
+            obj.GetComponent<GridObject>().Setup(goso);
             
             WorldGrid.i.AddObject(obj);  // Mark this position as occupied in the WorldGrid
         }
