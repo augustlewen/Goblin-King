@@ -10,6 +10,7 @@ namespace GameSystems.World.Grid
         public int hp;
         public ToolType breakTool;
         public LootTable lootTable;
-        
+
+        public Sprite childSprite;
     }
 }

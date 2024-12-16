@@ -15,11 +15,13 @@ namespace GameSystems.GridObjects
         public int hp;
 
         private SpriteRenderer spriteRenderer;
+        private SpriteRenderer childSpriteRenderer;
 
 
         private void Awake()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
+            childSpriteRenderer = transform.GetComponentInChildren<SpriteRenderer>();
             var taskObj = gameObject.AddComponent<TaskObject>();
             taskObj.taskType = Task.TaskType.BreakObject;
             taskObj.OnSelectTask.AddListener(OnSelectTask);
@@ -32,6 +34,10 @@ namespace GameSystems.GridObjects
                 hp = gosoBreakable.hp;
                 breakTool = gosoBreakable.breakTool;
                 lootTable = gosoBreakable.lootTable;
+
+                childSpriteRenderer.gameObject.SetActive(gosoBreakable.childSprite != null);
+                if (gosoBreakable.childSprite != null)
+                    childSpriteRenderer.sprite = gosoBreakable.childSprite;
             }
         }
         
