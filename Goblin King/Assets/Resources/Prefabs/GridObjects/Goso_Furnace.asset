@@ -17,7 +17,9 @@ MonoBehaviour:
   type: 2
   sprite: {fileID: 21300000, guid: 42c815b7ccf406447a3f4fed5daed692, type: 3}
   recipe:
-    reagents: []
+    reagents:
+    - itemSO: {fileID: 11400000, guid: 1739dfb76d3a69b45a83f2101b487190, type: 2}
+      count: 10
     craftingItem:
       itemSO: {fileID: 0}
       count: 0
