@@ -33,7 +33,8 @@ namespace GameSystems.World.Grid
             {
                 case GridObjectType.Breakable : gameObject.AddComponent<BreakableObject>().Setup(gridObjectSO);
                     break;
-                case GridObjectType.Station : gameObject.AddComponent<BreakableObject>().Setup(gridObjectSO);
+                case GridObjectType.Station : 
+                    // gameObject.AddComponent<BreakableObject>().Setup(gridObjectSO);
                     gameObject.AddComponent<CraftingStation>().Setup(gridObjectSO);
                     break;
                 case GridObjectType.Storage : gameObject.AddComponent<StorageObject>().Setup(gridObjectSO);

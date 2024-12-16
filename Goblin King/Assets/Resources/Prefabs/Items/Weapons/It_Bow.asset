@@ -16,7 +16,16 @@ MonoBehaviour:
   itemType: 0
   isEquipable: 1
   sprite: {fileID: 21300000, guid: 93cdea62012b9fb40b4afe44ca5a7a77, type: 3}
-  power: 4
-  haste: 1.5
+  stackSize: 0
+  craftingRecipe:
+    reagents:
+    - itemSO: {fileID: 11400000, guid: 73dab0e7885c2d94c9d34a0da1186c6f, type: 2}
+      count: 8
+    craftingItem:
+      itemSO: {fileID: 11400000}
+      count: 1
+  damage: 4
+  attackRate: 1.5
   range: 6
+  knockBack: 0
   projectile: {fileID: 486951121475867134, guid: 66965e7ad6cc9564b9b5dbbe19112e19, type: 3}

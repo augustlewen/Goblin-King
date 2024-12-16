@@ -10,7 +10,7 @@ namespace GameSystems.GridObjects
 {
     public class CraftingStation : MonoBehaviour, ISelect
     {
-        [HideInInspector]public List<Recipe> recipeList;
+        [HideInInspector]public List<Recipe> recipeList = new();
         [HideInInspector]public Recipe selectedRecipe;
         [HideInInspector]public int craftLimit = 0;
         
@@ -25,6 +25,8 @@ namespace GameSystems.GridObjects
             
             foreach (var item in gosoCrafting!.craftingItems)
                 recipeList.Add(item.craftingRecipe);
+
+            selectedRecipe = recipeList[0];
         }
 
         public void UpdateSelectedRecipe(Recipe recipe)

@@ -13,10 +13,19 @@ MonoBehaviour:
   m_Name: It_Sword
   m_EditorClassIdentifier: 
   itemName: Sword
-  itemType: 1
+  itemType: 0
   isEquipable: 1
   sprite: {fileID: 21300000, guid: 239612fedd15f734cb4679503b9012f5, type: 3}
-  power: 8
-  haste: 1
+  stackSize: 0
+  craftingRecipe:
+    reagents:
+    - itemSO: {fileID: 11400000, guid: 73dab0e7885c2d94c9d34a0da1186c6f, type: 2}
+      count: 2
+    craftingItem:
+      itemSO: {fileID: 11400000}
+      count: 1
+  damage: 8
+  attackRate: 1
   range: 1
+  knockBack: 0
   projectile: {fileID: 0}

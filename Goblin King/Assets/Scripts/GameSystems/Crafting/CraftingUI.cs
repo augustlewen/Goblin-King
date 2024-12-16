@@ -52,11 +52,17 @@ namespace GameSystems.Crafting
 
         public void SetupUI(CraftingStation station)
         {
+            if(craftingStation == station)
+                return;
+            
             craftingStation = station;
-            foreach (var recipes in craftingStation.recipeList)
+            dropdown.options.Clear();
+            
+            foreach (var recipe in craftingStation.recipeList)
             {
                 TMP_Dropdown.OptionData optionData = new TMP_Dropdown.OptionData();
-                optionData.text = recipes.craftingItem.itemSO.itemName;
+                optionData.text = recipe.craftingItem.itemSO.itemName;
+                optionData.image = recipe.craftingItem.itemSO.sprite;
                 dropdown.options.Add(optionData);
             }
 
@@ -74,6 +80,12 @@ namespace GameSystems.Crafting
                 reagentImages[i].gameObject.SetActive(enableImage);
                 if (enableImage)
                     reagentImages[i].sprite = recipe.reagents[i].itemSO.sprite;
+            }
+            
+            craftedItemImage.gameObject.SetActive(recipe != null);
+            if (recipe != null)
+            {
+                craftedItemImage.sprite = recipe.craftingItem.itemSO.sprite;
             }
         }
         
