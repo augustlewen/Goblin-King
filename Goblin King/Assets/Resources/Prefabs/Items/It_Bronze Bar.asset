@@ -18,7 +18,13 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e810944e541d1e244846e90fd2186836, type: 3}
   stackSize: 10
   craftingRecipe:
-    reagents: []
+    reagents:
+    - itemSO: {fileID: 11400000, guid: 5e8440af4af14cd44b77ba3e92fab84f, type: 2}
+      count: 5
+    - itemSO: {fileID: 11400000, guid: c1d8772e0a5cab04f8444278ceccd2ae, type: 2}
+      count: 5
+    - itemSO: {fileID: 11400000, guid: 284efb2d87dc0df498d10f9122202e12, type: 2}
+      count: 8
     craftingItem:
-      itemSO: {fileID: 0}
-      count: 0
+      itemSO: {fileID: 11400000}
+      count: 1

@@ -1,7 +1,5 @@
 using GameSystems.GridObjects.SO;
 using GameSystems.Storage;
-using GameSystems.World.Grid;
-using Specific_Items;
 using UnityEngine;
 
 namespace GameSystems.GridObjects
@@ -12,7 +10,9 @@ namespace GameSystems.GridObjects
 
         public void Setup(GridObjectSO gridObjectSO)
         {
-            // storage = new StorageData();
+            var gosoStorage = gridObjectSO as GOSO_Storage;
+            if(gosoStorage != null)
+                storage = new StorageData(gosoStorage.size);
         }
         
         

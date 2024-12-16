@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 130fbf2de5f144ee9f320453102173e0, type: 3}
+  m_Name: Goso_Furnace
+  m_EditorClassIdentifier: 
+  gosoName: Furnace
+  gridSize: {x: 1, y: 1}
+  type: 2
+  sprite: {fileID: 21300000, guid: 42c815b7ccf406447a3f4fed5daed692, type: 3}
+  recipe:
+    reagents: []
+    craftingItem:
+      itemSO: {fileID: 0}
+      count: 0
+  hp: 50
+  breakTool: 1
+  lootTable:
+    itemDrops:
+    - item: {fileID: 11400000, guid: 1739dfb76d3a69b45a83f2101b487190, type: 2}
+      amount: 10
+      dropChance: 100
+  childSprite: {fileID: 0}
+  craftingItems:
+  - {fileID: 11400000, guid: e5d91c89eca515d47a83b4aa7c6a3d6b, type: 2}
