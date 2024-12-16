@@ -101,9 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3eab65d454d476ab2bea069f117aab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnGridObjectSetup:
-    m_PersistentCalls:
-      m_Calls: []
+  gridObjectSO: {fileID: 0}
 --- !u!65 &7115843647267161784
 BoxCollider:
   m_ObjectHideFlags: 0
