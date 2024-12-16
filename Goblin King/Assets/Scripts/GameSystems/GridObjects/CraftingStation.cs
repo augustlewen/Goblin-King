@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using GameSystems.GridObjects.SO;
 using GameSystems.Interactions;
 using GameSystems.Items;
 using GameSystems.World.Grid;

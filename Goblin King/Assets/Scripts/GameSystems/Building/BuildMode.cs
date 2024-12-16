@@ -1,5 +1,6 @@
 using System;
 using GameSystems.GridObjects;
+using GameSystems.GridObjects.SO;
 using GameSystems.World.Grid;
 using Unity.Mathematics;
 using UnityEngine;

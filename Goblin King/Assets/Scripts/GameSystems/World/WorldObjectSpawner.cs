@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Functions;
+using GameSystems.GridObjects;
+using GameSystems.GridObjects.SO;
 using GameSystems.World.Grid;
 using UnityEngine;
 using UnityEngine.Tilemaps;

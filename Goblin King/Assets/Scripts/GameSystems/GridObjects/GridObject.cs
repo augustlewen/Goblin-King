@@ -1,9 +1,7 @@
-using System;
-using GameSystems.GridObjects;
+using GameSystems.GridObjects.SO;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace GameSystems.World.Grid
+namespace GameSystems.GridObjects
 {
     public class GridObject : MonoBehaviour
     {

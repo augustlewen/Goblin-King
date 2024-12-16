@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameSystems.GridObjects.SO;
 using GameSystems.Interactions;
 using GameSystems.Items;
 using GameSystems.Units.Goblins;

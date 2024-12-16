@@ -1,7 +1,7 @@
 using GameSystems.Items;
 using UnityEngine;
 
-namespace GameSystems.World.Grid
+namespace GameSystems.GridObjects.SO
 {
     [CreateAssetMenu(fileName = "Goso_", menuName = "SO/GridObject/GridObject", order = 10)]
     public class GridObjectSO : ScriptableObject
