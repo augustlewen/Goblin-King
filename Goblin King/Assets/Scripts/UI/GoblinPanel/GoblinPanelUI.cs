@@ -24,9 +24,9 @@ namespace UI.GoblinPanel
         {
             DisableChildren(equipmentLayout);
             
-            for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
+            for (int i = 0; i < GoblinTaskManager.i.goblinParty.Count; i++)
             {
-                var goblinStats = GoblinManager.i.goblinParty[i].stats;
+                var goblinStats = GoblinTaskManager.i.goblinParty[i].stats;
                 equipmentLayout.GetChild(i).GetComponent<EquipmentUI>().SetGoblin(goblinStats);
                 
                 // if (goblinStats.bag != null)

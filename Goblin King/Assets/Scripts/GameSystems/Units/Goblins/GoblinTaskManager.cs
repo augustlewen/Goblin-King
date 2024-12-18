@@ -11,9 +11,9 @@ using UnityEngine.Events;
 
 namespace GameSystems.Units.Goblins
 {
-    public class GoblinManager : MonoBehaviour
+    public class GoblinTaskManager : MonoBehaviour
     {
-        public static GoblinManager i;
+        public static GoblinTaskManager i;
         [HideInInspector]public UnityEvent OnSpawnedGoblins = new();
         
         public GameObject goblinPrefab;
@@ -135,6 +135,9 @@ namespace GameSystems.Units.Goblins
         // ReSharper disable Unity.PerformanceAnalysis
         private bool IsGoblinViableForTask(GoblinAI goblinAI, Task task)
         {
+            if (!goblinAI.CanMoveTo(task.taskObject.transform.position))
+                return false;
+            
             switch (task.taskType)
             {
                 case Task.TaskType.BreakObject : BreakableObject breakable = task.taskObject.GetComponent<BreakableObject>();

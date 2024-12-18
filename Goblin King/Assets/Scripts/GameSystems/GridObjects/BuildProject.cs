@@ -24,7 +24,7 @@ namespace GameSystems.GridObjects
         {
             var task = new Task(Task.TaskType.Build, this);
             gridObjectSO = goso;
-            GoblinManager.i.AddTask(task);
+            GoblinTaskManager.i.AddTask(task);
             GetComponent<SpriteRenderer>().sprite = goso.sprite;
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1, 0.8f);
         }

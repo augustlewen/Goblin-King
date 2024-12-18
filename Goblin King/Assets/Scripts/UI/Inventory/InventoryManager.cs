@@ -14,7 +14,7 @@ namespace UI.Inventory
 
         private void Start()
         {
-            GoblinManager.i.OnSpawnedGoblins.AddListener(UpdateInventoryUI);
+            GoblinTaskManager.i.OnSpawnedGoblins.AddListener(UpdateInventoryUI);
         }
 
         public Transform inventoryLayout;
@@ -24,9 +24,9 @@ namespace UI.Inventory
             foreach (Transform child in inventoryLayout)
                 child.gameObject.SetActive(false);
             
-            for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
+            for (int i = 0; i < GoblinTaskManager.i.goblinParty.Count; i++)
             {
-                var goblinStats = GoblinManager.i.goblinParty[i].stats;
+                var goblinStats = GoblinTaskManager.i.goblinParty[i].stats;
                 if (goblinStats.bag != null)
                     inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
             }

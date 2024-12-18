@@ -22,7 +22,7 @@ namespace GameSystems.Interactions
         {
             if (!isTask)
             {
-                GoblinManager.i.AddTask(new Task(taskType, this));
+                GoblinTaskManager.i.AddTask(new Task(taskType, this));
                 isTask = true;
                 OnSelectTask.Invoke();
             }

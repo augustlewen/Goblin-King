@@ -80,7 +80,7 @@ namespace GameSystems.Units.Goblins.AI
         {
             currentTask = null;
 
-            var newTask = GoblinManager.i.GetNewTask(this);
+            var newTask = GoblinTaskManager.i.GetNewTask(this);
             if(newTask != null)
                 AssignTask(newTask);
             else
