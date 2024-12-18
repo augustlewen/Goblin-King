@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using GameSystems.Items.SO;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameSystems.Storage
 {
     public class StorageData
     {
+        public UnityEvent OnUpdateStorage = new();
+
         public List<ItemData> storageItems = new();
         [HideInInspector] public int slots;
 
@@ -28,6 +31,7 @@ namespace GameSystems.Storage
             foreach (var storageItem in storageItems.Where(storageItem => storageItem.itemSO == newItem.itemSO))
             {
                 newItem.itemCount = storageItem.AddToStack(newItem);
+                OnUpdateStorage.Invoke();
                 if (newItem.itemCount == 0)
                     return true;
             }
@@ -35,6 +39,7 @@ namespace GameSystems.Storage
             if (newItem.itemCount > 0 && storageItems.Count < slots)
             {
                 storageItems.Add(newItem);
+                OnUpdateStorage.Invoke();
                 return true;
             }
             
@@ -43,6 +48,8 @@ namespace GameSystems.Storage
 
         public void RemoveItem(ItemData newItem)
         {
+            storageItems.Remove(newItem);
+            OnUpdateStorage.Invoke();
         }
 
 

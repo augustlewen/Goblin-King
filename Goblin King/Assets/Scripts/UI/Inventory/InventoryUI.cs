@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GameSystems.Items.SO;
 using GameSystems.Items.UI;
 using GameSystems.Units.Goblins;
@@ -12,17 +13,20 @@ namespace UI.Inventory
 
         private void Awake()
         {
-            SetupUI();
+            UpdateUI();
         }
 
 
         public void SetGoblinStats(GoblinStats goblinStats)
         {
             stats = goblinStats;
+            stats.bag.OnUpdateStorage.AddListener(UpdateUI);
             gameObject.SetActive(true);
         }
 
-        private void SetupUI()
+       
+
+        private void UpdateUI()
         {
             for (int i = 0; i < slotsLayout.childCount; i++)
             {

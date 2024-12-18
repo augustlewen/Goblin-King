@@ -3,6 +3,7 @@ using GameSystems.GridObjects.SO;
 using GameSystems.Interactions;
 using GameSystems.Items;
 using GameSystems.Items.SO;
+using GameSystems.Units.AI;
 using GameSystems.Units.Goblins.AI;
 using GameSystems.World.Grid;
 using UnityEngine;
@@ -60,9 +61,9 @@ namespace GameSystems.GridObjects
 
         private void Break()
         {
-            Debug.Log(gameObject + "  " + lootTable.itemDrops.Length);
             lootTable.DropItems(transform.position);
             gameObject.SetActive(false);
+            ChunkNavBaker.BuildNavMesh();
         }
 
     }

@@ -10,6 +10,7 @@ namespace GameSystems.Units.AI
 {
     public class ChunkNavBaker : MonoBehaviour
     {
+        private static ChunkNavBaker i;
         public UnityEvent OnNavMeshBuilt = new();
         
         public NavMeshSurface surface;
@@ -21,6 +22,7 @@ namespace GameSystems.Units.AI
 
         private void Awake()
         {
+            i = this;
             navMeshData = new NavMeshData();
             NavMesh.AddNavMeshData(navMeshData);
             surface.navMeshData = navMeshData; // Assign the navMeshData to the surface
@@ -38,7 +40,7 @@ namespace GameSystems.Units.AI
             BuildNavMesh(true);
         }
 
-        private void BuildNavMesh(bool async)
+        public void BuildNavMesh(bool async)
         {
             Bounds navMeshBounds = new Bounds(KingMovement.i.transform.position, navMeshSize);
             List<NavMeshBuildMarkup> markups = new List<NavMeshBuildMarkup>();
@@ -84,6 +86,11 @@ namespace GameSystems.Units.AI
             surface.BuildNavMesh();
             OnNavMeshBuilt.Invoke();
 
+        }
+
+        public static void BuildNavMesh()
+        {
+            i.BuildNavMesh(true);
         }
     }
     

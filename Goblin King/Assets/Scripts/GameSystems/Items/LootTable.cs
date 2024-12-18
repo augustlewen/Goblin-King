@@ -22,8 +22,6 @@ namespace GameSystems.Items
         public void DropItems(Vector2 position)
         {
             var items = GetDroppedItems();
-            Debug.Log(items.Length);
-
             if(items.Length == 0)
                 return;
             
@@ -46,7 +44,6 @@ namespace GameSystems.Items
                 if (!(Random.Range(1, 101) <= itemDrop.dropChance)) 
                     continue;
                 
-                Debug.Log(itemDrop.amount);
                 for(int i = 0; i < itemDrop.amount; i++)
                     items.Add(itemDrop.item);
                 

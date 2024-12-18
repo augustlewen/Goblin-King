@@ -15,7 +15,7 @@ namespace GameSystems.Units.AI
         private bool hasDestination;
 
         [HideInInspector]public CombatAIBehaviour combatAI;
-        private const float acceptanceRadius = 1.25f;
+        private const float acceptanceRadius = 1.0f;
 
 
         protected virtual void Awake()
