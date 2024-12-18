@@ -34,10 +34,10 @@ namespace GameSystems.Storage
             {
                 var slot = contentLayout.GetChild(i).GetComponent<ItemSlotUI>();
                 var storageItems = StorageManager.GetStorageItems();
-
-                slot.gameObject.SetActive(i > storageItems.Count);
-
-                if (i > storageItems.Count)
+                var storageSlots = StorageManager.GetStorageData().slots;
+                
+                slot.gameObject.SetActive(i < storageSlots);
+                if (i >= storageItems.Count)
                     continue;
 
                 slot.slotItem = null;

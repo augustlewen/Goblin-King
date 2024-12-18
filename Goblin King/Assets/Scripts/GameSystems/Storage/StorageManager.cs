@@ -9,11 +9,11 @@ namespace GameSystems.Storage
 {
     public class StorageManager : MonoBehaviour
     {
-        private UnityEvent<ItemData> OnAddItem = new();
-        private UnityEvent<ItemData> OnRemoveItem = new();
+        // private UnityEvent<ItemData> OnAddItem = new();
+        // private UnityEvent<ItemData> OnRemoveItem = new();
 
         private static StorageManager i;
-        public List<StorageObject> storageObjects = new();
+        // public List<StorageObject> storageObjects = new();
         private StorageData storageData;
         
         private void Awake()
@@ -22,25 +22,25 @@ namespace GameSystems.Storage
             storageData = new(0);
         }
 
-        public static void AddStorageData(StorageObject storageObject)
-        {
-            i.storageObjects.Add(storageObject);
-        }
+        // public static void AddStorageData(StorageObject storageObject)
+        // {
+        //     i.storageObjects.Add(storageObject);
+        // }
 
         public static void AddStorage(int size)
         {
             i.storageData.slots += size;
         }
         
-        public static UnityEvent<ItemData> GetOnAddItemEvent()
-        {
-            return i.OnAddItem;
-        }
-        
-        public static UnityEvent<ItemData> GetOnRemoveItemEvent()
-        {
-            return i.OnRemoveItem;
-        }
+        // public static UnityEvent<ItemData> GetOnAddItemEvent()
+        // {
+        //     return i.OnAddItem;
+        // }
+        //
+        // public static UnityEvent<ItemData> GetOnRemoveItemEvent()
+        // {
+        //     return i.OnRemoveItem;
+        // }
 
         public static List<ItemData> GetStorageItems()
         {

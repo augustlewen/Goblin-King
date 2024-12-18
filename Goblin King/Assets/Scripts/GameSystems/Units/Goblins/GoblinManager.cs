@@ -7,12 +7,14 @@ using GameSystems.Units.AI;
 using GameSystems.Units.Goblins.AI;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameSystems.Units.Goblins
 {
     public class GoblinManager : MonoBehaviour
     {
         public static GoblinManager i;
+        [HideInInspector]public UnityEvent OnSpawnedGoblins = new();
         
         public GameObject goblinPrefab;
         public List<GoblinAI> goblins;
@@ -41,6 +43,7 @@ namespace GameSystems.Units.Goblins
             }
             
             FindAnyObjectByType<ChunkNavBaker>().OnNavMeshBuilt.RemoveListener(SpawnGoblins);
+            OnSpawnedGoblins.Invoke();
         }
 
 

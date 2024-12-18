@@ -1,5 +1,6 @@
 using System;
 using GameSystems.Units.Goblins;
+using UI.Inventory;
 using UnityEngine;
 
 namespace UI.GoblinPanel
@@ -28,25 +29,25 @@ namespace UI.GoblinPanel
                 var goblinStats = GoblinManager.i.goblinParty[i].stats;
                 equipmentLayout.GetChild(i).GetComponent<EquipmentUI>().SetGoblin(goblinStats);
                 
-                if (goblinStats.bag != null)
-                {
-                    inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
-                }
+                // if (goblinStats.bag != null)
+                // {
+                //     inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
+                // }
             }
         }
 
-        public void UpdateInventoryUI()
-        {
-            DisableChildren(inventoryLayout);
-            
-            for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
-            {
-                var goblinStats = GoblinManager.i.goblinParty[i].stats;
-                
-                if (goblinStats.bag != null)
-                    inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
-            }
-        }
+        // public void UpdateInventoryUI()
+        // {
+        //     DisableChildren(inventoryLayout);
+        //     
+        //     for (int i = 0; i < GoblinManager.i.goblinParty.Count; i++)
+        //     {
+        //         var goblinStats = GoblinManager.i.goblinParty[i].stats;
+        //         
+        //         if (goblinStats.bag != null)
+        //             inventoryLayout.GetChild(i).GetComponent<InventoryUI>().SetGoblinStats(goblinStats);
+        //     }
+        // }
 
         private void DisableChildren(Transform parent)
         {

@@ -18,26 +18,26 @@ namespace ObjectSelection
             public Button button;
             public SelectMode.SelectModeType modeType;
         }
-        private void Start()
-        {
-            foreach (var button in buttons)
-            {
-                selectionButtons.Add(button.modeType, button.button);
-
-                if (SelectMode.i.currentSelectMode == button.modeType)
-                    button.button.interactable = false;
-            }
-            
-            foreach (var selectButtonKey in selectionButtons)
-                selectButtonKey.Value.onClick.AddListener(() => OnClick(selectButtonKey.Key, selectButtonKey.Value));
-        }
-
-        private void OnClick(SelectMode.SelectModeType modeType, Button button)
-        {
-            SelectMode.i.UpdateSelectMode(modeType);
-
-            foreach (var selectButtonKey in selectionButtons)
-                selectButtonKey.Value.interactable = button != selectButtonKey.Value;
-        }
+        // private void Start()
+        // {
+        //     foreach (var button in buttons)
+        //     {
+        //         selectionButtons.Add(button.modeType, button.button);
+        //
+        //         if (SelectMode.i.currentSelectMode == button.modeType)
+        //             button.button.interactable = false;
+        //     }
+        //     
+        //     foreach (var selectButtonKey in selectionButtons)
+        //         selectButtonKey.Value.onClick.AddListener(() => OnClick(selectButtonKey.Key, selectButtonKey.Value));
+        // }
+        //
+        // private void OnClick(SelectMode.SelectModeType modeType, Button button)
+        // {
+        //     SelectMode.i.UpdateSelectMode(modeType);
+        //
+        //     foreach (var selectButtonKey in selectionButtons)
+        //         selectButtonKey.Value.interactable = button != selectButtonKey.Value;
+        // }
     }
 }

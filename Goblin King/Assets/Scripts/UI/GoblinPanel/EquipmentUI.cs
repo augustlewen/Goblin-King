@@ -2,6 +2,7 @@ using GameSystems.Items.SO;
 using GameSystems.Items.UI;
 using GameSystems.Units.Goblins;
 using TMPro;
+using UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,7 +34,7 @@ namespace UI.GoblinPanel
             if (item.GetItemType() == ItemType.Bag)
             {
                 stats.bag = null;
-                GoblinPanelUI.i.UpdateInventoryUI();
+                InventoryManager.i.UpdateInventoryUI();
             }
         }
 
