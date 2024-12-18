@@ -23,6 +23,7 @@ namespace GameSystems.Items
         {
             var droppedItem = Instantiate(lootPrefab, position, quaternion.identity).GetComponent<Loot>();
             droppedItem.SetLootTable(itemDatas);
+            Debug.Log("SET ITEMS TO LOOT");
         }
     }
 }

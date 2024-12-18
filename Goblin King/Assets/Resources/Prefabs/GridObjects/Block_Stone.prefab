@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3487821367815363133}
   - component: {fileID: 8012501621043020550}
-  - component: {fileID: 9153013809961413121}
   - component: {fileID: 8798492629826963349}
-  - component: {fileID: 3205984195420486918}
   - component: {fileID: 4854578428086883415}
   m_Layer: 7
   m_Name: Block_Stone
@@ -92,22 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9153013809961413121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553250431770247839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c877eba4c547beafaca11d81bddb2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakTool: 1
-  lootTable:
-    itemDrops: []
-  hp: 20
 --- !u!114 &8798492629826963349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,18 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridObjectSO: {fileID: 0}
---- !u!114 &3205984195420486918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553250431770247839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 991a02d68d013b9429e209cb12c0f3a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &4854578428086883415
 BoxCollider:
   m_ObjectHideFlags: 0

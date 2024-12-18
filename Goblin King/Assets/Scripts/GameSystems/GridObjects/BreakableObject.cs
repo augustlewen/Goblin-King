@@ -1,3 +1,4 @@
+using System;
 using GameSystems.GridObjects.SO;
 using GameSystems.Interactions;
 using GameSystems.Items;
@@ -41,8 +42,7 @@ namespace GameSystems.GridObjects
                     childSpriteRenderer.sprite = gosoBreakable.childSprite;
             }
         }
-        
-        
+
         private void OnSelectTask()
         {
             spriteRenderer.color = new Color(0.4f, 0.5f, 0.65f, 1);
@@ -60,6 +60,7 @@ namespace GameSystems.GridObjects
 
         private void Break()
         {
+            Debug.Log(gameObject + "  " + lootTable.itemDrops.Length);
             lootTable.DropItems(transform.position);
             gameObject.SetActive(false);
         }
