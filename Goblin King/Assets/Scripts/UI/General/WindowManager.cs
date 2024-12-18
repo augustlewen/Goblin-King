@@ -1,6 +1,7 @@
 using System;
 using GameSystems.Crafting;
 using GameSystems.GridObjects;
+using GameSystems.Storage;
 using UnityEngine;
 
 namespace UI.General
@@ -11,6 +12,7 @@ namespace UI.General
         
         public Transform goblinPanel;
         public CraftingUI craftingUI;
+        public StorageUI storageUI;
 
 
         private void Awake()
@@ -30,6 +32,11 @@ namespace UI.General
         {
             craftingUI.SetupUI(craftingStation);
             craftingUI.gameObject.SetActive(true);
+        }
+
+        public void OpenStorageUI()
+        {
+            storageUI.gameObject.SetActive(true);
         }
     }
 }
