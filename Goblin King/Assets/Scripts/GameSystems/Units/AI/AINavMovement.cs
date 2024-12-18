@@ -15,9 +15,9 @@ namespace GameSystems.Units.AI
         private bool hasDestination;
 
         [HideInInspector]public CombatAIBehaviour combatAI;
-        float acceptanceRadius = 1.25f;
+        private const float acceptanceRadius = 1.25f;
 
-        
+
         protected virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
