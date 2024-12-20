@@ -1,6 +1,8 @@
 using System;
 using GameSystems.GridObjects;
 using GameSystems.Items;
+using GameSystems.Units.Goblins;
+using GameSystems.Units.Goblins.AI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +18,9 @@ namespace GameSystems.Crafting
 
         private CraftingStation craftingStation;
 
+        public Slider progressBar;
+        public Button goblinAssignButton;
+
         [Header("Craft Limit")] 
         public TextMeshProUGUI limitText;
         public Button limitIncreaseButton;
@@ -26,8 +31,9 @@ namespace GameSystems.Crafting
             dropdown.onValueChanged.AddListener(OnDropDownChanged);
             limitIncreaseButton.onClick.AddListener(IncreaseLimit);
             limitDecreaseButton.onClick.AddListener(DecreaseLimit);
-
+            goblinAssignButton.onClick.AddListener(OnAssignGoblin);
         }
+
         private void IncreaseLimit() { UpdateLimit(1); }
         private void DecreaseLimit() { UpdateLimit(-1); }
 
@@ -68,7 +74,15 @@ namespace GameSystems.Crafting
 
             SetRecipe(craftingStation.selectedRecipe);
         }
-        
+
+        private void Update()
+        {
+            if(!craftingStation.isCrafting)
+                return;
+
+            progressBar.value = craftingStation.craftingProgress;
+        }
+
         private void SetRecipe(Recipe recipe)
         {
             craftingStation.UpdateSelectedRecipe(recipe);
@@ -89,5 +103,10 @@ namespace GameSystems.Crafting
             }
         }
         
+        
+        private void OnAssignGoblin()
+        {
+            GoblinTaskManager.i.AddTask(new Task(Task.TaskType.Assign, craftingStation));
+        }
     }
 }

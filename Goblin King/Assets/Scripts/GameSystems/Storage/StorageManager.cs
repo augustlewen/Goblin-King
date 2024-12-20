@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameSystems.GridObjects;
+using GameSystems.Items;
 using GameSystems.Items.SO;
 using UnityEngine;
 using UnityEngine.Events;
@@ -55,6 +57,28 @@ namespace GameSystems.Storage
         public static StorageData GetStorageData()
         {
             return i.storageData;
+        }
+
+        public static bool HasItems(ItemObject[] itemList)
+        {
+            return itemList.All(Item => HasItem(Item));
+        }
+        
+        public static bool HasItem(ItemObject item)
+        {
+            int count = item.count;
+            foreach (var storageItem in GetStorageData().storageItems)
+            {
+                if (storageItem.itemSO != item.itemSO) 
+                    continue;
+                
+                count -= storageItem.itemCount;
+
+                if (count <= 0)
+                    return true;
+            }
+
+            return false;
         }
     }
 }
